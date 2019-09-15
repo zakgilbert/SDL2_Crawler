@@ -4,7 +4,8 @@
 typedef struct SDL_Renderer SDL_Renderer;
 
 /**
- * Mouse object 
+ * Mouse object  
+ * ^. .^
  */
 typedef struct _Mouse
 {
