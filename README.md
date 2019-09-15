@@ -48,7 +48,7 @@ typedef struct _Floor
 
 Floor *CREATE_FLOOR(int x, int y, int w, int h, SDL_Renderer *renderer, const char *path);
 ```
-Every game class object contains to important functions `render` and `logic`. In `main.c` we define two hash tables...
+Every game class object contains two important functions `render` and `logic`. In `main.c` we define two hash tables...
 ```c
 Hash_r *render_table; /* Hashtable of render functions */
 Hash_l *logic_table;  /* Hashtable of logic functions */
