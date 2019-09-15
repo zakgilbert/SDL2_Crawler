@@ -1,4 +1,3 @@
-
 #ifndef JRPG_PLAYER_INPUT_H
 #define JRPG_PLAYER_INPUT_H
 
