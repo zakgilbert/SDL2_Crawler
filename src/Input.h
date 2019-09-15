@@ -7,7 +7,13 @@
  */
 int input_handler(void *data);
 
-int UP(); /* If user is pressing up, set the value of KEY_STATE[SDL_SCANCODE_W] to 0 and return true, otherwise return false */
+/** 
+ * UP:
+ * If user is pressing up, 
+ * set the value of KEY_STATE[SDL_SCANCODE_W] to 0 and return true, 
+ * otherwise return false 
+ */
+int UP();
 
 /** 
  * LEFT:
