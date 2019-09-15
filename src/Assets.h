@@ -2,23 +2,23 @@
 #define ASSETS_H
 
 typedef struct _Floor Floor;
-typedef struct _Hash_l Hash_l;
-typedef struct _Hash_r Hash_r;
+typedef struct _Logic_Table Logic_Table;
+typedef struct _Render_Table Render_Table;
 typedef struct _Logic_Node Logic_Node;
 typedef struct _Render_Node Render_Node;
 struct Table_Container
 {
-    Hash_l *t_l;
-    Hash_r *t_r;
+    Logic_Table *t_l;
+    Render_Table *t_r;
 };
-struct Table_Container add_assets(Hash_l *t_l, Hash_r *t_r, SDL_Renderer *renderer);
+struct Table_Container add_assets(Logic_Table *t_l, Render_Table *t_r, SDL_Renderer *renderer);
 
-Hash_r *add_render(Hash_r *table, SDL_Renderer *renderer);
+Render_Table *add_render(Render_Table *table, SDL_Renderer *renderer);
 
 char **create_state(int *states, int num, char **state);
 int *get_dark_forest_render();
 int *get_dark_forest_logic();
 
-void draw(Hash_r *table, char **state, SDL_Renderer *renderer, int num);
-void logic(Hash_l *table, char **state, int num);
+void draw(Render_Table *table, char **state, SDL_Renderer *renderer, int num);
+void logic(Logic_Table *table, char **state, int num);
 #endif /* ASSETS_H */

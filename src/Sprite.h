@@ -1,5 +1,9 @@
 #ifndef SPRITE_H
 #define SPRITE_H
+
+/**
+ * Encapsulate data for rendering textures from a sprite sheet 
+ */
 typedef struct _Sprite
 {
     void (*destroy)(struct _Sprite *this);             /* Free allocated memory */

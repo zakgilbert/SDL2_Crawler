@@ -62,7 +62,7 @@ static void _get_state(Mouse *this)
     MOUSE_Y = this->y;
 }
 
-Mouse *mouse_create(int rect_size)
+Mouse *CREATE_MOUSE(int rect_size)
 {
     Mouse *this = malloc(sizeof(*this));
     this->destroy = _destroy;

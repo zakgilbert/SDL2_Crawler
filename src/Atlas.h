@@ -3,6 +3,9 @@
 
 typedef struct _Alpha_Node Alpha_Node;
 
+/**
+ * Hash Alpha_Nodes
+ */
 typedef struct _Atlas
 {
     void (*insert)(struct _Atlas *this, const char *key,

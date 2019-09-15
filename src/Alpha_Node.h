@@ -5,7 +5,7 @@ typedef struct SDL_Texture SDL_Texture;
 typedef struct SDL_Rect SDL_Rect;
 
 /**
- * Node type that holds a letter texture
+ * Encapsulate data for font atlas 
  */
 typedef struct _Alpha_Node
 {

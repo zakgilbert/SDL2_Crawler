@@ -1,6 +1,6 @@
 
 /************************
-	 *  Hash_r.c
+	 *  Hash_l.c
 	*/
 
 #include <stdio.h>
@@ -8,15 +8,15 @@
 #include <string.h>
 #include <math.h>
 #include <SDL2/SDL.h>
-#include "Hash_r.h"
-#include "Render_Node.h"
+#include "Logic_Table.h"
+#include "Logic_Node.h"
 #include "Header.h"
 
 /**
- * static Wrapper function for void (*_Render_Node::print)(struct _Render_Node *this, int i)
+ * static Wrapper function for void (*_Logic_Node::print)(struct _Logic_Node *this, int i)
  * Prints all fields of node along with its address in memory and the index of which it has been stored in the hashtable
  */
-static void print_node(Render_Node *node, int i)
+static void print_node(Logic_Node *node, int i)
 {
     node->print(node, i);
 }
@@ -57,14 +57,14 @@ static int hash_code(char *str, const int num, const int attempt)
 /**
  * Deallocates all memory that of which was allocated at the hashtables creation.
  */
-static void _destroy(Hash_r *this)
+static void _destroy(Logic_Table *this)
 {
-    Render_Node *temp = NULL;
-    Render_Node *dummy = NULL;
+    Logic_Node *temp = NULL;
+    Logic_Node *dummy = NULL;
     if (NULL != this)
     {
-        if(PRINT)
-        printf("\n  Deallocating Hash_r Table            %p\n\n", this);
+        if (PRINT)
+            printf("\n  Deallocating Hash_l Table            %p\n\n", this);
         for (size_t i = 0; i < this->size; i++)
         {
             temp = this->table[i];
@@ -82,10 +82,10 @@ static void _destroy(Hash_r *this)
 /**
  * Performs a hash search for the given key
  */
-static Render_Node *_search(Hash_r *this, char *key)
+static Logic_Node *_search(Logic_Table *this, char *key)
 {
     int index = hash_code(key, this->size, 0);
-    Render_Node *item = this->table[index];
+    Logic_Node *item = this->table[index];
     int i = 1;
     while (NULL != item)
     {
@@ -98,9 +98,9 @@ static Render_Node *_search(Hash_r *this, char *key)
 }
 
 /**
- * Prints Hash_rtable
+ * Prints Hash_ltable
  */
-static void _print_table(Hash_r *this)
+static void _print_table(Logic_Table *this)
 {
     printf("\n      Printing Table\n\n");
     for (int i = 0; i < this->size; i++)
@@ -116,10 +116,10 @@ static void _print_table(Hash_r *this)
 /**
  * Doubles the size of the hashtable
  */
-static void _grow(Hash_r *this)
+static void _grow(Logic_Table *this)
 {
-    Render_Node **temp;
-    Render_Node *dummy, *temp_n;
+    Logic_Node **temp;
+    Logic_Node *dummy, *temp_n;
     int old_size;
 
     temp = this->table;
@@ -127,15 +127,15 @@ static void _grow(Hash_r *this)
     temp_n = NULL;
     old_size = this->size;
     this->size = old_size * 2;
-    this->table = realloc(this->table, (sizeof(Render_Node *)) * (this->size));
+    this->table = realloc(this->table, (sizeof(Logic_Node *)) * (this->size));
     this->count = 0;
-    printf("\n       Resizing Hash_r Table               %p\n\n", this->table);
+    printf("\n       Resizing Hash_l Table               %p\n\n", this->table);
     for (int i = 0; i < old_size; i++)
     {
         temp_n = temp[i];
         if (NULL != temp_n)
         {
-            this->insert(this, CREATE_RENDER_NODE(temp_n->key, temp_n->obj, temp_n->funct));
+            this->insert(this, CREATE_LOGIC_NODE(temp_n->key, temp_n->obj, temp_n->funct));
             this->table[i] = dummy;
             temp_n->destroy(temp_n);
         }
@@ -146,10 +146,10 @@ static void _grow(Hash_r *this)
 /**
  * Inserts a new node into hashtable.
  */
-static void _insert(Hash_r *this, Render_Node *item)
+static void _insert(Logic_Table *this, Logic_Node *item)
 {
     int index = hash_code(item->key, this->size, 0);
-    Render_Node *cur_item = this->table[index];
+    Logic_Node *cur_item = this->table[index];
     int i = 1;
     if (check_size(this->size, this->count) == 1)
         this->grow(this);
@@ -170,10 +170,10 @@ static void _insert(Hash_r *this, Render_Node *item)
 /**
  * Deletes node of key
  */
-static void _delete(Hash_r *this, char *key)
+static void _delete(Logic_Table *this, char *key)
 {
-    Render_Node *item = this->search(this, key);
-    Render_Node *dummy = NULL;
+    Logic_Node *item = this->search(this, key);
+    Logic_Node *dummy = NULL;
     if (item)
     {
         this->table[item->index] = dummy;
@@ -184,15 +184,14 @@ static void _delete(Hash_r *this, char *key)
         printf("The node with a key value %s was not found\n", key);
 }
 
-Hash_r *CREATE_HASH_R(int size)
+Logic_Table *CREATE_LOGIC_TABLE(int size)
 {
-    Hash_r *this = malloc(sizeof(*this));
+    Logic_Table *this = malloc(sizeof(*this));
     this->size = size;
-    this->table = malloc(sizeof(Render_Node *) * this->size);
+    this->table = malloc(sizeof(Logic_Node *) * this->size);
+
     for (int i = 0; i < this->size; i++)
-    {
         this->table[i] = NULL;
-    }
 
     this->destroy = _destroy;
     this->search = _search;
@@ -202,6 +201,6 @@ Hash_r *CREATE_HASH_R(int size)
     this->delete = _delete;
     this->count = 0;
     if (PRINT)
-        printf("\n  Allocating Hash_r Table              %p\n\n", this);
+        printf("\n  Allocating Hash_l Table              %p\n\n", this);
     return this;
 }

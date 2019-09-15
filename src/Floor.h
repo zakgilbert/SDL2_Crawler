@@ -3,7 +3,7 @@
 #define JRPG_FLOOR_H
 
 /**
- * Holds an SDL Texture that resembles the ground in SDL2_Crawler,
+ * Encapsulate a SDL Texture that resembles the ground in SDL2_Crawler,
  * see map and forest in main.c
 */
 typedef struct _Floor

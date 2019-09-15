@@ -39,10 +39,12 @@ static void _logic(void *obj)
 
 Floor *CREATE_FLOOR(int x, int y, int w, int h, SDL_Renderer *renderer, const char *path)
 {
-    Floor *this = (Floor *)malloc(sizeof(*this));
+    Floor *this   = (Floor *)malloc(sizeof(*this));
+
     this->destroy = _destroy;
-    this->render = _render;
-    this->logic = _logic;
+    this->render  = _render;
+    this->logic   = _logic;
+    
     this->rect.x = x;
     this->rect.y = y;
     this->rect.w = w;

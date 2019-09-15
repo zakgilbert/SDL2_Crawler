@@ -20,5 +20,5 @@ typedef struct _Mouse
     int bool;         /* The mouse bool */
     int rect_size;    /* Size of rect that is to be referenced in get_x() and get_y() */
 } Mouse;
-Mouse *mouse_create(int rect_size);
+Mouse *CREATE_MOUSE(int rect_size);
 #endif /* MOUSE_H */

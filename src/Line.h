@@ -20,15 +20,15 @@ struct Letter
 struct Letter *NEW_LETTER(const char *letter, int x, int y);
 
 /**
- * A line of letters to be rendered using the font atlas
+ * Encapsule or render a line of letter nodes from the font atlas
  */
 typedef struct _Line
 {
     void (*render_letter)(SDL_Renderer *renderer,
                           SDL_Texture *texture, SDL_Rect *rect); /* Render letter texture */
     void (*destroy)(struct _Line *this);                         /* Free allocated memory */
-    SDL_Texture *(*get_texture)(struct _Line *this, int i);      /* Sets the correct x and y coords to a letter. */
-    void (*set_letters)(struct _Line *this);                     /* Adds the letters to the line. */
+    SDL_Texture *(*get_texture)(struct _Line *this, int i);      /* Set the correct x and y coords to a letter. */
+    void (*set_letters)(struct _Line *this);                     /* Add the letters to the line. */
 
     struct Letter **letters; /* All the letters in the line */
     Atlas *atlas;            /* Font atlas */

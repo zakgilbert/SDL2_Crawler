@@ -9,6 +9,16 @@
 #include "Graphics.h"
 #include "Header.h"
 
+/* Initiate SDL */
+void SDL_init()
+{
+    if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_TIMER) != 0)
+    {
+        perror("SDL_init failed: ");
+        printf("%s\n", SDL_GetError());
+        exit(1);
+    }
+}
 /* Create and return an SDL window object */
 SDL_Window *make_window(char *name)
 {
@@ -40,7 +50,7 @@ SDL_Renderer *make_renderer(SDL_Window **window)
 }
 
 /* Create a texture from an image file and a pointer to be referenced during rendering */
-struct SDL_Texture *create_texture(struct SDL_Renderer *renderer, const char *path, struct SDL_Rect *rect)
+SDL_Texture *create_texture(SDL_Renderer *renderer, const char *path, SDL_Rect *rect)
 {
     struct SDL_Texture *texture = NULL;
     struct SDL_Surface *surface = NULL;
@@ -63,6 +73,13 @@ struct SDL_Texture *create_texture(struct SDL_Renderer *renderer, const char *pa
     }
     SDL_QueryTexture(texture, NULL, NULL, &rect->w, &rect->h);
     return texture;
+}
+
+/* set hint and logical size of full screen */
+void set_render_options(SDL_Renderer *renderer)
+{
+    SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "best");
+    SDL_RenderSetLogicalSize(renderer, WINDOW_WIDTH, WINDOW_HEIGHT);
 }
 
 void set_full_screen(int full_screen, SDL_Window *window)

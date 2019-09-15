@@ -12,8 +12,8 @@
 #include "Assets.h"
 #include "Header.h"
 #include "Floor.h"
-#include "Hash_l.h"
-#include "Hash_r.h"
+#include "Logic_Table.h"
+#include "Render_Table.h"
 #include "Logic_Node.h"
 #include "Render_Node.h"
 #include "Input.h"
@@ -58,14 +58,10 @@ char **create_state(int *states, int num, char **state)
     return state;
 }
 
-static int moving()
-{
-    return ((KEY != NON) && (KEY == W));
-}
+static int moving() { return ((KEY != NON) && (KEY == W)); }
 
 int *get_dark_forest_logic()
 {
-
     int *states = malloc(sizeof(int) * 4);
     states[2] = floor_forest_ground;
     states[1] = floor_forest_trees;
@@ -90,7 +86,7 @@ int *get_dark_forest_render()
     return states;
 }
 
-struct Table_Container add_assets(Hash_l *t_l, Hash_r *t_r, SDL_Renderer *renderer)
+struct Table_Container add_assets(Logic_Table *t_l, Render_Table *t_r, SDL_Renderer *renderer)
 {
     for (int i = 0; i < ASSETS_NUM; i++)
     {
@@ -111,7 +107,7 @@ struct Table_Container add_assets(Hash_l *t_l, Hash_r *t_r, SDL_Renderer *render
     return containter;
 }
 
-void draw(Hash_r *table, char **state, SDL_Renderer *renderer, int num)
+void draw(Render_Table *table, char **state, SDL_Renderer *renderer, int num)
 {
     Render_Node *temp;
     SDL_RenderClear(renderer); /* Clear Canvas */
@@ -123,7 +119,7 @@ void draw(Hash_r *table, char **state, SDL_Renderer *renderer, int num)
     SDL_RenderPresent(renderer); /* draw to canvas */
 }
 
-void logic(Hash_l *table, char **state, int num)
+void logic(Logic_Table *table, char **state, int num)
 {
     Logic_Node *temp;
     for (int i = 0; i < num; i++)

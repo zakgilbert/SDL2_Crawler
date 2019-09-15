@@ -3,8 +3,7 @@
 typedef void logic_function(void *obj);
 
 /**
- * A node type that holds the data needed to pull the logic function from
- * the Hash_l
+ * Encapsulate data for Logic_Table
  */
 typedef struct _Logic_Node
 {

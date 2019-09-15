@@ -5,8 +5,7 @@ typedef struct SDL_Renderer SDL_Renderer;
 typedef void render_function(void *obj, SDL_Renderer *renderer);
 
 /**
- * A node type that holds the data needed to pull the render function from
- * the Hash_r
+ * Encapsulate data for Render Table
  */
 typedef struct _Render_Node
 {
