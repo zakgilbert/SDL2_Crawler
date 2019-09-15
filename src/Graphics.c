@@ -80,14 +80,17 @@ void set_rect(SDL_Rect *rect, int x, int y, int w, int h)
     rect->w = w;
     rect->h = h;
 }
+
 int get_middle_x(int frame_size, int sprite_size)
 {
     return (frame_size / 2) - (sprite_size / 2);
 }
+
 int get_middle_y(int frame_size, int sprite_size)
 {
     return (frame_size / 2) - (sprite_size / 2);
 }
+
 void set_fullscreen(SDL_Window *window)
 {
     if (FULLSCREEN_ON)

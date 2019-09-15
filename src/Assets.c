@@ -35,6 +35,7 @@ static char *asset_strings[] =
     {
         "graphics/map.png",
         "graphics/forest.png"};
+
 static char *asset_strings_f[] =
     {
         "map_directions",
@@ -56,10 +57,12 @@ char **create_state(int *states, int num, char **state)
     }
     return state;
 }
+
 static int moving()
 {
     return ((KEY != NON) && (KEY == W));
 }
+
 int *get_dark_forest_logic()
 {
 
@@ -74,6 +77,7 @@ int *get_dark_forest_logic()
 
     return states;
 }
+
 int *get_dark_forest_render()
 {
     int *states = malloc(sizeof(int) * 3);
@@ -85,6 +89,7 @@ int *get_dark_forest_render()
         states[2] = hero;
     return states;
 }
+
 struct Table_Container add_assets(Hash_l *t_l, Hash_r *t_r, SDL_Renderer *renderer)
 {
     for (int i = 0; i < ASSETS_NUM; i++)
@@ -105,17 +110,19 @@ struct Table_Container add_assets(Hash_l *t_l, Hash_r *t_r, SDL_Renderer *render
     struct Table_Container containter = {t_l, t_r};
     return containter;
 }
+
 void draw(Hash_r *table, char **state, SDL_Renderer *renderer, int num)
 {
     Render_Node *temp;
-    SDL_RenderClear(renderer);
+    SDL_RenderClear(renderer); /* Clear Canvas */
     for (int i = 0; i < num; i++)
     {
-        temp = table->search(table, state[i]);
-        (*temp->funct)(temp->obj, renderer);
+        temp = table->search(table, state[i]); /* Get render node */
+        (*temp->funct)(temp->obj, renderer);   /* execute render function */
     }
-    SDL_RenderPresent(renderer);
+    SDL_RenderPresent(renderer); /* draw to canvas */
 }
+
 void logic(Hash_l *table, char **state, int num)
 {
     Logic_Node *temp;

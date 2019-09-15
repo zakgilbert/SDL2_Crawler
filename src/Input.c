@@ -83,6 +83,7 @@ int input_handler(void *data)
     }
     return 0;
 }
+
 int confirm(int val)
 {
     if (!val)
@@ -90,42 +91,17 @@ int confirm(int val)
     KEY_STATE[KEY] = 0;
     return 1;
 }
-int UP()
-{
-    return confirm(KEY_STATE[W]);
-}
-int LEFT()
-{
-    return confirm(KEY_STATE[A]);
-}
-int RIGHT()
-{
-    return confirm(KEY_STATE[D]);
-}
-int DOWN()
-{
-    return confirm(KEY_STATE[S]);
-}
-int CONFIRM()
-{
-    return confirm(KEY_STATE[J]);
-}
-int CANCEL()
-{
-    return confirm(KEY_STATE[L]);
-}
-int EXIT()
-{
-    return confirm(KEY_STATE[O]);
-}
-int FULL()
-{
-    return confirm(KEY_STATE[F]);
-}
-int NOTHING_PRESSED()
-{
-    return confirm(KEY_STATE[NON]);
-}
+
+int UP() { return confirm(KEY_STATE[W]); }
+int LEFT() { return confirm(KEY_STATE[A]); }
+int RIGHT() { return confirm(KEY_STATE[D]); }
+int DOWN() { return confirm(KEY_STATE[S]); }
+int CONFIRM() { return confirm(KEY_STATE[J]); }
+int CANCEL() { return confirm(KEY_STATE[L]); }
+int EXIT() { return confirm(KEY_STATE[O]); }
+int FULL() { return confirm(KEY_STATE[F]); }
+int NOTHING_PRESSED() { return confirm(KEY_STATE[NON]); }
+
 void map_directions(void *obj)
 {
     if (KEY == W)

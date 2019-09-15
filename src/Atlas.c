@@ -43,6 +43,7 @@ char **get_alphabet_str()
 
     return str;
 }
+
 static int hash(const char *letter, int prime, int size)
 {
     long hash = 0;
@@ -55,12 +56,14 @@ static int hash(const char *letter, int prime, int size)
     }
     return (int)hash;
 }
+
 static int hash_code(const char *letter, const int num, const int attempt)
 {
     int hash_a = hash(letter, PRIME_1, num);
     int hash_b = hash(letter, PRIME_2, num);
     return (hash_a + (attempt * (hash_b + 1))) % num;
 }
+
 static void _destroy(Atlas *this)
 {
     int i;
@@ -80,10 +83,12 @@ static void _destroy(Atlas *this)
         this = NULL;
     }
 }
+
 static void _render(Alpha_Node *node, SDL_Renderer *renderer)
 {
     SDL_RenderCopy(renderer, node->texture, NULL, &node->rect);
 }
+
 static Alpha_Node *_search(Atlas *this, const char *key)
 {
     int index = hash_code(key, this->size, 0);
@@ -100,6 +105,7 @@ static Alpha_Node *_search(Atlas *this, const char *key)
     }
     return NULL;
 }
+
 static void _insert(Atlas *this, const char *key, SDL_Renderer *renderer, const char *path)
 {
     Alpha_Node *item = CREATE_ALPHA_NODE(key, path, renderer);
@@ -115,6 +121,7 @@ static void _insert(Atlas *this, const char *key, SDL_Renderer *renderer, const 
     this->letters[index] = item;
     this->count++;
 }
+
 static void _map(Atlas *this, SDL_Renderer *renderer)
 {
     int i = 0;
@@ -140,6 +147,7 @@ static void _map(Atlas *this, SDL_Renderer *renderer)
         printf("Destroy: %p\n", path);
     free(path);
 }
+
 Atlas *CREATE_ATLAS()
 {
     Atlas *this = malloc(sizeof(*this));

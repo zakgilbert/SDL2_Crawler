@@ -28,6 +28,7 @@ static void _render(void *obj, SDL_Renderer *renderer)
 
     SDL_RenderCopy(renderer, this->texture, NULL, &this->rect);
 }
+
 static void _logic(void *obj)
 {
     Floor *this = (Floor *)obj;

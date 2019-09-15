@@ -47,7 +47,7 @@ static void _destroy(Line *this)
 }
 
 /* Render letter is called in render_line which is a function to be sent to the render_q*/
-static void _render_letter(struct SDL_Renderer *renderer, struct SDL_Texture *texture, struct SDL_Rect *rect)
+static void _render_letter(SDL_Renderer *renderer, SDL_Texture *texture, SDL_Rect *rect)
 {
     SDL_RenderCopy(renderer, texture, NULL, rect);
 }
@@ -92,6 +92,7 @@ static void _set_letters(Line *this)
 Line *CREATE_LINE(Atlas *atlas, const char *line, int x, int y, int inc)
 {
     Line *this = malloc(sizeof(*this));
+    
     this->destroy = _destroy;
     this->render_letter = _render_letter;
     this->set_letters = _set_letters;
