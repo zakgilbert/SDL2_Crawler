@@ -6,8 +6,6 @@ typedef struct _Render_Node Render_Node;
 /**
  * A Hashtable of type render (a hash table that stores render nodes)
  * To change the stored data types, edit the nodes fields in Render_Node.h
- * A hashtable instance can be declared as follows...
- *      Hash_r * hash_table = CREATE_HASH(int size)
  */
 typedef struct _Hash_r
 {

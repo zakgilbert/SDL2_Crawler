@@ -8,8 +8,6 @@ typedef void render_function(void *obj, SDL_Renderer *renderer);
 /**
  * A Hashtable of type logic (a hash table that stores logic nodes)
  * To change the stored data types, edit the nodes fields in Logic_Node.h
- * A hashtable instance can be declared as follows...
- *      Hash_l * hash_table = CREATE_HASH(int size)
  */
 typedef struct _Hash_l
 {
