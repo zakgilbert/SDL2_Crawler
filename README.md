@@ -1,6 +1,21 @@
 # SDL2_Crawler
 ## Description
 This is a new type of dungeon crawler...
+## Build
+### SDL2 Library
+`apt-get install` the following
+```
+libsdl2-2.0-0 - Simple DirectMedia Layer
+libsdl2-dev - Simple DirectMedia Layer development files
+libsdl2-image-2.0-0 - Image loading library for Simple DirectMedia Layer 2, libraries
+libsdl2-image-dev - Image loading library for Simple DirectMedia Layer 2, development files
+```
+### Run the Game
+`cd` into top directory
+```
+make
+./game
+```
 ## How to Contribute
 ### Game States
 A game is defined by it's states, thus the best way to contribute would be to implement more states.
@@ -48,7 +63,7 @@ typedef struct _Floor
 
 Floor *CREATE_FLOOR(int x, int y, int w, int h, SDL_Renderer *renderer, const char *path);
 ```
-Every game class object contains two important functions `render` and `logic`. In `main.c` we define two hash tables...
+Every game class object contains two important functions `render()` and `logic()`. In `main.c` we define two hash tables...
 ```c
 Hash_r *render_table; /* Hashtable of render functions */
 Hash_l *logic_table;  /* Hashtable of logic functions */
@@ -107,25 +122,21 @@ A node is defined as follows
 ```c
 #ifndef RENDER_NODE_H
 #define RENDER_NODE_H
-
-typedef struct SDL_Renderer SDL_Renderer;
 typedef void render_function(void *obj, SDL_Renderer *renderer);
 
 /**
- * A node type that holds the data needed to pull the render function from
- * the Hash_r
+ * Encapsulate data for Render Table
  */
 typedef struct _Render_Node
 {
     void (*destroy)(struct _Render_Node *this);      /* Free allocated memory */
     void (*print)(struct _Render_Node *this, int i); /* Print node data */
+    render_function(*funct);                         /* Pointer to render function */
 
-    void *obj;               /* Pointer to object whose render function will be called */
-    render_function(*funct); /* Render function be called */
-    int index;               /* Index the node is stored at */
-    char *key;               /* Key of node */
+    void *obj; /* Pointer to object whose render function will be called */
+    int index; /* Index the node is stored at */
+    char *key; /* Key of node */
 } Render_Node;
-Render_Node *CREATE_RENDER_NODE(char *key, void *obj, render_function funct);
+Render_Node *CREATE_RENDER_NODE(char *key, void *obj, render_function funct);``c
 
-#endif /* RENDER_NODE_H */
 ```

@@ -45,7 +45,7 @@ int main(int argc, char **argv)
     DEFINE_GLOBALS();
     set_up_timer();
 
-    window = make_window("win");
+    window = make_window("SDL2 Crawler");
     renderer = make_renderer(&window);
 
     set_render_options(renderer);
