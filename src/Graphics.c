@@ -6,7 +6,7 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_timer.h>
 #include <SDL2/SDL_image.h>
-#include "Window_and_Renderer.h"
+#include "Graphics.h"
 #include "Header.h"
 
 /* Create and return an SDL window object */

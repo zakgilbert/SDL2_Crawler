@@ -11,7 +11,7 @@
 #include <SDL2/SDL_timer.h>
 #include <SDL2/SDL_image.h>
 #include "Atlas.h"
-#include "Window_and_Renderer.h"
+#include "Graphics.h"
 #include "Alpha_Node.h"
 #include "Header.h"
 

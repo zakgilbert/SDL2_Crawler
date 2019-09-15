@@ -10,7 +10,7 @@
 #include <SDL2/SDL_timer.h>
 #include <SDL2/SDL_image.h>
 #include "Alpha_Node.h"
-#include "Window_and_Renderer.h"
+#include "Graphics.h"
 #include "Header.h"
 
 static void _destroy(Alpha_Node *this)

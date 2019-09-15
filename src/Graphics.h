@@ -1,6 +1,6 @@
 
-#ifndef WINDOW_AND_RENDERER_H
-#define WINDOW_AND_RENDERER_H
+#ifndef GRAPHICS_H
+#define GRAPHICS_H
 
 /* Create and return an SDL window object */
 SDL_Window *make_window(char *);
@@ -23,4 +23,4 @@ int get_middle_y(int frame_size, int sprite_size);
 /* If user KEY = F turn fullscreen on or off */
 void set_fullscreen(SDL_Window *window);
 
-#endif //WINDOW_AND_RENDERER_H
+#endif //GRAPHICS_H

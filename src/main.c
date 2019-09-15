@@ -12,7 +12,7 @@
 #include "Atlas.h"
 #include "Input.h"
 #include "Delta.h"
-#include "Window_and_Renderer.h"
+#include "Graphics.h"
 #include "Hash_l.h"
 #include "Hash_r.h"
 #include "Assets.h"

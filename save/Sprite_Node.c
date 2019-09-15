@@ -9,7 +9,7 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
 #include "Sprite_Node.h"
-#include "Window_and_Renderer.h"
+#include "Graphics.h"
 
 static void _destroy(Sprite_Node *this)
 {

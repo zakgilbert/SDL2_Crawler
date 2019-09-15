@@ -9,7 +9,7 @@
 #include <SDL2/SDL_image.h>
 #include "Header.h"
 #include "Floor.h"
-#include "Window_and_Renderer.h"
+#include "Graphics.h"
 
 static void _destroy(Floor *this)
 {
