@@ -21,39 +21,45 @@
 
 int main(int argc, char **argv)
 {
-    char **state_logic;
-    char **state_render;
-    FACING = down;
-    KEY = NON;
-    FULLSCREEN_ON = 0;
+    char **state_logic;               /* State list for logic functions */
+    char **state_render;              /* State list for render functions */
+    struct Table_Container container; /* Container of hashtables */
+    struct SDL_Window *window;        /* The game window */
+    struct SDL_Renderer *renderer;    /* The game renderer */
+    Atlas *letters;                   /* Font Atlas */
+    Mouse *mouse;                     /* Mouse Object */
+    Hash_r *render_table;             /* Hashtable of render functions */
+    Hash_l *logic_table;              /* Hashtable of logic functions */
+    SDL_Thread *input_thread;         /* Thread that runs function input handler */
 
     if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_TIMER) != 0)
     {
         printf("error creating renderer: %s\n", SDL_GetError());
         return 1;
     }
-    key_state = (Uint8 *)SDL_GetKeyboardState(NULL);
-    FPS = 60;
+
+    DEFINE_GLOBALS();
     set_up_timer();
 
-    struct SDL_Window *window = NULL;
-    struct SDL_Renderer *renderer = NULL;
+    window = NULL;
+    renderer = NULL;
     window = make_window("win");
     renderer = make_renderer(&window);
+
     SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "best");
     SDL_RenderSetLogicalSize(renderer, WINDOW_WIDTH, WINDOW_HEIGHT);
 
-    Atlas *letters = CREATE_ATLAS();
-    Mouse *mouse = mouse_create(WINDOW_WIDTH);
+    letters = CREATE_ATLAS();
     letters->map(letters, renderer);
+    mouse = mouse_create(WINDOW_WIDTH);
 
-    Hash_r *render_table = CREATE_HASH_R(TABLE_SIZE);
-    Hash_l *logic_table = CREATE_HASH_L(TABLE_SIZE);
+    render_table = CREATE_HASH_R(TABLE_SIZE);
+    logic_table = CREATE_HASH_L(TABLE_SIZE);
 
-    struct Table_Container container = add_asset(logic_table, render_table, renderer);
+    container = add_assets(logic_table, render_table, renderer);
+
     logic_table->print_table(logic_table);
     render_table->print_table(render_table);
-    SDL_Thread *input_thread;
 
     input_thread = SDL_CreateThread(input_handler, "input_handler", NULL);
     SDL_DetachThread(input_thread);
@@ -65,10 +71,10 @@ int main(int argc, char **argv)
         state_logic = create_state(get_dark_forest_logic(), 4, state_logic);
         state_render = create_state(get_dark_forest_render(), 3, state_render);
         mouse->get_state(mouse);
-        
+
         logic(logic_table, state_logic, 4);
         draw(render_table, state_render, renderer, 3);
-        
+
         FRAMES_RENDERED = delay();
         set_fullscreen(window);
         reset_timer();
@@ -82,4 +88,12 @@ int main(int argc, char **argv)
 
     SDL_Quit();
     return 0;
+}
+
+void DEFINE_GLOBALS()
+{
+    KEY = NON;
+    FULLSCREEN_ON = 0;
+    KEY_STATE = (Uint8 *)SDL_GetKeyboardState(NULL);
+    FPS = 60;
 }

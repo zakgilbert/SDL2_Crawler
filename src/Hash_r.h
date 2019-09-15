@@ -4,43 +4,23 @@
 typedef struct _Render_Node Render_Node;
 
 /**
- * A Hash_rtable
+ * A Hashtable of type render (a hash table that stores render nodes)
  * To change the stored data types, edit the nodes fields in Render_Node.h
  * A hashtable instance can be declared as follows...
  *      Hash_r * hash_table = CREATE_HASH(int size)
  */
 typedef struct _Hash_r
 {
-    /**
-     * Deallocates all memory that of which was allocated at the hashtables creation.
-     */
-    void (*destroy)(struct _Hash_r *this);
+    void (*destroy)(struct _Hash_r *this);                   /* Frees allocated memory */
+    Render_Node *(*search)(struct _Hash_r *this, char *key); /* Performs a hash search for the given key */
+    void (*print_table)(struct _Hash_r *this);               /* Prints Hashtable */
+    void (*grow)(struct _Hash_r *this);                      /* Doubles the size of hashtable */
+    void (*insert)(struct _Hash_r *this, Render_Node *item); /* Inserts a new node into hashtable. */
+    void (*delete)(struct _Hash_r *this, char *key);         /* Deletes node of key */
 
-    /**
-     * Performs a hash search for the given key
-     */
-    Render_Node *(*search)(struct _Hash_r *this, char *key);
-
-    /**
-     * Prints Hash_rtable
-     */
-    void (*print_table)(struct _Hash_r *this);
-
-    void (*grow)(struct _Hash_r *this);
-    /**
-     * Inserts a new node into hashtable.
-     */
-    void (*insert)(struct _Hash_r *this, Render_Node *item);
-
-    /**
-     * Deletes node of key
-     */
-    void (*delete)(struct _Hash_r *this, char *key);
-
-    Render_Node **table;
-    int size;
-    int count;
-
+    Render_Node **table; /* Array of Logic Node Pointers */
+    int size;            /* size of table */
+    int count;           /* number of nodes hash into table */
 } Hash_r;
 Hash_r *CREATE_HASH_R(int size);
 #endif /* HASH_R_H */

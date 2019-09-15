@@ -6,14 +6,19 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <SDL2/SDL.h>
 #include "Logic_Node.h"
+#include "Header.h"
 
 static void _destroy(Logic_Node *this)
 {
     if (NULL != this)
     {
-        this->print(this, this->index);
-        printf("%*s\n", 10, "Delete");
+        if (PRINT)
+        {
+            this->print(this, this->index);
+            printf("%*s\n", 10, "Delete");
+        }
         free(this);
     }
 }

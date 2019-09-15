@@ -7,11 +7,10 @@
 #include <stdlib.h>
 #include <string.h>
 #include <math.h>
+#include <SDL2/SDL.h>
 #include "Hash_r.h"
 #include "Render_Node.h"
-
-#define PRIME_1 163
-#define PRIME_2 151
+#include "Header.h"
 
 /**
  * static Wrapper function for void (*_Render_Node::print)(struct _Render_Node *this, int i)
@@ -64,6 +63,7 @@ static void _destroy(Hash_r *this)
     Render_Node *dummy = NULL;
     if (NULL != this)
     {
+        if(PRINT)
         printf("\n  Deallocating Hash_r Table            %p\n\n", this);
         for (size_t i = 0; i < this->size; i++)
         {
@@ -162,7 +162,8 @@ static void _insert(Hash_r *this, Render_Node *item)
     this->table[index] = item;
     this->table[index]->index = index;
     print_node(this->table[index], index);
-    printf("%*s\n", 10, "Added");
+    if (PRINT)
+        printf("%*s\n", 10, "Added");
     this->count++;
 }
 
@@ -200,6 +201,7 @@ Hash_r *CREATE_HASH_R(int size)
     this->insert = _insert;
     this->delete = _delete;
     this->count = 0;
-    printf("\n  Allocating Hash_r Table              %p\n\n", this);
+    if (PRINT)
+        printf("\n  Allocating Hash_r Table              %p\n\n", this);
     return this;
 }

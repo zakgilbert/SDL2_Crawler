@@ -85,7 +85,7 @@ int *get_dark_forest_render()
         states[2] = hero;
     return states;
 }
-struct Table_Container add_asset(Hash_l *t_l, Hash_r *t_r, SDL_Renderer *renderer)
+struct Table_Container add_assets(Hash_l *t_l, Hash_r *t_r, SDL_Renderer *renderer)
 {
     for (int i = 0; i < ASSETS_NUM; i++)
     {

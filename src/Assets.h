@@ -11,7 +11,7 @@ struct Table_Container
     Hash_l *t_l;
     Hash_r *t_r;
 };
-struct Table_Container add_asset(Hash_l *t_l, Hash_r *t_r, SDL_Renderer *renderer);
+struct Table_Container add_assets(Hash_l *t_l, Hash_r *t_r, SDL_Renderer *renderer);
 
 Hash_r *add_render(Hash_r *table, SDL_Renderer *renderer);
 

@@ -19,31 +19,23 @@ struct Letter
  */
 struct Letter *NEW_LETTER(const char *letter, int x, int y);
 
+/**
+ * A line of letters to be rendered using the font atlas
+ */
 typedef struct _Line
 {
-    /* Free memory allocated for Line object */
-    void (*destroy)(struct _Line *this);
+    void (*render_letter)(SDL_Renderer *renderer,
+                          SDL_Texture *texture, SDL_Rect *rect); /* Render letter texture */
+    void (*destroy)(struct _Line *this);                         /* Free allocated memory */
+    SDL_Texture *(*get_texture)(struct _Line *this, int i);      /* Sets the correct x and y coords to a letter. */
+    void (*set_letters)(struct _Line *this);                     /* Adds the letters to the line. */
 
-    /* Render letter is called in render_line which is a function to be sent to the render_q*/
-    void (*render_letter)(SDL_Renderer *renderer, SDL_Texture *texture, SDL_Rect *rect);
-
-    /**
-     * Sets the correct x and y coords to a letter.
-     */
-    struct SDL_Texture *(*get_texture)(struct _Line *this, int i);
-
-    /**
-     * Adds the letters to the line.
-     */
-    void (*set_letters)(struct _Line *this);
-
-    struct Letter **letters;
-    Atlas *atlas;
-    int num_let;
-    const char *line;
-    int *r_x, *r_y;
-    int x, y;
-    int inc;
+    struct Letter **letters; /* All the letters in the line */
+    Atlas *atlas;            /* Font atlas */
+    int num_let;             /* Number of letters in line */
+    const char *line;        /* The line of letters */
+    int x, y;                /* Current x and y coordinates of line */
+    int inc;                 /* index of current letter in line */
 
 } Line;
 

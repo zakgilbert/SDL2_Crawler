@@ -6,7 +6,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <SDL2/SDL.h>
 #include "Render_Node.h"
+#include "Header.h"
 
 /**
  * Deallocates all memory that of which was allocated at the Render_Nodes creation.
@@ -15,8 +17,11 @@ static void _destroy(Render_Node *this)
 {
     if (NULL != this)
     {
-        this->print(this, this->index);
-        printf("%*s\n", 10, "Delete");
+        if (PRINT)
+        {
+            this->print(this, this->index);
+            printf("%*s\n", 10, "Delete");
+        }
         free(this);
     }
 }

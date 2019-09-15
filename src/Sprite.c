@@ -24,16 +24,19 @@ static void _destroy(Sprite *this)
         free(this);
     }
 }
+
 static void _print(Sprite *this)
 {
     printf("%p", this);
 }
+
 static void _render(void *obj, SDL_Renderer *renderer)
 {
     Sprite *this = (Sprite *)obj;
     SDL_RenderCopy(renderer, this->texture, this->frame, &this->rect);
 }
-static double get_angle(Sprite *this)
+
+static double get_radian_angle(Sprite *this)
 {
     double pi = 3.14159;
     typedef struct _point
@@ -49,7 +52,8 @@ static double get_angle(Sprite *this)
     double result = atan2(delta_X, delta_Y);
     return (result * (180 / pi));
 }
-static double get_p_angle(double angle)
+
+static double get_degree_angle(double angle)
 {
     double dif = 0.0f;
     if (angle < 0.0f)
@@ -63,32 +67,39 @@ static double get_p_angle(double angle)
     }
     return dif;
 }
+
 static void _logic(void *obj)
 {
     Sprite *this = (Sprite *)obj;
+
     if (FRAMES_RENDERED % 7 == 0)
     {
         this->row_index++;
         this->col_index++;
+
         if (this->row_index % this->rows == 0 && this->row_index != 0)
         {
             this->col_index = 0;
             this->row_index -= this->rows;
         }
-        double angle = get_angle(this);
-        a2 = (int)(get_p_angle(angle) / 22.0f);
+        double angle = get_radian_angle(this);
+        MOUSE_ANGLE = (int)(get_degree_angle(angle) / 22.0f);
 
-        this->row_index = (a2 * this->rows) + this->col_index;
-        printf("a2: %d\n", a2);
-        FACING_PREV = FACING;
+        this->row_index = (MOUSE_ANGLE * this->rows) + this->col_index;
+
         if (this->row_index >= this->num_frames)
             this->row_index = 0 + this->col_index;
         this->frame = this->rects[this->row_index];
     }
 }
+
 Sprite *CREATE_SPRITE(SDL_Renderer *renderer, char *path, int rows, int cols, int w, int h, int type)
 {
     Sprite *this = malloc(sizeof(*this));
+
+    int x = 0;
+    int y = 0;
+
     this->print = _print;
     this->destroy = _destroy;
     this->render = _render;
@@ -105,8 +116,7 @@ Sprite *CREATE_SPRITE(SDL_Renderer *renderer, char *path, int rows, int cols, in
     this->row_index = 0;
     this->col_index = 0;
     this->rects = malloc(sizeof(struct SDL_Rect *) * this->num_frames);
-    int x = 0;
-    int y = 0;
+
     for (int i = 0; i < this->num_frames; i++)
     {
         this->rects[i] = malloc(sizeof(struct SDL_Rect));

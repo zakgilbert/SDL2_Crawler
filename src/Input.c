@@ -1,16 +1,25 @@
 
-#include "Input.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <time.h>
+#include <math.h>
+#include <SDL2/SDL.h>
+#include <SDL2/SDL_timer.h>
+#include <SDL2/SDL_image.h>
 #include "Header.h"
+#include "Input.h"
 
 int input_handler(void *data)
 {
+    union SDL_Event ev; /*union for SDL event */
 
     while (SDL_WaitEvent(&ev) && !EXIT())
     {
         switch (ev.type)
         {
         case SDL_QUIT:
-            key_state[O] = 1;
+            KEY_STATE[O] = 1;
             break;
 
         case SDL_KEYDOWN:
@@ -78,50 +87,50 @@ int confirm(int val)
 {
     if (!val)
         return 0;
-    key_state[KEY] = 0;
+    KEY_STATE[KEY] = 0;
     return 1;
 }
 int UP()
 {
-    return confirm(key_state[W]);
+    return confirm(KEY_STATE[W]);
 }
 int LEFT()
 {
-    return confirm(key_state[A]);
+    return confirm(KEY_STATE[A]);
 }
 int RIGHT()
 {
-    return confirm(key_state[D]);
+    return confirm(KEY_STATE[D]);
 }
 int DOWN()
 {
-    return confirm(key_state[S]);
+    return confirm(KEY_STATE[S]);
 }
 int CONFIRM()
 {
-    return confirm(key_state[J]);
+    return confirm(KEY_STATE[J]);
 }
 int CANCEL()
 {
-    return confirm(key_state[L]);
+    return confirm(KEY_STATE[L]);
 }
 int EXIT()
 {
-    return confirm(key_state[O]);
+    return confirm(KEY_STATE[O]);
 }
 int FULL()
 {
-    return confirm(key_state[F]);
+    return confirm(KEY_STATE[F]);
 }
 int NOTHING_PRESSED()
 {
-    return confirm(key_state[NON]);
+    return confirm(KEY_STATE[NON]);
 }
 void map_directions(void *obj)
 {
     if (KEY == W)
     {
-        switch (a2)
+        switch (MOUSE_ANGLE)
         {
         case 0:
         case 16:
@@ -161,7 +170,7 @@ void map_directions(void *obj)
                 X++;
             Y++;
             break;
-            
+
         case 8:
             Y++;
             break;
@@ -203,7 +212,11 @@ void map_directions(void *obj)
             break;
         }
     }
+    map_bounds();
+}
 
+void map_bounds()
+{
     if (Y > 0)
         Y = 0;
     if (X > 0)
