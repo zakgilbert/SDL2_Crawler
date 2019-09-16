@@ -7,9 +7,9 @@ typedef void render_function(void* obj, SDL_Renderer* renderer);
  * Encapsulate data for Render Table
  */
 typedef struct _Render_Node {
-    void (*destroy)(struct _Render_Node* this); /* Free allocated memory */
+    void (*destroy)(struct _Render_Node* this);      /* Free allocated memory */
     void (*print)(struct _Render_Node* this, int i); /* Print node data */
-    render_function(*funct); /* Pointer to render function */
+    render_function(*funct);                         /* Pointer to render function */
 
     void* obj; /* Pointer to object whose render function will be called */
     int index; /* Index the node is stored at */

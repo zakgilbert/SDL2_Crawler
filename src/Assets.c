@@ -57,9 +57,9 @@ static int moving() { return ((KEY != NON) && (KEY == W)); }
 int* get_dark_forest_logic()
 {
     int* states = malloc(sizeof(int) * 4);
-    states[2] = floor_forest_ground;
-    states[1] = floor_forest_trees;
-    states[0] = map_directions_e;
+    states[2]   = floor_forest_ground;
+    states[1]   = floor_forest_trees;
+    states[0]   = map_directions_e;
     if (moving())
         states[3] = hero_walk;
     else
@@ -71,8 +71,8 @@ int* get_dark_forest_logic()
 int* get_dark_forest_render()
 {
     int* states = malloc(sizeof(int) * 3);
-    states[0] = floor_forest_ground;
-    states[1] = floor_forest_trees;
+    states[0]   = floor_forest_ground;
+    states[1]   = floor_forest_trees;
     if (moving())
         states[2] = hero_walk;
     else
@@ -106,7 +106,7 @@ void draw(Render_Table* table, char** state, SDL_Renderer* renderer, int num)
     SDL_RenderClear(renderer); /* Clear Canvas */
     for (int i = 0; i < num; i++) {
         temp = table->search(table, state[i]); /* Get render node */
-        (*temp->funct)(temp->obj, renderer); /* execute render function */
+        (*temp->funct)(temp->obj, renderer);   /* execute render function */
     }
     SDL_RenderPresent(renderer); /* draw to canvas */
 }

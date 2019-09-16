@@ -25,7 +25,7 @@ static double get_radian_angle(Sprite* this)
 
     double delta_X = (double)(p1.x - p2.x);
     double delta_Y = (double)(p2.y - p1.y);
-    double result = atan2(delta_X, delta_Y);
+    double result  = atan2(delta_X, delta_Y);
     return (result * (180 / pi));
 }
 
@@ -100,7 +100,7 @@ static void _logic(void* obj)
             this->row_index -= this->rows;
         }
         double angle = get_radian_angle(this);
-        MOUSE_ANGLE = (int)(get_degree_angle(angle) / 22.0f);
+        MOUSE_ANGLE  = (int)(get_degree_angle(angle) / 22.0f);
 
         this->row_index = (MOUSE_ANGLE * this->rows) + this->col_index;
 
@@ -113,22 +113,22 @@ Sprite* CREATE_SPRITE(SDL_Renderer* renderer, char* path, int rows, int cols, in
 {
     Sprite* this = malloc(sizeof(*this));
 
-    this->print = _print;
-    this->destroy = _destroy;
-    this->render = _render;
-    this->logic = _logic;
+    this->print      = _print;
+    this->destroy    = _destroy;
+    this->render     = _render;
+    this->logic      = _logic;
     this->num_frames = rows * cols;
-    this->type = type;
-    this->texture = create_texture(renderer, path, &this->rect);
-    this->rect.x = get_middle_x(WINDOW_WIDTH, w);
-    this->rect.y = get_middle_y(WINDOW_HEIGHT, h);
-    this->rect.w = w;
-    this->rect.h = h;
-    this->cols = cols;
-    this->rows = rows;
-    this->row_index = 0;
-    this->col_index = 0;
-    this->rects = malloc(sizeof(struct SDL_Rect*) * this->num_frames);
+    this->type       = type;
+    this->texture    = create_texture(renderer, path, &this->rect);
+    this->rect.x     = get_middle_x(WINDOW_WIDTH, w);
+    this->rect.y     = get_middle_y(WINDOW_HEIGHT, h);
+    this->rect.w     = w;
+    this->rect.h     = h;
+    this->cols       = cols;
+    this->rows       = rows;
+    this->row_index  = 0;
+    this->col_index  = 0;
+    this->rects      = malloc(sizeof(struct SDL_Rect*) * this->num_frames);
 
     set_sprite_cords(this);
 

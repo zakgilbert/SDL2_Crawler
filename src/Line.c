@@ -16,9 +16,11 @@
 struct Letter* NEW_LETTER(const char* letter, int x, int y)
 {
     struct Letter* new_letter = malloc(sizeof(struct Letter));
+
     new_letter->letter = strdup(letter);
     new_letter->rect.x = x;
     new_letter->rect.y = y;
+
     return new_letter;
 }
 
@@ -51,8 +53,8 @@ static void _render_letter(SDL_Renderer* renderer, SDL_Texture* texture, SDL_Rec
  */
 struct SDL_Texture* _get_texture(Line* this, int i)
 {
-    Alpha_Node* item = this->atlas->search(this->atlas, this->letters[i]->letter);
-    int inc = this->inc;
+    Alpha_Node* item         = this->atlas->search(this->atlas, this->letters[i]->letter);
+    int inc                  = this->inc;
     this->letters[i]->rect.x = this->x;
     this->letters[i]->rect.w = item->rect.w;
     this->letters[i]->rect.h = item->rect.h;
@@ -77,8 +79,8 @@ static void _set_letters(Line* this)
     int i = 0;
     char buff[1];
     for (; i < this->num_let; i++) {
-        buff[0] = this->line[i];
-        this->letters[i] = NEW_LETTER(buff, this->x, this->y);
+        buff[0]                   = this->line[i];
+        this->letters[i]          = NEW_LETTER(buff, this->x, this->y);
         this->letters[i]->texture = this->get_texture(this, i);
     }
 }
@@ -86,16 +88,16 @@ Line* CREATE_LINE(Atlas* atlas, const char* line, int x, int y, int inc)
 {
     Line* this = malloc(sizeof(*this));
 
-    this->destroy = _destroy;
+    this->destroy       = _destroy;
     this->render_letter = _render_letter;
-    this->set_letters = _set_letters;
-    this->get_texture = _get_texture;
+    this->set_letters   = _set_letters;
+    this->get_texture   = _get_texture;
 
-    this->atlas = atlas;
-    this->line = line;
-    this->x = x;
-    this->y = y;
-    this->inc = inc;
+    this->atlas   = atlas;
+    this->line    = line;
+    this->x       = x;
+    this->y       = y;
+    this->inc     = inc;
     this->num_let = strlen(this->line);
     this->letters = calloc(this->num_let, sizeof(struct Letter*));
     this->set_letters(this);

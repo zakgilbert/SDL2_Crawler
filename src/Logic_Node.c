@@ -24,11 +24,11 @@ static void _print(Logic_Node* node, int i)
 Logic_Node* CREATE_LOGIC_NODE(char* key, void* obj, logic_function funct)
 {
     Logic_Node* this = malloc(sizeof(*this));
-    this->destroy = _destroy;
-    this->print = _print;
-    this->key = key;
-    this->obj = obj;
-    this->funct = funct;
+    this->destroy    = _destroy;
+    this->print      = _print;
+    this->key        = key;
+    this->obj        = obj;
+    this->funct      = funct;
 
     return this;
 }

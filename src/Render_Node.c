@@ -33,11 +33,11 @@ static void _print(Render_Node* node, int i)
 Render_Node* CREATE_RENDER_NODE(char* key, void* obj, render_function funct)
 {
     Render_Node* this = malloc(sizeof(*this));
-    this->destroy = _destroy;
-    this->print = _print;
-    this->key = key;
-    this->funct = funct;
-    this->obj = obj;
+    this->destroy     = _destroy;
+    this->print       = _print;
+    this->key         = key;
+    this->funct       = funct;
+    this->obj         = obj;
 
     return this;
 }

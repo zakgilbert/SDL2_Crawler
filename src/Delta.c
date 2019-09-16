@@ -17,12 +17,12 @@ static uint64_t ticks_per_second;
 
 void set_up_timer()
 {
-    delta = 0;
-    time_per_tick = 1000000000 / FPS;
-    time_last = SDL_GetPerformanceCounter();
-    nano_timer = 0;
-    FRAMES_RENDERED = 0;
-    ticks_per_second = 0;
+    delta                 = 0;
+    time_per_tick         = 1000000000 / FPS;
+    time_last             = SDL_GetPerformanceCounter();
+    nano_timer            = 0;
+    FRAMES_RENDERED       = 0;
+    ticks_per_second      = 0;
     time_delay_per_second = 0;
 }
 
@@ -57,7 +57,7 @@ void reset_timer()
             printf("\nFrames Rendered Per Second: %d", frames_rendered);
             printf("\nTicks Per Second: %ld", ticks_per_second);
         }
-        FRAMES_RENDERED = 0;
+        FRAMES_RENDERED  = 0;
         ticks_per_second = 0;
     }
 }

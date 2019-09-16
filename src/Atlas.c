@@ -18,9 +18,9 @@ char** get_alphabet_str()
     char buffer[2];
     char** str = malloc(sizeof(char*) * 63);
     for (i = 0; low_c < '{' && upr_c < ']'; low_c++, upr_c++, i += 2) {
-        str[i] = malloc(1);
+        str[i]     = malloc(1);
         str[i + 1] = malloc(1);
-        buffer[0] = low_c;
+        buffer[0]  = low_c;
         strcpy(str[i], buffer);
         buffer[0] = upr_c;
         strcpy(str[i + 1], buffer);
@@ -81,9 +81,9 @@ static void _render(Alpha_Node* node, SDL_Renderer* renderer)
 
 static Alpha_Node* _search(Atlas* this, const char* key)
 {
-    int index = hash_code(key, this->size, 0);
+    int index        = hash_code(key, this->size, 0);
     Alpha_Node* item = this->letters[index];
-    int i = 1;
+    int i            = 1;
     while (NULL != item) {
         if (strcmp(item->key, key) == 0) {
             return item;
@@ -99,12 +99,12 @@ static void _insert(Atlas* this,
     SDL_Renderer* renderer,
     const char* path)
 {
-    Alpha_Node* item = CREATE_ALPHA_NODE(key, path, renderer);
-    int index = hash_code(item->key, this->size, 0);
+    Alpha_Node* item     = CREATE_ALPHA_NODE(key, path, renderer);
+    int index            = hash_code(item->key, this->size, 0);
     Alpha_Node* cur_item = this->letters[index];
-    int i = 1;
+    int i                = 1;
     while (NULL != cur_item) {
-        index = hash_code(item->key, this->size, i);
+        index    = hash_code(item->key, this->size, i);
         cur_item = this->letters[index];
         i++;
     }
@@ -114,9 +114,9 @@ static void _insert(Atlas* this,
 
 static void _map(Atlas* this, SDL_Renderer* renderer)
 {
-    int i = 0;
+    int i          = 0;
     char** alp_str = get_alphabet_str();
-    char* path = malloc(50);
+    char* path     = malloc(50);
     if (PRINT)
         printf("Create: %p\n", path);
     strcpy(path, "art/letters/");
@@ -139,17 +139,17 @@ static void _map(Atlas* this, SDL_Renderer* renderer)
 
 Atlas* CREATE_ATLAS()
 {
-    Atlas* this = malloc(sizeof(*this));
+    Atlas* this   = malloc(sizeof(*this));
     this->destroy = _destroy;
-    this->map = _map;
-    this->render = _render;
-    this->search = _search;
-    this->insert = _insert;
+    this->map     = _map;
+    this->render  = _render;
+    this->search  = _search;
+    this->insert  = _insert;
     if (PRINT)
         printf("Create: %p\n", this);
-    this->size = 127;
+    this->size    = 127;
     this->letters = calloc(this->size, sizeof(struct Alpha_Node*));
-    this->count = 0;
+    this->count   = 0;
 
     return this;
 }

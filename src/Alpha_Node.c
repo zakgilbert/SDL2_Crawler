@@ -25,7 +25,7 @@ Alpha_Node* CREATE_ALPHA_NODE(char* key, char* path, SDL_Renderer* renderer)
     this->destroy = _destroy;
 
     this->texture = create_texture(renderer, path, &this->rect);
-    this->key = key;
+    this->key     = key;
 
     return this;
 }

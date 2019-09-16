@@ -43,7 +43,7 @@ static int _on_click(Mouse* this, int state)
     if (this->lock && SDL_BUTTON(SDL_BUTTON_LEFT) && !state) {
         this->clk_x = this->get_x(this);
         this->clk_y = this->get_y(this);
-        this->bool = 1;
+        this->bool  = 1;
         return 1;
     }
     return 0;
@@ -53,21 +53,21 @@ static int _on_click(Mouse* this, int state)
 static void _get_state(Mouse* this)
 {
     this->lock = SDL_GetMouseState(&this->x, &this->y);
-    MOUSE_X = this->x;
-    MOUSE_Y = this->y;
+    MOUSE_X    = this->x;
+    MOUSE_Y    = this->y;
 }
 
 Mouse* CREATE_MOUSE(int rect_size)
 {
     Mouse* this = malloc(sizeof(*this));
 
-    this->destroy = _destroy;
-    this->get_x = _get_x;
-    this->get_y = _get_y;
-    this->on_click = _on_click;
+    this->destroy   = _destroy;
+    this->get_x     = _get_x;
+    this->get_y     = _get_y;
+    this->on_click  = _on_click;
     this->get_state = _get_state;
 
     this->rect_size = rect_size;
-    this->bool = 0;
+    this->bool      = 0;
     return this;
 }
