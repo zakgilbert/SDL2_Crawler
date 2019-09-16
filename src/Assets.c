@@ -17,7 +17,8 @@ enum asset_enum {
     floor_forest_ground,
     floor_forest_trees,
     hero,
-    hero_walk
+    hero_walk,
+    hero_attack_1
 };
 
 static char* asset_strings[] = {
@@ -30,7 +31,8 @@ static char* asset_strings_f[] = {
     "graphics/map.png",
     "graphics/forest.png",
     "graphics/pally_1_edit.png",
-    "graphics/pally_walk.png"
+    "graphics/pally_walk.png",
+    "graphics/pally_attack_1.png"
 };
 
 char** create_state(int* states, int num, char** state)
@@ -47,6 +49,7 @@ char** create_state(int* states, int num, char** state)
 }
 
 static int moving() { return ((KEY != NON) && (KEY == W)); }
+static int attack_1() { return ((KEY != NON) && (KEY == A)); }
 
 int* get_dark_forest_logic()
 {
@@ -56,6 +59,8 @@ int* get_dark_forest_logic()
     states[0]   = map_directions_e;
     if (moving())
         states[3] = hero_walk;
+    else if (attack_1())
+        states[3] = hero_attack_1;
     else
         states[3] = hero;
 
@@ -69,6 +74,8 @@ int* get_dark_forest_render()
     states[1]   = floor_forest_trees;
     if (moving())
         states[2] = hero_walk;
+    else if (attack_1())
+        states[2] = hero_attack_1;
     else
         states[2] = hero;
     return states;
@@ -90,6 +97,10 @@ Table_Container add_assets(Logic_Table* t_l, Render_Table* t_r, SDL_Renderer* re
     Sprite* hero_walk = CREATE_SPRITE(renderer, asset_strings_f[4], 10, 16, 104, 81, 1);
     t_l->insert(t_l, CREATE_LOGIC_NODE(asset_strings_f[4], hero_walk, hero_walk->logic));
     t_r->insert(t_r, CREATE_RENDER_NODE(asset_strings_f[4], hero_walk, hero_walk->render));
+
+    Sprite* hero_attack_1 = CREATE_SPRITE(renderer, asset_strings_f[5], 15, 16, 180, 135, 1);
+    t_l->insert(t_l, CREATE_LOGIC_NODE(asset_strings_f[5], hero_attack_1, hero_attack_1->logic));
+    t_r->insert(t_r, CREATE_RENDER_NODE(asset_strings_f[5], hero_attack_1, hero_attack_1->render));
     Table_Container containter = { t_l, t_r };
     return containter;
 }

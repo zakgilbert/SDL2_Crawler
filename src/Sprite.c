@@ -84,7 +84,7 @@ static void _logic(void* obj)
 {
     Sprite* this = (Sprite*)obj;
 
-    if (FRAMES_RENDERED % 7 == 0) {
+    if (FRAMES_RENDERED % 3 == 0) {
         this->row_index++;
         this->col_index++;
 
