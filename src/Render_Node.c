@@ -3,9 +3,6 @@
 *  Render_Node.c
 */
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
 #include <SDL2/SDL.h>
 #include "Render_Node.h"
 #include "Header.h"

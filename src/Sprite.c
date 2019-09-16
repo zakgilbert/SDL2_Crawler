@@ -3,17 +3,74 @@
 *  Sprite.c
 */
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <time.h>
-#include <math.h>
 #include <SDL2/SDL.h>
-#include <SDL2/SDL_timer.h>
-#include <SDL2/SDL_image.h>
 #include "Sprite.h"
 #include "Header.h"
 #include "Graphics.h"
+
+/**
+ * Private
+ * Return the angle between two points in radians
+ */
+static double get_radian_angle(Sprite *this)
+{
+    double pi = 3.14159;
+    typedef struct _point
+    {
+        int x;
+        int y;
+    } point;
+    point p1 = {WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2};
+    point p2 = {MOUSE_X, MOUSE_Y};
+
+    double delta_X = (double)(p1.x - p2.x);
+    double delta_Y = (double)(p2.y - p1.y);
+    double result = atan2(delta_X, delta_Y);
+    return (result * (180 / pi));
+}
+
+/**
+ * Private
+ * Convert radian to degrees
+ */
+static double get_degree_angle(double angle)
+{
+    double dif = 0.0f;
+    if (angle < 0.0f)
+    {
+        dif = (abs(abs(angle) - 180.0f));
+        dif += 180.0f;
+    }
+    else
+    {
+        dif = angle;
+    }
+    return dif;
+}
+
+/**
+ * Set proper coordinates of each frame
+ */
+static void set_sprite_cords(Sprite *this)
+{
+    int x = 0;
+    int y = 0;
+
+    for (int i = 0; i < this->num_frames; i++)
+    {
+        this->rects[i] = malloc(sizeof(struct SDL_Rect));
+        if (x >= (this->rect.w * this->rows))
+        {
+            y += this->rect.h;
+            x = 0;
+        }
+        this->rects[i]->x = x;
+        this->rects[i]->y = y;
+        this->rects[i]->w = this->rect.w;
+        this->rects[i]->h = this->rect.h;
+        x += this->rect.w;
+    }
+}
 
 static void _destroy(Sprite *this)
 {
@@ -34,38 +91,6 @@ static void _render(void *obj, SDL_Renderer *renderer)
 {
     Sprite *this = (Sprite *)obj;
     SDL_RenderCopy(renderer, this->texture, this->frame, &this->rect);
-}
-
-static double get_radian_angle(Sprite *this)
-{
-    double pi = 3.14159;
-    typedef struct _point
-    {
-        int x;
-        int y;
-    } point;
-    point p1 = {WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2};
-    point p2 = {MOUSE_X, MOUSE_Y};
-
-    double delta_X = (double)(p1.x - p2.x);
-    double delta_Y = (double)(p2.y - p1.y);
-    double result = atan2(delta_X, delta_Y);
-    return (result * (180 / pi));
-}
-
-static double get_degree_angle(double angle)
-{
-    double dif = 0.0f;
-    if (angle < 0.0f)
-    {
-        dif = (abs(abs(angle) - 180.0f));
-        dif += 180.0f;
-    }
-    else
-    {
-        dif = angle;
-    }
-    return dif;
 }
 
 static void _logic(void *obj)
@@ -92,13 +117,9 @@ static void _logic(void *obj)
         this->frame = this->rects[this->row_index];
     }
 }
-
 Sprite *CREATE_SPRITE(SDL_Renderer *renderer, char *path, int rows, int cols, int w, int h, int type)
 {
     Sprite *this = malloc(sizeof(*this));
-
-    int x = 0;
-    int y = 0;
 
     this->print = _print;
     this->destroy = _destroy;
@@ -117,20 +138,8 @@ Sprite *CREATE_SPRITE(SDL_Renderer *renderer, char *path, int rows, int cols, in
     this->col_index = 0;
     this->rects = malloc(sizeof(struct SDL_Rect *) * this->num_frames);
 
-    for (int i = 0; i < this->num_frames; i++)
-    {
-        this->rects[i] = malloc(sizeof(struct SDL_Rect));
-        if (x >= (w * rows))
-        {
-            y += h;
-            x = 0;
-        }
-        this->rects[i]->x = x;
-        this->rects[i]->y = y;
-        this->rects[i]->w = w;
-        this->rects[i]->h = h;
-        x += w;
-    }
+    set_sprite_cords(this);
+
     this->frame = this->rects[0];
     return this;
 }

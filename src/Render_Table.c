@@ -3,10 +3,6 @@
 	 *  Render_Table.c
 	*/
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <math.h>
 #include <SDL2/SDL.h>
 #include "Render_Table.h"
 #include "Render_Node.h"
@@ -63,8 +59,8 @@ static void _destroy(Render_Table *this)
     Render_Node *dummy = NULL;
     if (NULL != this)
     {
-        if(PRINT)
-        printf("\n  Deallocating Render_Table Table            %p\n\n", this);
+        if (PRINT)
+            printf("\n  Deallocating Render_Table Table            %p\n\n", this);
         for (size_t i = 0; i < this->size; i++)
         {
             temp = this->table[i];

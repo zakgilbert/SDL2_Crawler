@@ -1,11 +1,5 @@
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <time.h>
-#include <math.h>
 #include <SDL2/SDL.h>
-#include <SDL2/SDL_timer.h>
-#include <SDL2/SDL_image.h>
 #include "Delta.h"
 #include "Header.h"
 
@@ -26,7 +20,7 @@ void set_up_timer()
     time_per_tick = 1000000000 / FPS;
     time_last = SDL_GetPerformanceCounter();
     nano_timer = 0;
-    frames_rendered = 0;
+    FRAMES_RENDERED = 0;
     ticks_per_second = 0;
     time_delay_per_second = 0;
 }
@@ -52,7 +46,7 @@ int check_delta()
 void update_delta()
 {
     delta--;
-    frames_rendered++;
+    FRAMES_RENDERED++;
 }
 
 void reset_timer()
@@ -65,14 +59,14 @@ void reset_timer()
             printf("\nFrames Rendered Per Second: %d", frames_rendered);
             printf("\nTicks Per Second: %ld", ticks_per_second);
         }
-        frames_rendered = 0;
+        FRAMES_RENDERED = 0;
         ticks_per_second = 0;
     }
 }
 
-int delay()
+void delay()
 {
-    frames_rendered++;
+    FRAMES_RENDERED++;
     if (nano_timer < time_per_tick)
     {
         time_delay_per_second = ((time_per_tick - nano_timer) / (SDL_GetPerformanceFrequency() * 0.001));
@@ -80,5 +74,4 @@ int delay()
         //  printf("\nTimeDelayed is: %Lf", time_delay_per_second);
         //    printf("\nTimeDelayed int is: %Lf", time_delay_per_second);
     }
-    return frames_rendered;
 }

@@ -3,12 +3,7 @@
 	 *  Mouse.c  ^. .^
     */
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
 #include <SDL2/SDL.h>
-#include <SDL2/SDL_timer.h>
-#include <SDL2/SDL_image.h>
 #include "Header.h"
 #include "Mouse.h"
 
@@ -65,7 +60,7 @@ static void _get_state(Mouse *this)
 Mouse *CREATE_MOUSE(int rect_size)
 {
     Mouse *this = malloc(sizeof(*this));
-    
+
     this->destroy = _destroy;
     this->get_x = _get_x;
     this->get_y = _get_y;

@@ -3,12 +3,7 @@
 	 *  Line.c
 	*/
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
 #include <SDL2/SDL.h>
-#include <SDL2/SDL_timer.h>
-#include <SDL2/SDL_image.h>
 #include "Line.h"
 #include "Header.h"
 #include "Atlas.h"
@@ -92,7 +87,7 @@ static void _set_letters(Line *this)
 Line *CREATE_LINE(Atlas *atlas, const char *line, int x, int y, int inc)
 {
     Line *this = malloc(sizeof(*this));
-    
+
     this->destroy = _destroy;
     this->render_letter = _render_letter;
     this->set_letters = _set_letters;

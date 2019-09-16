@@ -3,13 +3,7 @@
 	 *  Atlas.c
 	*/
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <math.h>
 #include <SDL2/SDL.h>
-#include <SDL2/SDL_timer.h>
-#include <SDL2/SDL_image.h>
 #include "Atlas.h"
 #include "Graphics.h"
 #include "Alpha_Node.h"

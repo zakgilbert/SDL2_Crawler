@@ -3,12 +3,7 @@
 *  Alpha_Node.c
 */
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
 #include <SDL2/SDL.h>
-#include <SDL2/SDL_timer.h>
-#include <SDL2/SDL_image.h>
 #include "Alpha_Node.h"
 #include "Graphics.h"
 #include "Header.h"
@@ -23,7 +18,7 @@ static void _destroy(Alpha_Node *this)
     }
 }
 
-Alpha_Node *CREATE_ALPHA_NODE(char *key,  char *path, SDL_Renderer *renderer)
+Alpha_Node *CREATE_ALPHA_NODE(char *key, char *path, SDL_Renderer *renderer)
 {
     Alpha_Node *this = malloc(sizeof(*this));
     if (PRINT)

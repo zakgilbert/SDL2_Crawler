@@ -6,12 +6,13 @@ typedef struct _Logic_Table Logic_Table;
 typedef struct _Render_Table Render_Table;
 typedef struct _Logic_Node Logic_Node;
 typedef struct _Render_Node Render_Node;
-struct Table_Container
+
+typedef struct _Table_Container
 {
     Logic_Table *t_l;
     Render_Table *t_r;
-};
-struct Table_Container add_assets(Logic_Table *t_l, Render_Table *t_r, SDL_Renderer *renderer);
+} Table_Container;
+Table_Container add_assets(Logic_Table *t_l, Render_Table *t_r, SDL_Renderer *renderer);
 
 Render_Table *add_render(Render_Table *table, SDL_Renderer *renderer);
 

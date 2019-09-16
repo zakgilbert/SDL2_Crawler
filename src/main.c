@@ -1,23 +1,15 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <time.h>
-#include <math.h>
-#include <SDL2/SDL.h>
-#include <SDL2/SDL_timer.h>
-#include <SDL2/SDL_image.h>
-#include <SDL2/SDL_thread.h>
-
-#include "Header.h"
-#include "Floor.h"
-#include "Atlas.h"
-#include "Input.h"
-#include "Delta.h"
-#include "Graphics.h"
-#include "Logic_Table.h"
-#include "Render_Table.h"
-#include "Assets.h"
-#include "Sprite.h"
-#include "Mouse.h"
+#include <SDL2/SDL.h>     /* SDL2 Library */
+#include "Header.h"       /* Globals */
+#include "Floor.h"        /* Game Class */
+#include "Atlas.h"        /* Font Atlas */
+#include "Input.h"        /* Player Input */
+#include "Delta.h"        /* Timing */
+#include "Graphics.h"     /* SDL2 graphics functions */
+#include "Logic_Table.h"  /* Hashtable of Logic_Nodes */
+#include "Render_Table.h" /* Hashtable of Render_Nodes */
+#include "Assets.h"       /* Add game assests to hastables */
+#include "Sprite.h"       /* Game Class*/
+#include "Mouse.h"        /* ^..^ */
 
 static void DEFINE_GLOBALS()
 {
@@ -29,16 +21,16 @@ static void DEFINE_GLOBALS()
 
 int main(int argc, char **argv)
 {
-    char **state_logic;               /* State list for logic functions */
-    char **state_render;              /* State list for render functions */
-    struct Table_Container container; /* Container of hashtables */
-    struct SDL_Window *window;        /* The game window */
-    struct SDL_Renderer *renderer;    /* The game renderer */
-    Atlas *letters;                   /* Font Atlas */
-    Mouse *mouse;                     /* Mouse Object */
-    Render_Table *render_table;       /* Hashtable of render functions */
-    Logic_Table *logic_table;         /* Hashtable of logic functions */
-    SDL_Thread *input_thread;         /* Thread that runs function input handler */
+    char **state_logic;         /* State list for logic functions */
+    char **state_render;        /* State list for render functions */
+    SDL_Window *window;         /* The game window */
+    SDL_Renderer *renderer;     /* The game renderer */
+    Atlas *letters;             /* Font Atlas */
+    Mouse *mouse;               /* Mouse Object */
+    Render_Table *render_table; /* Hashtable of render functions */
+    Logic_Table *logic_table;   /* Hashtable of logic functions */
+    Table_Container container;  /* Container of hashtables */
+    SDL_Thread *input_thread;   /* Thread that runs function input handler */
 
     SDL_init();
 
@@ -67,6 +59,7 @@ int main(int argc, char **argv)
     while (!EXIT())
     {
         start_timer();
+
         state_logic = create_state(get_dark_forest_logic(), 4, state_logic);
         state_render = create_state(get_dark_forest_render(), 3, state_render);
         mouse->get_state(mouse);
@@ -74,7 +67,7 @@ int main(int argc, char **argv)
         logic(logic_table, state_logic, 4);
         draw(render_table, state_render, renderer, 3);
 
-        FRAMES_RENDERED = delay();
+        delay();
         set_fullscreen(window);
         reset_timer();
     }

@@ -3,10 +3,6 @@
 	 *  Hash_l.c
 	*/
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <math.h>
 #include <SDL2/SDL.h>
 #include "Logic_Table.h"
 #include "Logic_Node.h"

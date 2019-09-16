@@ -3,12 +3,7 @@
 *  Assets.c
 */
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
 #include <SDL2/SDL.h>
-#include <SDL2/SDL_timer.h>
-#include <SDL2/SDL_image.h>
 #include "Assets.h"
 #include "Header.h"
 #include "Floor.h"
@@ -86,7 +81,7 @@ int *get_dark_forest_render()
     return states;
 }
 
-struct Table_Container add_assets(Logic_Table *t_l, Render_Table *t_r, SDL_Renderer *renderer)
+Table_Container add_assets(Logic_Table *t_l, Render_Table *t_r, SDL_Renderer *renderer)
 {
     for (int i = 0; i < ASSETS_NUM; i++)
     {
@@ -103,7 +98,7 @@ struct Table_Container add_assets(Logic_Table *t_l, Render_Table *t_r, SDL_Rende
     Sprite *hero_walk = CREATE_SPRITE(renderer, asset_strings_f[4], 10, 16, 104, 81, 1);
     t_l->insert(t_l, CREATE_LOGIC_NODE(asset_strings_f[4], hero_walk, hero_walk->logic));
     t_r->insert(t_r, CREATE_RENDER_NODE(asset_strings_f[4], hero_walk, hero_walk->render));
-    struct Table_Container containter = {t_l, t_r};
+    Table_Container containter = {t_l, t_r};
     return containter;
 }
 
