@@ -17,6 +17,8 @@ make
 ./game
 ```
 ## How to Contribute
+### Style
+The clang format file is in the root directory. For vscode install and enable the C/C++ extension, search user settings for `C_Cpp: Clang_format_style` and set it to file.
 ### Game States
 A game is defined by it's states, thus the best way to contribute would be to implement more states.
 Every state is represented by an array of strings and a corresponding enum and is defined as follows...
