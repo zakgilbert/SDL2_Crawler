@@ -1,10 +1,4 @@
-
-/**
-*  Sprite.c
-*/
-
 #include <SDL2/SDL.h>
-
 #include "Graphics.h"
 #include "Header.h"
 #include "Sprite.h"

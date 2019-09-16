@@ -1,10 +1,4 @@
-
-/**
-*  Assets.c
-*/
-
 #include <SDL2/SDL.h>
-
 #include "Assets.h"
 #include "Floor.h"
 #include "Header.h"

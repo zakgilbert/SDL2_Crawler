@@ -1,9 +1,4 @@
-
-/**
-*  Logic_Node.c
-*/
 #include <SDL2/SDL.h>
-
 #include "Header.h"
 #include "Logic_Node.h"
 

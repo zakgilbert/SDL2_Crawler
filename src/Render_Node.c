@@ -1,10 +1,4 @@
-
-/**
-*  Render_Node.c
-*/
-
 #include <SDL2/SDL.h>
-
 #include "Header.h"
 #include "Render_Node.h"
 

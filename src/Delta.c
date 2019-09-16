@@ -1,6 +1,4 @@
-
 #include <SDL2/SDL.h>
-
 #include "Delta.h"
 #include "Header.h"
 

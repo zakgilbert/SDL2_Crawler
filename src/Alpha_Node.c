@@ -1,9 +1,4 @@
-
-/**
-*  Alpha_Node.c
-*/
 #include <SDL2/SDL.h>
-
 #include "Alpha_Node.h"
 #include "Graphics.h"
 #include "Header.h"

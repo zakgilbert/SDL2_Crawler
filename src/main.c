@@ -1,5 +1,4 @@
-#include <SDL2/SDL.h> /* SDL2 Library */
-
+#include <SDL2/SDL.h>     /* SDL2 Library */
 #include "Assets.h"       /* Add game assests to hastables */
 #include "Atlas.h"        /* Font Atlas */
 #include "Delta.h"        /* Timing */

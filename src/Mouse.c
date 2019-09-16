@@ -1,10 +1,4 @@
-
-/************************
-	 *  Mouse.c  ^. .^
-    */
-
 #include <SDL2/SDL.h>
-
 #include "Header.h"
 #include "Mouse.h"
 

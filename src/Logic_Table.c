@@ -1,10 +1,4 @@
-
-/************************
-	 *  Hash_l.c
-	*/
-
 #include <SDL2/SDL.h>
-
 #include "Header.h"
 #include "Logic_Node.h"
 #include "Logic_Table.h"

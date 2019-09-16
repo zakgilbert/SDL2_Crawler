@@ -1,10 +1,5 @@
 
-/************************
-	 *  Line.c
-	*/
-
 #include <SDL2/SDL.h>
-
 #include "Alpha_Node.h"
 #include "Atlas.h"
 #include "Header.h"

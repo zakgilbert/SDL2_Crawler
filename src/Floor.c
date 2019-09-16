@@ -1,6 +1,4 @@
-
 #include <SDL2/SDL.h>
-
 #include "Floor.h"
 #include "Graphics.h"
 #include "Header.h"

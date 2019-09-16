@@ -1,10 +1,4 @@
-
-/************************
-	 *  Render_Table.c
-	*/
-
 #include <SDL2/SDL.h>
-
 #include "Header.h"
 #include "Render_Node.h"
 #include "Render_Table.h"
