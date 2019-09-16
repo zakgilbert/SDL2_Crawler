@@ -49,6 +49,10 @@ enum KEYS {
     NON
 } KEY;
 
+enum SPRITE_TYPES {
+    MOVEMENT,
+    ACTION
+};
 /* Assigns values to globals at runtime */
 
 #endif

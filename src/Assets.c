@@ -83,6 +83,8 @@ int* get_dark_forest_render()
 
 Table_Container add_assets(Logic_Table* t_l, Render_Table* t_r, SDL_Renderer* renderer)
 {
+    Table_Container container;
+
     for (int i = 0; i < ASSETS_NUM; i++) {
         Floor* floor = CREATE_FLOOR(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT, renderer, asset_strings[i]);
         t_l->insert(t_l, CREATE_LOGIC_NODE(asset_strings[i], floor, floor->logic));
@@ -90,19 +92,22 @@ Table_Container add_assets(Logic_Table* t_l, Render_Table* t_r, SDL_Renderer* re
     }
     t_l->insert(t_l, CREATE_LOGIC_NODE("map_directions", NULL, map_directions));
 
-    Sprite* hero = CREATE_SPRITE(renderer, asset_strings_f[3], 16, 16, 62, 80, 0);
+    Sprite* hero = CREATE_SPRITE(renderer, asset_strings_f[3], 16, 16, 62, 80, MOVEMENT);
     t_l->insert(t_l, CREATE_LOGIC_NODE(asset_strings_f[3], hero, hero->logic));
     t_r->insert(t_r, CREATE_RENDER_NODE(asset_strings_f[3], hero, hero->render));
 
-    Sprite* hero_walk = CREATE_SPRITE(renderer, asset_strings_f[4], 10, 16, 104, 81, 1);
+    Sprite* hero_walk = CREATE_SPRITE(renderer, asset_strings_f[4], 10, 16, 104, 81, MOVEMENT);
     t_l->insert(t_l, CREATE_LOGIC_NODE(asset_strings_f[4], hero_walk, hero_walk->logic));
     t_r->insert(t_r, CREATE_RENDER_NODE(asset_strings_f[4], hero_walk, hero_walk->render));
 
-    Sprite* hero_attack_1 = CREATE_SPRITE(renderer, asset_strings_f[5], 15, 16, 180, 135, 1);
+    Sprite* hero_attack_1 = CREATE_SPRITE(renderer, asset_strings_f[5], 15, 16, 180, 135, ACTION);
     t_l->insert(t_l, CREATE_LOGIC_NODE(asset_strings_f[5], hero_attack_1, hero_attack_1->logic));
     t_r->insert(t_r, CREATE_RENDER_NODE(asset_strings_f[5], hero_attack_1, hero_attack_1->render));
-    Table_Container containter = { t_l, t_r };
-    return containter;
+
+    container.t_l = t_l;
+    container.t_r = t_r;
+
+    return container;
 }
 
 void draw(Render_Table* table, char** state, SDL_Renderer* renderer, int num)
