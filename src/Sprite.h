@@ -20,6 +20,7 @@ typedef struct _Sprite {
     int rows;             /* Number of rows */
     int row_index;        /* */
     int col_index;        /* */
+    int action_started;
 
 } Sprite;
 Sprite* CREATE_SPRITE(SDL_Renderer* renderer, char* path, int rows, int cols, int w, int h, int type);

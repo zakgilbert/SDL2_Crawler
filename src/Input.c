@@ -24,11 +24,13 @@ int input_handler(void* data)
                 continue;
             case SDL_SCANCODE_A:
             case SDL_SCANCODE_LEFT:
-                KEY = A;
+                IN_ATTACK_ONE = 1;
+                KEY           = A;
                 continue;
             case SDL_SCANCODE_D:
             case SDL_SCANCODE_RIGHT:
-                KEY = D;
+                IN_ATTACK_TWO = 1;
+                KEY           = D;
                 continue;
             case SDL_SCANCODE_J:
                 KEY = J;

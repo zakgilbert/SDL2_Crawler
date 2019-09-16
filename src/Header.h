@@ -21,6 +21,8 @@ extern int MOUSE_ANGLE;     /* Angle in degrees of from center of frame to mouse
 extern int MOUSE_X;         /* Global mouse x coordinate */
 extern int MOUSE_Y;         /* Global mouse y coordinate */
 extern Uint8* KEY_STATE;    /* Array of key states */
+extern int IN_ATTACK_ONE;   /* Action Animation in progress */
+extern int IN_ATTACK_TWO;   /* Action Animation in progress */
 
 int FPS;
 int FULLSCREEN_ON;
@@ -31,6 +33,8 @@ int MOUSE_ANGLE;
 int MOUSE_X;
 int MOUSE_Y;
 Uint8* KEY_STATE;
+int IN_ATTACK_ONE;
+int IN_ATTACK_TWO;
 
 /**
  * Enum values can be referenced as follows...
