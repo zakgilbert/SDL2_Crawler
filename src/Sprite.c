@@ -9,7 +9,6 @@
  */
 static double get_radian_angle(Sprite* this)
 {
-    double pi = 3.14159;
     typedef struct _point {
         int x;
         int y;
@@ -20,7 +19,7 @@ static double get_radian_angle(Sprite* this)
     double delta_X = (double)(p1.x - p2.x);
     double delta_Y = (double)(p2.y - p1.y);
     double result  = atan2(delta_X, delta_Y);
-    return (result * (180 / pi));
+    return (result * (180 / PI));
 }
 
 /**
@@ -93,9 +92,7 @@ static void _logic(void* obj)
             this->col_index = 0;
             this->row_index -= this->rows;
         }
-        double angle = get_radian_angle(this);
-        MOUSE_ANGLE  = (int)(get_degree_angle(angle) / 22.0f);
-
+        MOUSE_ANGLE     = (int)(get_degree_angle(get_radian_angle(this)) / 22.0f);
         this->row_index = (MOUSE_ANGLE * this->rows) + this->col_index;
 
         if (this->row_index >= this->num_frames)

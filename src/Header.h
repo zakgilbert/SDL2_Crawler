@@ -5,11 +5,12 @@
 #define JRPG_HEADER_H
 
 #define PRINT 0           /* Set to 1 to print game data */
-#define WINDOW_WIDTH 356  /* Width of window before fullscreen */
-#define WINDOW_HEIGHT 324 /* Width of window before fullscreen */
+#define WINDOW_WIDTH 720  /* Width of window before fullscreen */
+#define WINDOW_HEIGHT 576 /* Width of window before fullscreen */
 #define PRIME_1 163       /* Prime numbers for seeding has tables */
 #define PRIME_2 151       /* Prime numbers for seeding has tables */
 #define TABLE_SIZE 500    /* Generic size for hash tables */
+#define PI 3.14159        /* Ratio of a circle's circumference to its diameter */
 
 extern int FPS;             /* Frames per Second */
 extern int FULLSCREEN_ON;   /* Fullscreen boolean */

@@ -63,5 +63,6 @@ Mouse* CREATE_MOUSE(int rect_size)
 
     this->rect_size = rect_size;
     this->bool      = 0;
+
     return this;
 }

@@ -113,7 +113,10 @@ static void _grow(Logic_Table* this)
     this->size  = old_size * 2;
     this->table = realloc(this->table, (sizeof(Logic_Node*)) * (this->size));
     this->count = 0;
-    printf("\n       Resizing Hash_l Table               %p\n\n", this->table);
+
+    if (PRINT)
+        printf("\n       Resizing Hash_l Table               %p\n\n", this->table);
+
     for (int i = 0; i < old_size; i++) {
         temp_n = temp[i];
         if (NULL != temp_n) {
@@ -130,9 +133,14 @@ static void _grow(Logic_Table* this)
  */
 static void _insert(Logic_Table* this, Logic_Node* item)
 {
-    int index            = hash_code(item->key, this->size, 0);
-    Logic_Node* cur_item = this->table[index];
-    int i                = 1;
+    int index;
+    Logic_Node* cur_item;
+    int i;
+
+    index    = hash_code(item->key, this->size, 0);
+    cur_item = this->table[index];
+    i        = 1;
+
     if (check_size(this->size, this->count) == 1)
         this->grow(this);
     while (NULL != cur_item) {
@@ -166,11 +174,6 @@ static void _delete(Logic_Table* this, char* key)
 Logic_Table* CREATE_LOGIC_TABLE(int size)
 {
     Logic_Table* this = malloc(sizeof(*this));
-    this->size        = size;
-    this->table       = malloc(sizeof(Logic_Node*) * this->size);
-
-    for (int i = 0; i < this->size; i++)
-        this->table[i] = NULL;
 
     this->destroy     = _destroy;
     this->search      = _search;
@@ -178,8 +181,15 @@ Logic_Table* CREATE_LOGIC_TABLE(int size)
     this->grow        = _grow;
     this->insert      = _insert;
     this->delete      = _delete;
-    this->count       = 0;
+
+    this->size  = size;
+    this->table = malloc(sizeof(Logic_Node*) * this->size);
+    this->count = 0;
+
+    for (int i = 0; i < this->size; i++)
+        this->table[i] = NULL;
     if (PRINT)
         printf("\n  Allocating Hash_l Table              %p\n\n", this);
+
     return this;
 }

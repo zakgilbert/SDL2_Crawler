@@ -15,12 +15,13 @@ static void _destroy(Alpha_Node* this)
 Alpha_Node* CREATE_ALPHA_NODE(char* key, char* path, SDL_Renderer* renderer)
 {
     Alpha_Node* this = malloc(sizeof(*this));
+
+    this->destroy = _destroy;
+    this->key     = key;
+    this->texture = create_texture(renderer, path, &this->rect);
+
     if (PRINT)
         printf("Create: %p\n", this);
-    this->destroy = _destroy;
-
-    this->texture = create_texture(renderer, path, &this->rect);
-    this->key     = key;
 
     return this;
 }

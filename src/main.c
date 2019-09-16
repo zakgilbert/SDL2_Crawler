@@ -11,13 +11,7 @@
 #include "Render_Table.h" /* Hashtable of Render_Nodes */
 #include "Sprite.h"       /* Game Class*/
 
-static void DEFINE_GLOBALS()
-{
-    KEY           = NON;
-    FULLSCREEN_ON = 0;
-    KEY_STATE     = (Uint8*)SDL_GetKeyboardState(NULL);
-    FPS           = 60;
-}
+void DEFINE_GLOBALS();
 
 int main(int argc, char** argv)
 {
@@ -79,5 +73,14 @@ int main(int argc, char** argv)
     SDL_DestroyRenderer(renderer);
     SDL_DestroyWindow(window);
     SDL_Quit();
+
     return 0;
+}
+
+void DEFINE_GLOBALS()
+{
+    KEY           = NON;
+    FULLSCREEN_ON = 0;
+    KEY_STATE     = (Uint8*)SDL_GetKeyboardState(NULL);
+    FPS           = 60;
 }
