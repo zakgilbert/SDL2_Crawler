@@ -83,4 +83,6 @@ void DEFINE_GLOBALS()
     FULLSCREEN_ON = 0;
     KEY_STATE     = (Uint8*)SDL_GetKeyboardState(NULL);
     FPS           = 60;
+    IN_ATTACK_ONE = 0;
+    IN_ATTACK_TWO = 0;
 }

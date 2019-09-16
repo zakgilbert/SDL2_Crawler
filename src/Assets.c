@@ -18,7 +18,8 @@ enum asset_enum {
     floor_forest_trees,
     hero,
     hero_walk,
-    hero_attack_1
+    hero_attack_1,
+    hero_attack_2
 };
 
 static char* asset_strings[] = {
@@ -32,7 +33,8 @@ static char* asset_strings_f[] = {
     "graphics/forest.png",
     "graphics/pally_1_edit.png",
     "graphics/pally_walk.png",
-    "graphics/pally_attack_1.png"
+    "graphics/pally_attack_1.png",
+    "graphics/pally_attack_2.png"
 };
 
 char** create_state(int* states, int num, char** state)
@@ -49,7 +51,7 @@ char** create_state(int* states, int num, char** state)
 }
 
 static int moving() { return ((KEY != NON) && (KEY == W)); }
-static int attack_1() { return ((KEY != NON) && (KEY == A)); }
+static int attack_1() { return ((KEY != NON) && (!IN_ATTACK_ONE)); }
 
 int* get_dark_forest_logic()
 {
@@ -59,8 +61,10 @@ int* get_dark_forest_logic()
     states[0]   = map_directions_e;
     if (moving())
         states[3] = hero_walk;
-    else if (attack_1())
+    else if (IN_ATTACK_ONE)
         states[3] = hero_attack_1;
+    else if (IN_ATTACK_TWO)
+        states[3] = hero_attack_2;
     else
         states[3] = hero;
 
@@ -74,8 +78,10 @@ int* get_dark_forest_render()
     states[1]   = floor_forest_trees;
     if (moving())
         states[2] = hero_walk;
-    else if (attack_1())
+    else if (IN_ATTACK_ONE)
         states[2] = hero_attack_1;
+    else if (IN_ATTACK_TWO)
+        states[2] = hero_attack_2;
     else
         states[2] = hero;
     return states;
@@ -103,6 +109,10 @@ Table_Container add_assets(Logic_Table* t_l, Render_Table* t_r, SDL_Renderer* re
     Sprite* hero_attack_1 = CREATE_SPRITE(renderer, asset_strings_f[5], 15, 16, 180, 135, ACTION);
     t_l->insert(t_l, CREATE_LOGIC_NODE(asset_strings_f[5], hero_attack_1, hero_attack_1->logic));
     t_r->insert(t_r, CREATE_RENDER_NODE(asset_strings_f[5], hero_attack_1, hero_attack_1->render));
+
+    Sprite* hero_attack_2 = CREATE_SPRITE(renderer, asset_strings_f[6], 12, 16, 171, 123, ACTION);
+    t_l->insert(t_l, CREATE_LOGIC_NODE(asset_strings_f[6], hero_attack_2, hero_attack_2->logic));
+    t_r->insert(t_r, CREATE_RENDER_NODE(asset_strings_f[6], hero_attack_2, hero_attack_2->render));
 
     container.t_l = t_l;
     container.t_r = t_r;
