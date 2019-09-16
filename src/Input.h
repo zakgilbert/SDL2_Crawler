@@ -4,7 +4,7 @@
 /**
  * Thread handler for player inputs.
  */
-int input_handler(void *data);
+int input_handler(void* data);
 
 /** 
  * UP:

@@ -1,22 +1,20 @@
 #include <SDL2/SDL.h>
+
 #include "Header.h"
 #include "Input.h"
 
-int input_handler(void *data)
+int input_handler(void* data)
 {
     union SDL_Event ev; /*union for SDL event */
 
-    while (SDL_WaitEvent(&ev) && !EXIT())
-    {
-        switch (ev.type)
-        {
+    while (SDL_WaitEvent(&ev) && !EXIT()) {
+        switch (ev.type) {
         case SDL_QUIT:
             KEY_STATE[O] = 1;
             break;
 
         case SDL_KEYDOWN:
-            switch (ev.key.keysym.scancode)
-            {
+            switch (ev.key.keysym.scancode) {
             case SDL_SCANCODE_S:
             case SDL_SCANCODE_DOWN:
                 KEY = S;
@@ -45,8 +43,7 @@ int input_handler(void *data)
             break;
         case SDL_KEYUP:
             KEY = NON;
-            switch (ev.key.keysym.scancode)
-            {
+            switch (ev.key.keysym.scancode) {
             case SDL_SCANCODE_S:
             case SDL_SCANCODE_DOWN:
                 continue;
@@ -94,12 +91,10 @@ int EXIT() { return confirm(KEY_STATE[O]); }
 int FULL() { return confirm(KEY_STATE[F]); }
 int NOTHING_PRESSED() { return confirm(KEY_STATE[NON]); }
 
-void map_directions(void *obj)
+void map_directions(void* obj)
 {
-    if (KEY == W)
-    {
-        switch (MOUSE_ANGLE)
-        {
+    if (KEY == W) {
+        switch (MOUSE_ANGLE) {
         case 0:
         case 16:
             Y--;

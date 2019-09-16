@@ -4,11 +4,12 @@
     */
 
 #include <SDL2/SDL.h>
+
 #include "Header.h"
 #include "Mouse.h"
 
 /* Free memory allocated for Mouse object */
-static void _destroy(Mouse *this)
+static void _destroy(Mouse* this)
 {
     if (NULL == this)
         free(this);
@@ -17,7 +18,7 @@ static void _destroy(Mouse *this)
 /**
  * Get the mouse x cordinate after click such that the value returned is the x cordinate of the rectangle where the click occurred.
  */
-static int _get_x(Mouse *this)
+static int _get_x(Mouse* this)
 {
     int result;
     result = this->x % WINDOW_WIDTH;
@@ -28,7 +29,7 @@ static int _get_x(Mouse *this)
 /**
  * Get the mouse y cordinate after click such that the value returned is the y cordinate of the rectangle where the click occurred.
  */
-static int _get_y(Mouse *this)
+static int _get_y(Mouse* this)
 {
     int result;
     result = this->y % WINDOW_HEIGHT;
@@ -37,10 +38,9 @@ static int _get_y(Mouse *this)
 }
 
 /* If a valid click has occurred set the mouse coordinates and return true, else return false */
-static int _on_click(Mouse *this, int state)
+static int _on_click(Mouse* this, int state)
 {
-    if (this->lock && SDL_BUTTON(SDL_BUTTON_LEFT) && !state)
-    {
+    if (this->lock && SDL_BUTTON(SDL_BUTTON_LEFT) && !state) {
         this->clk_x = this->get_x(this);
         this->clk_y = this->get_y(this);
         this->bool = 1;
@@ -50,16 +50,16 @@ static int _on_click(Mouse *this, int state)
 }
 
 /* Call the SDL_GetMouseState function */
-static void _get_state(Mouse *this)
+static void _get_state(Mouse* this)
 {
     this->lock = SDL_GetMouseState(&this->x, &this->y);
     MOUSE_X = this->x;
     MOUSE_Y = this->y;
 }
 
-Mouse *CREATE_MOUSE(int rect_size)
+Mouse* CREATE_MOUSE(int rect_size)
 {
-    Mouse *this = malloc(sizeof(*this));
+    Mouse* this = malloc(sizeof(*this));
 
     this->destroy = _destroy;
     this->get_x = _get_x;
