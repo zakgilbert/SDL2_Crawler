@@ -53,12 +53,12 @@ int main(int argc, char** argv)
     while (!EXIT()) {
         start_timer();
 
-        state_logic  = create_state(get_dark_forest_logic(), 4, state_logic);
-        state_render = create_state(get_dark_forest_render(), 3, state_render);
+        state_logic  = create_state(get_dark_forest_logic(), 5, state_logic);
+        state_render = create_state(get_dark_forest_render(), 4, state_render);
         mouse->get_state(mouse);
 
-        logic(logic_table, state_logic, 4);
-        draw(render_table, state_render, renderer, 3);
+        logic(logic_table, state_logic, 5);
+        draw(render_table, state_render, renderer, 4);
 
         delay();
         set_fullscreen(window);

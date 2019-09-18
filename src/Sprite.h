@@ -15,14 +15,17 @@ typedef struct _Sprite {
     SDL_Rect* frame;      /* SDL Rectangle for the frame to be rendered */
     SDL_Texture* texture; /* SDL Texture to be rendered */
     int num_frames;       /* THe number of frames */
-    int type;             /* The type of sprite */
-    int cols;             /* Number of columns */
-    int rows;             /* Number of rows */
-    int row_index;        /* */
-    int col_index;        /* */
+    int state;            /* The type of sprite */
+    int type;
+    int cols;      /* Number of columns */
+    int rows;      /* Number of rows */
+    int row_index; /* */
+    int col_index; /* */
     int action_started;
+    int x_origin;
+    int y_origin;
 
 } Sprite;
-Sprite* CREATE_SPRITE(SDL_Renderer* renderer, char* path, int rows, int cols, int w, int h, int type);
+Sprite* CREATE_SPRITE(SDL_Renderer* renderer, char* path, int rows, int cols, int x, int y, int w, int h, int state, int type);
 
 #endif /* SPRITE_H */
