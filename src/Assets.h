@@ -16,8 +16,7 @@ Table_Container add_assets(Logic_Table* t_l, Render_Table* t_r, SDL_Renderer* re
 Render_Table* add_render(Render_Table* table, SDL_Renderer* renderer);
 
 char** create_state(int* states, int num, char** state);
-int* get_dark_forest_render();
-int* get_dark_forest_logic();
+int* get_dark_forest_states();
 
 char** draw(Render_Table* table, char** state, SDL_Renderer* renderer, int num);
 char** logic(Logic_Table* table, char** state, int num);

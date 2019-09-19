@@ -16,8 +16,7 @@ void DEFINE_GLOBALS();
 
 int main(int argc, char** argv)
 {
-    char** state_logic;         /* State list for logic functions */
-    char** state_render;        /* State list for render functions */
+    char** state;               /* State list for logic functions */
     SDL_Window* window;         /* The game window */
     SDL_Renderer* renderer;     /* The game renderer */
     Atlas* letters;             /* Font Atlas */
@@ -37,8 +36,7 @@ int main(int argc, char** argv)
 
     set_render_options(renderer);
 
-    state_logic  = NULL;
-    state_render = NULL;
+    state        = NULL;
     letters      = CREATE_ATLAS();
     mouse        = CREATE_MOUSE(WINDOW_WIDTH);
     render_table = CREATE_RENDER_TABLE(TABLE_SIZE);
@@ -53,15 +51,15 @@ int main(int argc, char** argv)
     render_table->print_table(render_table);
     SDL_DetachThread(input_thread);
 
-    state_logic = create_state(get_dark_forest_logic(), 5, state_logic);
+    state = create_state(get_dark_forest_states(), 5, state);
 
     while (!EXIT()) {
         start_timer();
 
         mouse->get_state(mouse);
 
-        logic(logic_table, state_logic, 5);
-        draw(render_table, state_logic, renderer, 5);
+        state = logic(logic_table, state, 5);
+        state = draw(render_table, state, renderer, 5);
 
         delay();
         set_fullscreen(window);
@@ -82,11 +80,11 @@ int main(int argc, char** argv)
 
 void DEFINE_GLOBALS()
 {
-    KEY             = NON;
-    FULLSCREEN_ON   = 0;
-    KEY_STATE       = (Uint8*)SDL_GetKeyboardState(NULL);
-    FPS             = 60;
-    IN_ATTACK_ONE   = 0;
-    IN_ATTACK_TWO   = 0;
-    SECONDS_ELAPSED = 0;
+    KEY                   = NON;
+    FULLSCREEN_ON         = 0;
+    KEY_STATE             = (Uint8*)SDL_GetKeyboardState(NULL);
+    FPS                   = 60;
+    IN_ATTACK_ONE         = 0;
+    IN_ATTACK_TWO         = 0;
+    SECONDS_ELAPSED       = 0;
 }

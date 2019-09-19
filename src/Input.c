@@ -43,13 +43,13 @@ int input_handler(void* data)
             }
             break;
         case SDL_KEYUP:
-            KEY = NON;
             switch (ev.key.keysym.scancode) {
             case SDL_SCANCODE_S:
             case SDL_SCANCODE_DOWN:
                 continue;
             case SDL_SCANCODE_W:
             case SDL_SCANCODE_UP:
+                KEY = NON;
                 continue;
             case SDL_SCANCODE_A:
             case SDL_SCANCODE_LEFT:
@@ -91,4 +91,3 @@ int CANCEL() { return confirm(KEY_STATE[L]); }
 int EXIT() { return confirm(KEY_STATE[O]); }
 int FULL() { return confirm(KEY_STATE[F]); }
 int NOTHING_PRESSED() { return confirm(KEY_STATE[NON]); }
-

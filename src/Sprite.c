@@ -181,6 +181,7 @@ static char* _logic_movement_hero(void* obj)
 {
     Sprite* this = (Sprite*)obj;
     char* walk   = "graphics/pally_walk.png";
+    char* stand  = "graphics/pally_1_edit.png";
 
     if (FRAMES_RENDERED % 3 == 0) {
         this->row_index++;
@@ -197,8 +198,11 @@ static char* _logic_movement_hero(void* obj)
             this->row_index = 0 + this->col_index;
         this->frame = this->rects[this->row_index];
     }
-    if (KEY == W)
+    printf("%s\n", this->path);
+    if (KEY != NON && KEY == W)
         return walk;
+    else if (KEY != W)
+        return stand;
     return this->path;
 }
 

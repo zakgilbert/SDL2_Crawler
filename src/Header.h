@@ -63,6 +63,16 @@ enum SPRITE_TYPES {
     HERO,
     ENEMY
 };
-/* Assigns values to globals at runtime */
+
+enum ASSET_ENUM {
+    MAP_DIRECTIONS,
+    FLOOR_FOREST_GROUND,
+    FLOOR_FOREST_TREES,
+    HERO_STAND,
+    HERO_WALK,
+    HERO_ATTACK_1,
+    HERO_ATTACK_2,
+    ENEMY_STAND
+};
 
 #endif
