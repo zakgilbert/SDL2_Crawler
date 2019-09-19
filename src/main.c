@@ -10,13 +10,13 @@
 #include "Mouse.h"        /* ^..^ */
 #include "Render_Table.h" /* Hashtable of Render_Nodes */
 #include "Sprite.h"       /* Game Class*/
+#include "Direction.h"
 
 void DEFINE_GLOBALS();
 
 int main(int argc, char** argv)
 {
-    char** state_logic;         /* State list for logic functions */
-    char** state_render;        /* State list for render functions */
+    char** state;               /* State list for logic functions */
     SDL_Window* window;         /* The game window */
     SDL_Renderer* renderer;     /* The game renderer */
     Atlas* letters;             /* Font Atlas */
@@ -36,6 +36,7 @@ int main(int argc, char** argv)
 
     set_render_options(renderer);
 
+    state        = NULL;
     letters      = CREATE_ATLAS();
     mouse        = CREATE_MOUSE(WINDOW_WIDTH);
     render_table = CREATE_RENDER_TABLE(TABLE_SIZE);
@@ -50,15 +51,15 @@ int main(int argc, char** argv)
     render_table->print_table(render_table);
     SDL_DetachThread(input_thread);
 
+    state = create_state(get_dark_forest_states(), 5, state);
+
     while (!EXIT()) {
         start_timer();
 
-        state_logic  = create_state(get_dark_forest_logic(), 5, state_logic);
-        state_render = create_state(get_dark_forest_render(), 4, state_render);
         mouse->get_state(mouse);
 
-        logic(logic_table, state_logic, 5);
-        draw(render_table, state_render, renderer, 4);
+        state = logic(logic_table, state, 5);
+        state = draw(render_table, state, renderer, 5);
 
         delay();
         set_fullscreen(window);
@@ -86,4 +87,7 @@ void DEFINE_GLOBALS()
     IN_ATTACK_ONE   = 0;
     IN_ATTACK_TWO   = 0;
     SECONDS_ELAPSED = 0;
+    VAL_HERO        = 0;
+    VAL_SNOW_X      = 350;
+    VAL_SNOW_Y      = 350;
 }

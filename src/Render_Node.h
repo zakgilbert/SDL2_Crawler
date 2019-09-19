@@ -1,7 +1,7 @@
 #ifndef RENDER_NODE_H
 #define RENDER_NODE_H
 
-typedef void render_function(void* obj, SDL_Renderer* renderer);
+typedef char* render_function(void* obj, SDL_Renderer* renderer);
 
 /**
  * Encapsulate data for Render Table

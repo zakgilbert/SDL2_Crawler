@@ -75,13 +75,14 @@ static void _print(Sprite* this)
     printf("%p", this);
 }
 
-static void _render(void* obj, SDL_Renderer* renderer)
+static char* _render(void* obj, SDL_Renderer* renderer)
 {
     Sprite* this = (Sprite*)obj;
     SDL_RenderCopy(renderer, this->texture, this->frame, &this->rect);
+    return this->path;
 }
 
-static void _logic_attack_enemy(void* obj)
+static char* _logic_attack_enemy(void* obj)
 {
     Sprite* this = (Sprite*)obj;
 
@@ -107,17 +108,19 @@ static void _logic_attack_enemy(void* obj)
             this->row_index = 0 + this->col_index;
         this->frame = this->rects[this->row_index];
     }
+    return this->path;
 }
 
-static void _logic_movement_enemy(void* obj)
+static char* _logic_movement_enemy(void* obj)
 {
     Sprite* this = (Sprite*)obj;
 
-    this->rect.x = this->x_origin + X;
-    this->rect.y = this->y_origin + Y;
+    this->rect.x = (*this->x_origin) + X;
+    this->rect.y = (*this->y_origin) + Y;
+
     if (this->moving) {
         this->time_begin = SECONDS_ELAPSED;
-        this->x_origin++;
+        (*this->y_origin)++;
     }
     if (SECONDS_ELAPSED % 10 == 0 && !this->time_begin) {
         this->moving     = 1;
@@ -143,9 +146,14 @@ static void _logic_movement_enemy(void* obj)
             this->row_index = 0 + this->col_index;
         this->frame = this->rects[this->row_index];
     }
+    if (this->moving)
+        return this->walk;
+    else if (!this->moving)
+        return this->stand;
+    return this->path;
 }
 
-static void _logic_attack_hero(void* obj)
+static char* _logic_attack_hero(void* obj)
 {
     Sprite* this = (Sprite*)obj;
 
@@ -160,8 +168,14 @@ static void _logic_attack_hero(void* obj)
         if (this->row_index % this->rows == 0 && this->row_index != 0) {
             this->col_index = 0;
             this->row_index -= this->rows;
-            IN_ATTACK_ONE = 0;
-            IN_ATTACK_TWO = 0;
+            if (KEY != NON && KEY == W)
+                return this->walk;
+            else if (KEY == A)
+                return this->attack_1;
+            else if (KEY == D)
+                return this->attack_2;
+            else if (KEY != W)
+                return this->stand;
         }
 
         MOUSE_ANGLE     = (int)(get_degree_angle(get_radian_angle(this)) / 22.0f);
@@ -171,9 +185,10 @@ static void _logic_attack_hero(void* obj)
             this->row_index = 0 + this->col_index;
         this->frame = this->rects[this->row_index];
     }
+    return this->path;
 }
 
-static void _logic_movement_hero(void* obj)
+static char* _logic_movement_hero(void* obj)
 {
     Sprite* this = (Sprite*)obj;
 
@@ -192,28 +207,50 @@ static void _logic_movement_hero(void* obj)
             this->row_index = 0 + this->col_index;
         this->frame = this->rects[this->row_index];
     }
+    if (KEY != NON && KEY == W)
+        return this->walk;
+    else if (KEY == A)
+        return this->attack_1;
+    else if (KEY == D)
+        return this->attack_2;
+    else if (KEY != W)
+        return this->stand;
+    return this->path;
 }
 
-Sprite* CREATE_SPRITE(SDL_Renderer* renderer, char* path, int rows, int cols, int x, int y, int w, int h, int state, int type)
+Sprite* CREATE_SPRITE(SDL_Renderer* renderer, char* path,
+    int rows, int cols, int* x, int* y, int w, int h,
+    int state, int type, char* walk, char* stand, char* attack_1, char* attack_2)
 {
     Sprite* this = malloc(sizeof(*this));
     this->state  = state;
     this->type   = type;
 
-    this->print   = _print;
-    this->destroy = _destroy;
-    this->render  = _render;
+    this->print    = _print;
+    this->destroy  = _destroy;
+    this->render   = _render;
+    this->x_origin = x;
+    this->y_origin = y;
 
     if (type == HERO) {
-        this->x_origin = get_middle_x(WINDOW_WIDTH, w);
-        this->y_origin = get_middle_y(WINDOW_HEIGHT, h);
+        this->stand    = stand;
+        this->walk     = walk;
+        this->attack_1 = attack_1;
+        this->attack_2 = attack_2;
+
+        this->rect.x = get_middle_x(WINDOW_WIDTH, w);
+        this->rect.y = get_middle_y(WINDOW_HEIGHT, h);
         if (this->state == MOVEMENT)
             this->logic = _logic_movement_hero;
         else if (this->state == ACTION)
             this->logic = _logic_attack_hero;
     } else if (type == ENEMY) {
+        this->stand    = stand;
+        this->walk     = walk;
         this->x_origin = x;
         this->y_origin = y;
+        this->rect.x   = (*this->x_origin);
+        this->rect.y   = (*this->y_origin);
         if (this->state == MOVEMENT)
             this->logic = _logic_movement_enemy;
         else if (this->state == ACTION)
@@ -221,8 +258,6 @@ Sprite* CREATE_SPRITE(SDL_Renderer* renderer, char* path, int rows, int cols, in
     }
     this->num_frames     = rows * cols;
     this->texture        = create_texture(renderer, path, &this->rect);
-    this->rect.x         = this->x_origin;
-    this->rect.y         = this->y_origin;
     this->rect.w         = w;
     this->rect.h         = h;
     this->cols           = cols;
@@ -234,6 +269,8 @@ Sprite* CREATE_SPRITE(SDL_Renderer* renderer, char* path, int rows, int cols, in
     this->time_begin     = 0;
     this->time_end       = 0;
     this->rects          = malloc(sizeof(struct SDL_Rect*) * this->num_frames);
+
+    this->path = path;
 
     set_sprite_cords(this);
 

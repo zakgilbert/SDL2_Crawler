@@ -38,6 +38,12 @@ Uint8* KEY_STATE;
 int IN_ATTACK_ONE;
 int IN_ATTACK_TWO;
 
+extern int VAL_HERO;
+extern int VAL_SNOW_X;
+extern int VAL_SNOW_Y;
+int VAL_HERO;
+int VAL_SNOW_X;
+int VAL_SNOW_Y;
 /**
  * Enum values can be referenced as follows...
  *  - if(KEY == S)
@@ -63,6 +69,17 @@ enum SPRITE_TYPES {
     HERO,
     ENEMY
 };
-/* Assigns values to globals at runtime */
+
+enum ASSET_ENUM {
+    MAP_DIRECTIONS,
+    FLOOR_FOREST_GROUND,
+    FLOOR_FOREST_TREES,
+    HERO_STAND,
+    HERO_WALK,
+    HERO_ATTACK_1,
+    HERO_ATTACK_2,
+    ENEMY_STAND,
+    ENEMY_WALK
+};
 
 #endif

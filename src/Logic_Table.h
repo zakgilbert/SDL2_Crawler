@@ -3,7 +3,7 @@
 
 typedef struct SDL_Renderer SDL_Renderer;
 typedef struct _Logic_Node Logic_Node;
-typedef void render_function(void* obj, SDL_Renderer* renderer);
+typedef char* render_function(void* obj, SDL_Renderer* renderer);
 
 /** 
  * Hash Logic Nodes 

@@ -13,22 +13,24 @@ static void _destroy(Floor* this)
     }
 }
 
-static void _render(void* obj, SDL_Renderer* renderer)
+static char* _render(void* obj, SDL_Renderer* renderer)
 {
     Floor* this = (Floor*)obj;
-
     SDL_RenderCopy(renderer, this->texture, NULL, &this->rect);
+
+    return this->path;
 }
 
-static void _logic(void* obj)
+static char* _logic(void* obj)
 {
     Floor* this = (Floor*)obj;
 
     this->rect.x = X;
     this->rect.y = Y;
+    return this->path;
 }
 
-Floor* CREATE_FLOOR(int x, int y, int w, int h, SDL_Renderer* renderer, const char* path)
+Floor* CREATE_FLOOR(int x, int y, int w, int h, SDL_Renderer* renderer, char* path)
 {
     Floor* this = (Floor*)malloc(sizeof(*this));
 
@@ -40,6 +42,7 @@ Floor* CREATE_FLOOR(int x, int y, int w, int h, SDL_Renderer* renderer, const ch
     this->rect.y = y;
     this->rect.w = w;
     this->rect.h = h;
+    this->path   = path;
 
     this->texture = create_texture(renderer, path, &this->rect);
 
