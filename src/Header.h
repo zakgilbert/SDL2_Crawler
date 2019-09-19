@@ -24,6 +24,10 @@ extern int MOUSE_Y;         /* Global mouse y coordinate */
 extern Uint8* KEY_STATE;    /* Array of key states */
 extern int IN_ATTACK_ONE;   /* Action Animation in progress */
 extern int IN_ATTACK_TWO;   /* Action Animation in progress */
+extern int VAL_HERO;        /* Starting position of hero */
+extern int VAL_SNOW_X;      /* Position of snow x*/
+extern int VAL_SNOW_Y;      /* Position of snow y*/
+extern int HERO_SPEED;      /*Speed that hero moves at */
 
 int FPS;
 int FULLSCREEN_ON;
@@ -37,13 +41,11 @@ int MOUSE_Y;
 Uint8* KEY_STATE;
 int IN_ATTACK_ONE;
 int IN_ATTACK_TWO;
-
-extern int VAL_HERO;
-extern int VAL_SNOW_X;
-extern int VAL_SNOW_Y;
 int VAL_HERO;
 int VAL_SNOW_X;
 int VAL_SNOW_Y;
+int HERO_SPEED;
+
 /**
  * Enum values can be referenced as follows...
  *  - if(KEY == S)
@@ -76,6 +78,7 @@ enum ASSET_ENUM {
     FLOOR_FOREST_TREES,
     HERO_STAND,
     HERO_WALK,
+    HERO_RUN,
     HERO_ATTACK_1,
     HERO_ATTACK_2,
     ENEMY_STAND,

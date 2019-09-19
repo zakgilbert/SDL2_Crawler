@@ -30,14 +30,15 @@ typedef struct _Sprite {
     int time_end;
 
     char* path;
-    char* walk;
     char* stand;
+    char* walk;
+    char *run;
     char* attack_1;
     char* attack_2;
 
 } Sprite;
 Sprite* CREATE_SPRITE(SDL_Renderer* renderer, char* path,
     int rows, int cols, int* x, int* y, int w, int h,
-    int state, int type, char* walk, char* stand, char* attack_1, char* attack_2);
+    int state, int type, char* walk, char* stand, char * run, char* attack_1, char* attack_2);
 
 #endif /* SPRITE_H */

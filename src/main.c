@@ -90,4 +90,5 @@ void DEFINE_GLOBALS()
     VAL_HERO        = 0;
     VAL_SNOW_X      = 350;
     VAL_SNOW_Y      = 350;
+    HERO_SPEED      = 1;
 }

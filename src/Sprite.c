@@ -114,8 +114,13 @@ static char* _logic_attack_enemy(void* obj)
 static char* _logic_movement_enemy(void* obj)
 {
     Sprite* this = (Sprite*)obj;
-
+    Sprite* CREATE_SPRITE(SDL_Renderer * renderer, char* path,
+        int rows, int cols, int* x, int* y, int w, int h,
+        int state, int type, char* walk, char* stand, char* run, char* attack_1, char* attack_2);
     this->rect.x = (*this->x_origin) + X;
+    Sprite* CREATE_SPRITE(SDL_Renderer * renderer, char* path,
+        int rows, int cols, int* x, int* y, int w, int h,
+        int state, int type, char* walk, char* stand, char* run, char* attack_1, char* attack_2);
     this->rect.y = (*this->y_origin) + Y;
 
     if (this->moving) {
@@ -211,16 +216,18 @@ static char* _logic_movement_hero(void* obj)
         return this->walk;
     else if (KEY == A)
         return this->attack_1;
+    else if (KEY == S)
+        return this->run;
     else if (KEY == D)
         return this->attack_2;
-    else if (KEY != W)
+    else if (KEY != W && KEY != S)
         return this->stand;
     return this->path;
 }
 
 Sprite* CREATE_SPRITE(SDL_Renderer* renderer, char* path,
     int rows, int cols, int* x, int* y, int w, int h,
-    int state, int type, char* walk, char* stand, char* attack_1, char* attack_2)
+    int state, int type, char* walk, char* stand, char* run, char* attack_1, char* attack_2)
 {
     Sprite* this = malloc(sizeof(*this));
     this->state  = state;
@@ -235,6 +242,7 @@ Sprite* CREATE_SPRITE(SDL_Renderer* renderer, char* path,
     if (type == HERO) {
         this->stand    = stand;
         this->walk     = walk;
+        this->run      = run;
         this->attack_1 = attack_1;
         this->attack_2 = attack_2;
 
