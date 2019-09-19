@@ -1,7 +1,7 @@
 #ifndef LOGIC_NODE_H
 #define LOGIC_NODE_H
 
-typedef void logic_function(void* obj);
+typedef char* logic_function(void* obj);
 
 /**
  * Encapsulate data for Logic_Table
@@ -15,6 +15,6 @@ typedef struct _Logic_Node {
     int index; /* Index the node is stored at */
     char* key; /* Key of node */
 } Logic_Node;
-Logic_Node* CREATE_LOGIC_NODE(char* key, void* obj, logic_function funct);
+Logic_Node* CREATE_LOGIC_NODE(char* key, void* obj, logic_function);
 
 #endif /* LOGIC_NODE_H */

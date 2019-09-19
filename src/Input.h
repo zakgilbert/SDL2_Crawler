@@ -80,10 +80,5 @@ int NOTHING_PRESSED();
  * Since there are 16 rows one for every direction in the sprite sheets, 
  * their are 16 variations(quadrants) of angles that differ in how X and Y are changed.
  */
-void map_directions();
 
-/**
- * Edge of map collision
- */
-void map_bounds();
 #endif

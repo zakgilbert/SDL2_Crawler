@@ -10,6 +10,7 @@
 #include "Mouse.h"        /* ^..^ */
 #include "Render_Table.h" /* Hashtable of Render_Nodes */
 #include "Sprite.h"       /* Game Class*/
+#include "Direction.h"
 
 void DEFINE_GLOBALS();
 
@@ -36,6 +37,8 @@ int main(int argc, char** argv)
 
     set_render_options(renderer);
 
+    state_logic  = NULL;
+    state_render = NULL;
     letters      = CREATE_ATLAS();
     mouse        = CREATE_MOUSE(WINDOW_WIDTH);
     render_table = CREATE_RENDER_TABLE(TABLE_SIZE);
@@ -50,15 +53,15 @@ int main(int argc, char** argv)
     render_table->print_table(render_table);
     SDL_DetachThread(input_thread);
 
+    state_logic = create_state(get_dark_forest_logic(), 5, state_logic);
+
     while (!EXIT()) {
         start_timer();
 
-        state_logic  = create_state(get_dark_forest_logic(), 5, state_logic);
-        state_render = create_state(get_dark_forest_render(), 4, state_render);
         mouse->get_state(mouse);
 
         logic(logic_table, state_logic, 5);
-        draw(render_table, state_render, renderer, 4);
+        draw(render_table, state_logic, renderer, 5);
 
         delay();
         set_fullscreen(window);

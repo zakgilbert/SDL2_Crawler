@@ -75,13 +75,14 @@ static void _print(Sprite* this)
     printf("%p", this);
 }
 
-static void _render(void* obj, SDL_Renderer* renderer)
+static char* _render(void* obj, SDL_Renderer* renderer)
 {
     Sprite* this = (Sprite*)obj;
     SDL_RenderCopy(renderer, this->texture, this->frame, &this->rect);
+    return this->path;
 }
 
-static void _logic_attack_enemy(void* obj)
+static char* _logic_attack_enemy(void* obj)
 {
     Sprite* this = (Sprite*)obj;
 
@@ -107,9 +108,10 @@ static void _logic_attack_enemy(void* obj)
             this->row_index = 0 + this->col_index;
         this->frame = this->rects[this->row_index];
     }
+    return this->path;
 }
 
-static void _logic_movement_enemy(void* obj)
+static char* _logic_movement_enemy(void* obj)
 {
     Sprite* this = (Sprite*)obj;
 
@@ -143,9 +145,10 @@ static void _logic_movement_enemy(void* obj)
             this->row_index = 0 + this->col_index;
         this->frame = this->rects[this->row_index];
     }
+    return this->path;
 }
 
-static void _logic_attack_hero(void* obj)
+static char* _logic_attack_hero(void* obj)
 {
     Sprite* this = (Sprite*)obj;
 
@@ -171,11 +174,13 @@ static void _logic_attack_hero(void* obj)
             this->row_index = 0 + this->col_index;
         this->frame = this->rects[this->row_index];
     }
+    return this->path;
 }
 
-static void _logic_movement_hero(void* obj)
+static char* _logic_movement_hero(void* obj)
 {
     Sprite* this = (Sprite*)obj;
+    char* walk   = "graphics/pally_walk.png";
 
     if (FRAMES_RENDERED % 3 == 0) {
         this->row_index++;
@@ -192,6 +197,9 @@ static void _logic_movement_hero(void* obj)
             this->row_index = 0 + this->col_index;
         this->frame = this->rects[this->row_index];
     }
+    if (KEY == W)
+        return walk;
+    return this->path;
 }
 
 Sprite* CREATE_SPRITE(SDL_Renderer* renderer, char* path, int rows, int cols, int x, int y, int w, int h, int state, int type)
@@ -234,6 +242,8 @@ Sprite* CREATE_SPRITE(SDL_Renderer* renderer, char* path, int rows, int cols, in
     this->time_begin     = 0;
     this->time_end       = 0;
     this->rects          = malloc(sizeof(struct SDL_Rect*) * this->num_frames);
+
+    this->path = path;
 
     set_sprite_cords(this);
 

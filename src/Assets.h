@@ -19,6 +19,6 @@ char** create_state(int* states, int num, char** state);
 int* get_dark_forest_render();
 int* get_dark_forest_logic();
 
-void draw(Render_Table* table, char** state, SDL_Renderer* renderer, int num);
-void logic(Logic_Table* table, char** state, int num);
+char** draw(Render_Table* table, char** state, SDL_Renderer* renderer, int num);
+char** logic(Logic_Table* table, char** state, int num);
 #endif /* ASSETS_H */

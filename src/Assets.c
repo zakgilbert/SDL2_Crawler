@@ -8,12 +8,13 @@
 #include "Render_Node.h"
 #include "Render_Table.h"
 #include "Sprite.h"
+#include "Direction.h"
 
 #define ASSETS_NUM 2
 #define DARK_FOREST_STATES 3
 
 enum asset_enum {
-    map_directions_e,
+    map_directions,
     floor_forest_ground,
     floor_forest_trees,
     hero,
@@ -41,7 +42,7 @@ char** create_state(int* states, int num, char** state)
     state = NULL;
     state = malloc(sizeof(char*) * num);
     for (int i = 0; i < num; i++) {
-        state[i] = malloc(strlen(asset_strings[states[i]]));
+        state[i] = malloc(100);
         state[i] = strcpy(state[i], asset_strings[states[i]]);
     }
     return state;
@@ -51,19 +52,18 @@ static int moving() { return ((KEY != NON) && (KEY == W)); }
 
 int* get_dark_forest_logic()
 {
-    int* states = malloc(sizeof(int) * 5);
-    states[2]   = floor_forest_ground;
-    states[1]   = floor_forest_trees;
-    states[0]   = map_directions_e;
-    if (moving())
-        states[3] = hero_walk;
-    else if (IN_ATTACK_ONE)
-        states[3] = hero_attack_1;
-    else if (IN_ATTACK_TWO)
-        states[3] = hero_attack_2;
-    else
-        states[3] = hero;
-    states[4] = enemy_stand;
+    int size    = 5;
+    int* states = malloc(sizeof(int) * size);
+    int temp[5] = {
+        map_directions,
+        floor_forest_ground,
+        floor_forest_trees,
+        hero,
+        enemy_stand
+    };
+    for (int i = 0; i < size; i++) {
+        states[i] = temp[i];
+    }
 
     return states;
 }
@@ -89,6 +89,7 @@ Table_Container add_assets(Logic_Table* t_l, Render_Table* t_r, SDL_Renderer* re
 {
     Table_Container container;
 
+    Direction* directions = CREATE_DIRECTION(asset_strings[0]);
     Floor* forest_floor   = CREATE_FLOOR(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT, renderer, asset_strings[1]);
     Floor* forest_trees   = CREATE_FLOOR(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT, renderer, asset_strings[2]);
     Sprite* hero          = CREATE_SPRITE(renderer, asset_strings[3], 16, 16, 0, 0, 62, 80, MOVEMENT, HERO);
@@ -97,7 +98,7 @@ Table_Container add_assets(Logic_Table* t_l, Render_Table* t_r, SDL_Renderer* re
     Sprite* hero_attack_2 = CREATE_SPRITE(renderer, asset_strings[6], 12, 16, 0, 0, 171, 123, ACTION, HERO);
     Sprite* enemy_stand   = CREATE_SPRITE(renderer, asset_strings[7], 8, 8, 400, 400, 104, 109, MOVEMENT, ENEMY);
 
-    t_l->insert(t_l, CREATE_LOGIC_NODE(asset_strings[0], NULL, map_directions));
+    t_l->insert(t_l, CREATE_LOGIC_NODE(asset_strings[0], directions, directions->logic));
     t_l->insert(t_l, CREATE_LOGIC_NODE(asset_strings[1], forest_floor, forest_floor->logic));
     t_l->insert(t_l, CREATE_LOGIC_NODE(asset_strings[2], forest_trees, forest_trees->logic));
     t_l->insert(t_l, CREATE_LOGIC_NODE(asset_strings[3], hero, hero->logic));
@@ -106,6 +107,7 @@ Table_Container add_assets(Logic_Table* t_l, Render_Table* t_r, SDL_Renderer* re
     t_l->insert(t_l, CREATE_LOGIC_NODE(asset_strings[6], hero_attack_2, hero_attack_2->logic));
     t_l->insert(t_l, CREATE_LOGIC_NODE(asset_strings[7], enemy_stand, enemy_stand->logic));
 
+    t_r->insert(t_r, CREATE_RENDER_NODE(asset_strings[0], directions, directions->render));
     t_r->insert(t_r, CREATE_RENDER_NODE(asset_strings[1], forest_floor, forest_floor->render));
     t_r->insert(t_r, CREATE_RENDER_NODE(asset_strings[2], forest_trees, forest_trees->render));
     t_r->insert(t_r, CREATE_RENDER_NODE(asset_strings[3], hero, hero->render));
@@ -120,7 +122,7 @@ Table_Container add_assets(Logic_Table* t_l, Render_Table* t_r, SDL_Renderer* re
     return container;
 }
 
-void draw(Render_Table* table, char** state, SDL_Renderer* renderer, int num)
+char** draw(Render_Table* table, char** state, SDL_Renderer* renderer, int num)
 {
     Render_Node* temp;
     SDL_RenderClear(renderer); /* Clear Canvas */
@@ -129,13 +131,15 @@ void draw(Render_Table* table, char** state, SDL_Renderer* renderer, int num)
         (*temp->funct)(temp->obj, renderer);   /* execute render function */
     }
     SDL_RenderPresent(renderer); /* draw to canvas */
+    return state;
 }
 
-void logic(Logic_Table* table, char** state, int num)
+char** logic(Logic_Table* table, char** state, int num)
 {
     Logic_Node* temp;
     for (int i = 0; i < num; i++) {
         temp = table->search(table, state[i]);
         (*temp->funct)(temp->obj);
     }
+    return state;
 }
