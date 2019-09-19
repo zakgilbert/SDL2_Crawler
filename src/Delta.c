@@ -54,11 +54,11 @@ void reset_timer()
         if (PRINT) {
             printf("\nFrames Rendered Per Second: %d", frames_rendered);
             printf("\nTicks Per Second: %ld", ticks_per_second);
+            printf("\nseconds elapsed: %d", SECONDS_ELAPSED);
         }
         FRAMES_RENDERED  = 0;
         ticks_per_second = 0;
         SECONDS_ELAPSED++;
-        printf("\nseconds elapsed: %d", SECONDS_ELAPSED);
     }
 }
 

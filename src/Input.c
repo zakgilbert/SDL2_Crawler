@@ -24,13 +24,11 @@ int input_handler(void* data)
                 continue;
             case SDL_SCANCODE_A:
             case SDL_SCANCODE_LEFT:
-                IN_ATTACK_ONE = 1;
-                KEY           = A;
+                KEY = A;
                 continue;
             case SDL_SCANCODE_D:
             case SDL_SCANCODE_RIGHT:
-                IN_ATTACK_TWO = 1;
-                KEY           = D;
+                KEY = D;
                 continue;
             case SDL_SCANCODE_J:
                 KEY = J;
@@ -46,6 +44,7 @@ int input_handler(void* data)
             switch (ev.key.keysym.scancode) {
             case SDL_SCANCODE_S:
             case SDL_SCANCODE_DOWN:
+                KEY = NON;
                 continue;
             case SDL_SCANCODE_W:
             case SDL_SCANCODE_UP:
@@ -53,16 +52,21 @@ int input_handler(void* data)
                 continue;
             case SDL_SCANCODE_A:
             case SDL_SCANCODE_LEFT:
+                KEY = NON;
                 continue;
             case SDL_SCANCODE_D:
             case SDL_SCANCODE_RIGHT:
+                KEY = NON;
                 continue;
             case SDL_SCANCODE_J:
+                KEY = NON;
                 continue;
             case SDL_SCANCODE_L:
+                KEY = NON;
                 continue;
             case SDL_SCANCODE_F:
                 FULLSCREEN_ON = !(FULLSCREEN_ON);
+                KEY           = NON;
                 continue;
             default:
                 break;

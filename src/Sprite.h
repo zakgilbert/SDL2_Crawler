@@ -23,15 +23,21 @@ typedef struct _Sprite {
     int row_index; /* */
     int col_index; /* */
     int action_started;
-    int x_origin;
-    int y_origin;
+    int* x_origin;
+    int* y_origin;
     int moving;
     int time_begin;
     int time_end;
 
     char* path;
+    char* walk;
+    char* stand;
+    char* attack_1;
+    char* attack_2;
 
 } Sprite;
-Sprite* CREATE_SPRITE(SDL_Renderer* renderer, char* path, int rows, int cols, int x, int y, int w, int h, int state, int type);
+Sprite* CREATE_SPRITE(SDL_Renderer* renderer, char* path,
+    int rows, int cols, int* x, int* y, int w, int h,
+    int state, int type, char* walk, char* stand, char* attack_1, char* attack_2);
 
 #endif /* SPRITE_H */
