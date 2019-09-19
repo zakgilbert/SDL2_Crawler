@@ -115,8 +115,22 @@ static void _logic_movement_enemy(void* obj)
 
     this->rect.x = this->x_origin + X;
     this->rect.y = this->y_origin + Y;
+    if (this->moving) {
+        this->time_begin = SECONDS_ELAPSED;
+        this->x_origin++;
+    }
+    if (SECONDS_ELAPSED % 10 == 0 && !this->time_begin) {
+        this->moving     = 1;
+        this->time_begin = SECONDS_ELAPSED;
+        this->time_end   = SECONDS_ELAPSED + 10;
+    } else if (this->time_begin > this->time_end) {
+        this->time_begin = 0;
+        this->time_end   = 0;
+        this->moving     = 0;
+    }
 
     if (FRAMES_RENDERED % 3 == 0) {
+
         this->row_index++;
         this->col_index++;
 
@@ -216,6 +230,9 @@ Sprite* CREATE_SPRITE(SDL_Renderer* renderer, char* path, int rows, int cols, in
     this->row_index      = 0;
     this->col_index      = 0;
     this->action_started = 0;
+    this->moving         = 0;
+    this->time_begin     = 0;
+    this->time_end       = 0;
     this->rects          = malloc(sizeof(struct SDL_Rect*) * this->num_frames);
 
     set_sprite_cords(this);

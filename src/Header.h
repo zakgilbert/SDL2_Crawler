@@ -15,6 +15,7 @@
 extern int FPS;             /* Frames per Second */
 extern int FULLSCREEN_ON;   /* Fullscreen boolean */
 extern int FRAMES_RENDERED; /* Counter for frames rendered every second */
+extern int SECONDS_ELAPSED; /* Seconds in game */
 extern int X;               /* Global X coordinate */
 extern int Y;               /* Global Y coordinate */
 extern int MOUSE_ANGLE;     /* Angle in degrees of from center of frame to mouse location */
@@ -27,6 +28,7 @@ extern int IN_ATTACK_TWO;   /* Action Animation in progress */
 int FPS;
 int FULLSCREEN_ON;
 int FRAMES_RENDERED;
+int SECONDS_ELAPSED;
 int X;
 int Y;
 int MOUSE_ANGLE;

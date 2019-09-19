@@ -24,11 +24,6 @@ enum asset_enum {
 };
 
 static char* asset_strings[] = {
-    "graphics/map.png",
-    "graphics/forest.png"
-};
-
-static char* asset_strings_f[] = {
     "map_directions",
     "graphics/map.png",
     "graphics/forest.png",
@@ -46,8 +41,8 @@ char** create_state(int* states, int num, char** state)
     state = NULL;
     state = malloc(sizeof(char*) * num);
     for (int i = 0; i < num; i++) {
-        state[i] = malloc(strlen(asset_strings_f[states[i]]));
-        state[i] = strcpy(state[i], asset_strings_f[states[i]]);
+        state[i] = malloc(strlen(asset_strings[states[i]]));
+        state[i] = strcpy(state[i], asset_strings[states[i]]);
     }
     return state;
 }
@@ -94,32 +89,30 @@ Table_Container add_assets(Logic_Table* t_l, Render_Table* t_r, SDL_Renderer* re
 {
     Table_Container container;
 
-    for (int i = 0; i < ASSETS_NUM; i++) {
-        Floor* floor = CREATE_FLOOR(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT, renderer, asset_strings[i]);
-        t_l->insert(t_l, CREATE_LOGIC_NODE(asset_strings[i], floor, floor->logic));
-        t_r->insert(t_r, CREATE_RENDER_NODE(asset_strings[i], floor, floor->render));
-    }
-    t_l->insert(t_l, CREATE_LOGIC_NODE("map_directions", NULL, map_directions));
+    Floor* forest_floor   = CREATE_FLOOR(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT, renderer, asset_strings[1]);
+    Floor* forest_trees   = CREATE_FLOOR(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT, renderer, asset_strings[2]);
+    Sprite* hero          = CREATE_SPRITE(renderer, asset_strings[3], 16, 16, 0, 0, 62, 80, MOVEMENT, HERO);
+    Sprite* hero_walk     = CREATE_SPRITE(renderer, asset_strings[4], 10, 16, 0, 0, 104, 81, MOVEMENT, HERO);
+    Sprite* hero_attack_1 = CREATE_SPRITE(renderer, asset_strings[5], 15, 16, 0, 0, 180, 135, ACTION, HERO);
+    Sprite* hero_attack_2 = CREATE_SPRITE(renderer, asset_strings[6], 12, 16, 0, 0, 171, 123, ACTION, HERO);
+    Sprite* enemy_stand   = CREATE_SPRITE(renderer, asset_strings[7], 8, 8, 400, 400, 104, 109, MOVEMENT, ENEMY);
 
-    Sprite* hero = CREATE_SPRITE(renderer, asset_strings_f[3], 16, 16, 0, 0, 62, 80, MOVEMENT, HERO);
-    t_l->insert(t_l, CREATE_LOGIC_NODE(asset_strings_f[3], hero, hero->logic));
-    t_r->insert(t_r, CREATE_RENDER_NODE(asset_strings_f[3], hero, hero->render));
+    t_l->insert(t_l, CREATE_LOGIC_NODE(asset_strings[0], NULL, map_directions));
+    t_l->insert(t_l, CREATE_LOGIC_NODE(asset_strings[1], forest_floor, forest_floor->logic));
+    t_l->insert(t_l, CREATE_LOGIC_NODE(asset_strings[2], forest_trees, forest_trees->logic));
+    t_l->insert(t_l, CREATE_LOGIC_NODE(asset_strings[3], hero, hero->logic));
+    t_l->insert(t_l, CREATE_LOGIC_NODE(asset_strings[4], hero_walk, hero_walk->logic));
+    t_l->insert(t_l, CREATE_LOGIC_NODE(asset_strings[5], hero_attack_1, hero_attack_1->logic));
+    t_l->insert(t_l, CREATE_LOGIC_NODE(asset_strings[6], hero_attack_2, hero_attack_2->logic));
+    t_l->insert(t_l, CREATE_LOGIC_NODE(asset_strings[7], enemy_stand, enemy_stand->logic));
 
-    Sprite* hero_walk = CREATE_SPRITE(renderer, asset_strings_f[4], 10, 16, 0, 0, 104, 81, MOVEMENT, HERO);
-    t_l->insert(t_l, CREATE_LOGIC_NODE(asset_strings_f[4], hero_walk, hero_walk->logic));
-    t_r->insert(t_r, CREATE_RENDER_NODE(asset_strings_f[4], hero_walk, hero_walk->render));
-
-    Sprite* hero_attack_1 = CREATE_SPRITE(renderer, asset_strings_f[5], 15, 16, 0, 0, 180, 135, ACTION, HERO);
-    t_l->insert(t_l, CREATE_LOGIC_NODE(asset_strings_f[5], hero_attack_1, hero_attack_1->logic));
-    t_r->insert(t_r, CREATE_RENDER_NODE(asset_strings_f[5], hero_attack_1, hero_attack_1->render));
-
-    Sprite* hero_attack_2 = CREATE_SPRITE(renderer, asset_strings_f[6], 12, 16, 0, 0, 171, 123, ACTION, HERO);
-    t_l->insert(t_l, CREATE_LOGIC_NODE(asset_strings_f[6], hero_attack_2, hero_attack_2->logic));
-    t_r->insert(t_r, CREATE_RENDER_NODE(asset_strings_f[6], hero_attack_2, hero_attack_2->render));
-
-    Sprite* enemy_stand = CREATE_SPRITE(renderer, asset_strings_f[7], 8, 8, 400, 400, 104, 109, MOVEMENT, ENEMY);
-    t_l->insert(t_l, CREATE_LOGIC_NODE(asset_strings_f[7], enemy_stand, enemy_stand->logic));
-    t_r->insert(t_r, CREATE_RENDER_NODE(asset_strings_f[7], enemy_stand, enemy_stand->render));
+    t_r->insert(t_r, CREATE_RENDER_NODE(asset_strings[1], forest_floor, forest_floor->render));
+    t_r->insert(t_r, CREATE_RENDER_NODE(asset_strings[2], forest_trees, forest_trees->render));
+    t_r->insert(t_r, CREATE_RENDER_NODE(asset_strings[3], hero, hero->render));
+    t_r->insert(t_r, CREATE_RENDER_NODE(asset_strings[4], hero_walk, hero_walk->render));
+    t_r->insert(t_r, CREATE_RENDER_NODE(asset_strings[5], hero_attack_1, hero_attack_1->render));
+    t_r->insert(t_r, CREATE_RENDER_NODE(asset_strings[6], hero_attack_2, hero_attack_2->render));
+    t_r->insert(t_r, CREATE_RENDER_NODE(asset_strings[7], enemy_stand, enemy_stand->render));
 
     container.t_l = t_l;
     container.t_r = t_r;

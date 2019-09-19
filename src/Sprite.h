@@ -24,6 +24,9 @@ typedef struct _Sprite {
     int action_started;
     int x_origin;
     int y_origin;
+    int moving;
+    int time_begin;
+    int time_end;
 
 } Sprite;
 Sprite* CREATE_SPRITE(SDL_Renderer* renderer, char* path, int rows, int cols, int x, int y, int w, int h, int state, int type);

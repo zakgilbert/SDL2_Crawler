@@ -79,10 +79,11 @@ int main(int argc, char** argv)
 
 void DEFINE_GLOBALS()
 {
-    KEY           = NON;
-    FULLSCREEN_ON = 0;
-    KEY_STATE     = (Uint8*)SDL_GetKeyboardState(NULL);
-    FPS           = 60;
-    IN_ATTACK_ONE = 0;
-    IN_ATTACK_TWO = 0;
+    KEY             = NON;
+    FULLSCREEN_ON   = 0;
+    KEY_STATE       = (Uint8*)SDL_GetKeyboardState(NULL);
+    FPS             = 60;
+    IN_ATTACK_ONE   = 0;
+    IN_ATTACK_TWO   = 0;
+    SECONDS_ELAPSED = 0;
 }

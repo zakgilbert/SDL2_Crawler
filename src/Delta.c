@@ -57,6 +57,8 @@ void reset_timer()
         }
         FRAMES_RENDERED  = 0;
         ticks_per_second = 0;
+        SECONDS_ELAPSED++;
+        printf("\nseconds elapsed: %d", SECONDS_ELAPSED);
     }
 }
 
@@ -66,7 +68,9 @@ void delay()
     if (nano_timer < time_per_tick) {
         time_delay_per_second = ((time_per_tick - nano_timer) / (SDL_GetPerformanceFrequency() * 0.001));
         SDL_Delay(time_delay_per_second);
-        //  printf("\nTimeDelayed is: %Lf", time_delay_per_second);
-        //    printf("\nTimeDelayed int is: %Lf", time_delay_per_second);
+        if (PRINT) {
+            printf("\nTimeDelayed is: %Lf", time_delay_per_second);
+            printf("\nTimeDelayed int is: %Lf", time_delay_per_second);
+        }
     }
 }
