@@ -45,9 +45,9 @@ static char* _logic(void* obj)
     Direction* this = (Direction*)obj;
     if (KEY == W || KEY == S) {
         if (KEY == W)
-            HERO_SPEED = 1;
-        if (KEY == S)
             HERO_SPEED = 2;
+        if (KEY == S)
+            HERO_SPEED = 4;
         switch (MOUSE_ANGLE) {
         case 0:
         case 16:

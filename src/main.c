@@ -1,4 +1,5 @@
-#include <SDL2/SDL.h>     /* SDL2 Library */
+#include <SDL2/SDL.h> /* SDL2 Library */
+#include <time.h>
 #include "Assets.h"       /* Add game assests to hastables */
 #include "Atlas.h"        /* Font Atlas */
 #include "Delta.h"        /* Timing */
@@ -27,6 +28,7 @@ int main(int argc, char** argv)
     SDL_Thread* input_thread;   /* Thread that runs function input handler */
 
     SDL_init();
+    srand(time(0));
 
     DEFINE_GLOBALS();
     set_up_timer();
@@ -90,5 +92,5 @@ void DEFINE_GLOBALS()
     VAL_HERO        = 0;
     VAL_SNOW_X      = 350;
     VAL_SNOW_Y      = 350;
-    HERO_SPEED      = 1;
+    HERO_SPEED      = 5;
 }

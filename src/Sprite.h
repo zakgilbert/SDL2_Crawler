@@ -28,6 +28,7 @@ typedef struct _Sprite {
     int moving;
     int time_begin;
     int time_end;
+    int current_direction;
 
     char* path;
     char* stand;
