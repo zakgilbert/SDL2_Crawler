@@ -88,6 +88,7 @@ static int bounds(int* x, int* y, int direction, Sprite* this)
  */
 static char* check_hero_state(Sprite* this)
 {
+
     if (KEY == W)
         return this->walk;
     else if (KEY == A)
