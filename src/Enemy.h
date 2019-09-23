@@ -16,9 +16,10 @@ typedef struct _Enemy {
     int cur_sprite;
     int num_sprite;
     int moving;
+    int *x, *y;
 
     char* key;
 } Enemy;
-Enemy* CREATE_ENEMY(char* key, int num_sprite);
+Enemy* CREATE_ENEMY(char* key, int num_sprite, int* x, int* y);
 
 #endif /* ENEMY_H */

@@ -54,7 +54,8 @@ static char* _logic(void* obj)
     Enemy* this     = (Enemy*)obj;
     Sprite* current = this->sprites[this->cur_sprite];
 
-    current->logic(current);
+    current->rect.x = (*current->x_origin) + X;
+    current->rect.y = (*current->y_origin) + Y;
 
     return this->key;
 }
@@ -65,7 +66,7 @@ static void _add_sprite(Enemy* this, Sprite* sprite, int key)
     if ((-1) == (this->cur_sprite))
         this->cur_sprite = key;
 }
-Enemy* CREATE_ENEMY(char* key, int num_sprite)
+Enemy* CREATE_ENEMY(char* key, int num_sprite, int* x, int* y)
 {
     Enemy* this = malloc(sizeof(*this));
 
@@ -78,7 +79,10 @@ Enemy* CREATE_ENEMY(char* key, int num_sprite)
     this->cur_sprite = -1;
     this->num_sprite = num_sprite;
 
-    this->key = key;
+    this->key    = key;
+    this->moving = 0;
+    this->x      = x;
+    this->y      = y;
 
     this->sprites = malloc(sizeof(Sprite*) * this->num_sprite);
     set_array_null(this->sprites, this->num_sprite);
