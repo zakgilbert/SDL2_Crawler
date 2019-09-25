@@ -150,9 +150,10 @@ static void _insert(Logic_Table* this, Logic_Node* item)
     }
     this->table[index]        = item;
     this->table[index]->index = index;
-    print_node(this->table[index], index);
-    if (PRINT)
+    if (PRINT) {
+        print_node(this->table[index], index);
         printf("%*s\n", 10, "Added");
+    }
     this->count++;
 }
 

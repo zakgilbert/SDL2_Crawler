@@ -7,7 +7,9 @@ static void _destroy(Floor* this)
 {
     SDL_DestroyTexture(this->texture);
     if (NULL != this) {
-        printf("destroy: %p\n", this);
+        if (PRINT) {
+            printf("destroy: %p\n", this);
+        }
         free(this);
         this = NULL;
     }

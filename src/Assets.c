@@ -130,8 +130,8 @@ Table_Container add_assets(Logic_Table* t_l, Render_Table* t_r, SDL_Renderer* re
         ASSET_STRINGS[ENEMY_WALK_PATH], ASSET_STRINGS[ENEMY_STAND_PATH], NULL, NULL, NULL);
 
     Enemy* yeti = CREATE_ENEMY("yeti", 4, snow_x, snow_y);
-    yeti->add_sprite(yeti, enemy_stand, ENEMY_STAND_PATH);
-    yeti->add_sprite(yeti, enemy_walk, ENEMY_WALK_PATH);
+    yeti->add_sprite(yeti, enemy_stand, STAND);
+    yeti->add_sprite(yeti, enemy_walk, WALK);
 
     t_l->insert(t_l, CREATE_LOGIC_NODE(ASSET_STRINGS[0], directions, directions->logic));
     t_l->insert(t_l, CREATE_LOGIC_NODE(ASSET_STRINGS[1], forest_floor, forest_floor->logic));

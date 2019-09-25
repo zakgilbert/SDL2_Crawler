@@ -173,45 +173,6 @@ static char* _logic_attack_enemy(void* obj)
     }
     return this->path;
 }
-static void move_enemy(Sprite* this)
-{
-    int direction = (this->row_index - this->col_index) / this->rows;
-    int speed     = 1;
-    switch (direction) {
-    case 0:
-    case 8:
-        (*this->y_origin) += speed;
-        break;
-    case 1:
-        (*this->x_origin) -= speed;
-        (*this->y_origin) += speed;
-        break;
-    case 2:
-        (*this->x_origin) -= speed;
-        break;
-    case 3:
-        (*this->x_origin) -= speed;
-        (*this->y_origin) -= speed;
-        break;
-    case 4:
-        (*this->y_origin) -= speed;
-        break;
-    case 5:
-        (*this->x_origin) += speed;
-        (*this->y_origin) -= speed;
-        break;
-    case 6:
-        (*this->x_origin) += speed;
-        break;
-    case 7:
-        (*this->x_origin) += speed;
-        (*this->y_origin) += speed;
-        break;
-
-    default:
-        break;
-    }
-}
 static char* _logic_movement_enemy(void* obj)
 {
     Sprite* this = (Sprite*)obj;
@@ -224,8 +185,6 @@ static char* _logic_movement_enemy(void* obj)
             this->col_index = 0;
             this->row_index -= this->rows;
         }
-        MOUSE_ANGLE     = (int)(get_degree_angle(get_radian_angle(this)) / 22.0f);
-        this->row_index = (MOUSE_ANGLE * this->rows) + this->col_index;
 
         if (this->row_index >= this->num_frames)
             this->row_index = 0 + this->col_index;
