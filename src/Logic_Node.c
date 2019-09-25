@@ -14,7 +14,7 @@ static void _destroy(Logic_Node* this)
 }
 static void _print(Logic_Node* node, int i)
 {
-    printf("%p     Data: %*p     Key: %*s    Index: %*d", node, 2, node->funct, 10, node->key, 2, i);
+        printf("%p     Data: %*p     Key: %*s    Index: %*d", node, 2, node->funct, 10, node->key, 2, i);
 }
 Logic_Node* CREATE_LOGIC_NODE(char* key, void* obj, logic_function funct)
 {

@@ -1,5 +1,5 @@
-#include <SDL2/SDL.h> /* SDL2 Library */
-#include <time.h>
+#include <SDL2/SDL.h>     /* SDL2 Library */
+#include <time.h>         /* Taking away */
 #include "Assets.h"       /* Add game assests to hastables */
 #include "Atlas.h"        /* Font Atlas */
 #include "Delta.h"        /* Timing */
@@ -11,13 +11,14 @@
 #include "Mouse.h"        /* ^..^ */
 #include "Render_Table.h" /* Hashtable of Render_Nodes */
 #include "Sprite.h"       /* Game Class*/
-#include "Direction.h"
+#include "Direction.h"    /* Where are we going */
+#include "Enemy.h"        /* Everyones got them */
 
 void DEFINE_GLOBALS();
 
 int main(int argc, char** argv)
 {
-    char** state;               /* State list for logic functions */
+    char** state;               /* Game states */
     SDL_Window* window;         /* The game window */
     SDL_Renderer* renderer;     /* The game renderer */
     Atlas* letters;             /* Font Atlas */
