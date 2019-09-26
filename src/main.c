@@ -13,6 +13,7 @@
 #include "Sprite.h"       /* Game Class*/
 #include "Direction.h"    /* Where are we going */
 #include "Enemy.h"        /* Everyones got them */
+#include "Hero.h"         /* Main Character Data */
 
 void DEFINE_GLOBALS();
 
