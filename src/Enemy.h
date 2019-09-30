@@ -12,6 +12,7 @@ typedef struct _Enemy {
 
     Sprite** sprites;     /* List of Sprite Sheets */
     SDL_Texture* texture; /* Texture to be rendered */
+    SDL_Rect * col_rect;
 
     int cur_sprite;
     int num_sprite;

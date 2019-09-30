@@ -105,6 +105,7 @@ static char* _render(void* obj, SDL_Renderer* renderer)
     Sprite* current = this->sprites[this->cur_sprite];
 
     current->render(current, renderer);
+    SDL_RenderDrawRect(renderer, this->col_rect);
 
     return this->key;
 }
@@ -115,14 +116,17 @@ static char* _logic(void* obj)
     this->cur_sprite = check_hero_state(this);
     Sprite* current  = this->sprites[this->cur_sprite];
     IN_ACTION        = current->logic(current);
+
     return this->key;
 }
 
 static void _add_sprite(Hero* this, Sprite* sprite, int key)
 {
     this->sprites[key] = sprite;
-    if ((-1) == (this->cur_sprite))
+    if ((-1) == (this->cur_sprite)) {
         this->cur_sprite = key;
+        this->col_rect   = &this->sprites[key]->rect;
+    }
 }
 Hero* CREATE_HERO(char* key, int num_sprite)
 {

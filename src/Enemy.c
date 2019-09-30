@@ -84,27 +84,30 @@ static char* _render(void* obj, SDL_Renderer* renderer)
     Sprite* current = this->sprites[this->cur_sprite];
 
     current->render(current, renderer);
+    SDL_RenderDrawRect(renderer, this->col_rect);
 
     return this->key;
 }
 
 static char* _logic(void* obj)
 {
-    Enemy* this      = (Enemy*)obj;
-    this->cur_sprite = WALK;
-    Sprite* current  = this->sprites[this->cur_sprite];
+    Enemy* this     = (Enemy*)obj;
+    Sprite* current = this->sprites[this->cur_sprite];
 
     current->rect.x = (*this->x) + X;
     current->rect.y = (*this->x) + Y;
     current->logic(current);
+    this->col_rect = &current->rect;
     return this->key;
 }
 
 static void _add_sprite(Enemy* this, Sprite* sprite, int key)
 {
     this->sprites[key] = sprite;
-    if ((-1) == (this->cur_sprite))
+    if ((-1) == (this->cur_sprite)) {
         this->cur_sprite = key;
+        this->col_rect   = &this->sprites[this->cur_sprite]->rect;
+    }
 }
 Enemy* CREATE_ENEMY(char* key, int num_sprite, int* x, int* y)
 {

@@ -55,15 +55,15 @@ int main(int argc, char** argv)
     render_table->print_table(render_table);
     SDL_DetachThread(input_thread);
 
-    state = create_state(get_dark_forest_states(), 5, state);
+    state = create_state(get_dark_forest_states(), 6, state);
 
     while (!EXIT()) {
         start_timer();
 
         mouse->get_state(mouse);
 
-        state = logic(logic_table, state, 5);
-        state = draw(render_table, state, renderer, 5);
+        state = logic(logic_table, state, 6);
+        state = draw(render_table, state, renderer, 6);
 
         delay();
         set_fullscreen(window);
@@ -96,4 +96,5 @@ void DEFINE_GLOBALS()
     VAL_SNOW_Y      = 350;
     HERO_SPEED      = 5;
     IN_ACTION       = 0;
+    COLLIDING       = 0;
 }
