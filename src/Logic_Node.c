@@ -9,21 +9,25 @@ static void _destroy(Logic_Node* this)
             this->print(this, this->index);
             printf("%*s\n", 10, "Delete");
         }
+        if (this->deallocation_f) {
+            (*this->deallocation_f)(this->obj);
+        }
         free(this);
     }
 }
 static void _print(Logic_Node* node, int i)
 {
-        printf("%p     Data: %*p     Key: %*s    Index: %*d", node, 2, node->funct, 10, node->key, 2, i);
+    printf("%p     Data: %*p     Key: %*s    Index: %*d", node, 2, node->funct, 10, node->key, 2, i);
 }
-Logic_Node* CREATE_LOGIC_NODE(char* key, void* obj, logic_function funct)
+Logic_Node* CREATE_LOGIC_NODE(char* key, void* obj, logic_function funct, deallocation_function deallocation_f)
 {
-    Logic_Node* this = malloc(sizeof(*this));
-    this->destroy    = _destroy;
-    this->print      = _print;
-    this->key        = key;
-    this->obj        = obj;
-    this->funct      = funct;
+    Logic_Node* this     = malloc(sizeof(*this));
+    this->destroy        = _destroy;
+    this->print          = _print;
+    this->key            = key;
+    this->obj            = obj;
+    this->funct          = funct;
+    this->deallocation_f = deallocation_f;
 
     return this;
 }

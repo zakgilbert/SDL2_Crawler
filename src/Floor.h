@@ -8,6 +8,7 @@
 */
 typedef struct _Floor {
     void (*destroy)(struct _Floor*);                    /* Free Allocated Memory */
+    void (*deallocate)(void* obj);                      /* Call destroy wrapper */
     char* (*render)(void* obj, SDL_Renderer* renderer); /* Render function */
     char* (*logic)(void* obj);                          /* Logic function */
 

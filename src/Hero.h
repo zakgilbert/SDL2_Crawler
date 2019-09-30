@@ -20,6 +20,6 @@ typedef struct _Hero {
 
     char* key;
 } Hero;
-Hero* CREATE_HERO(char* key, int num_sprite, int* x, int* y);
+Hero* CREATE_HERO(char* key, int num_sprite);
 
 #endif /* HERO_H */

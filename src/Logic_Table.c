@@ -120,7 +120,7 @@ static void _grow(Logic_Table* this)
     for (int i = 0; i < old_size; i++) {
         temp_n = temp[i];
         if (NULL != temp_n) {
-            this->insert(this, CREATE_LOGIC_NODE(temp_n->key, temp_n->obj, temp_n->funct));
+            this->insert(this, CREATE_LOGIC_NODE(temp_n->key, temp_n->obj, temp_n->funct , NULL));
             this->table[i] = dummy;
             temp_n->destroy(temp_n);
         }

@@ -14,6 +14,11 @@ static void _destroy(Floor* this)
         this = NULL;
     }
 }
+static void _deallocate(void* obj)
+{
+    Floor* this = (Floor*)obj;
+    this->destroy(this);
+}
 
 static char* _render(void* obj, SDL_Renderer* renderer)
 {
@@ -36,9 +41,10 @@ Floor* CREATE_FLOOR(int x, int y, int w, int h, SDL_Renderer* renderer, char* pa
 {
     Floor* this = (Floor*)malloc(sizeof(*this));
 
-    this->destroy = _destroy;
-    this->render  = _render;
-    this->logic   = _logic;
+    this->destroy    = _destroy;
+    this->deallocate = _deallocate;
+    this->render     = _render;
+    this->logic      = _logic;
 
     this->rect.x = x;
     this->rect.y = y;

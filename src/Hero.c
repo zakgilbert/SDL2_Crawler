@@ -53,7 +53,7 @@ static void move_enemy(Sprite* this)
         break;
     }
 }
-static set_array_null(Sprite** sprites, int num)
+static void set_array_null(Sprite** sprites, int num)
 {
     for (int i = 0; i < num; i++) {
         sprites[i] = NULL;
@@ -80,7 +80,7 @@ static void _print(Hero* this, const char* message)
 
 static char* _render(void* obj, SDL_Renderer* renderer)
 {
-    Hero* this     = (Hero*)obj;
+    Hero* this      = (Hero*)obj;
     Sprite* current = this->sprites[this->cur_sprite];
 
     current->render(current, renderer);
@@ -90,7 +90,7 @@ static char* _render(void* obj, SDL_Renderer* renderer)
 
 static char* _logic(void* obj)
 {
-    Hero* this      = (Hero*)obj;
+    Hero* this       = (Hero*)obj;
     this->cur_sprite = WALK;
     Sprite* current  = this->sprites[this->cur_sprite];
 
@@ -106,7 +106,7 @@ static void _add_sprite(Hero* this, Sprite* sprite, int key)
     if ((-1) == (this->cur_sprite))
         this->cur_sprite = key;
 }
-Hero* CREATE_ENEMY(char* key, int num_sprite, int* x, int* y)
+Hero* CREATE_HERO(char* key, int num_sprite)
 {
     Hero* this = malloc(sizeof(*this));
 
@@ -121,8 +121,10 @@ Hero* CREATE_ENEMY(char* key, int num_sprite, int* x, int* y)
 
     this->key    = key;
     this->moving = 0;
+    /*
     this->x      = x;
     this->y      = y;
+    */
 
     this->sprites = malloc(sizeof(Sprite*) * this->num_sprite);
     set_array_null(this->sprites, this->num_sprite);

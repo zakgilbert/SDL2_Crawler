@@ -133,15 +133,15 @@ Table_Container add_assets(Logic_Table* t_l, Render_Table* t_r, SDL_Renderer* re
     yeti->add_sprite(yeti, enemy_stand, STAND);
     yeti->add_sprite(yeti, enemy_walk, WALK);
 
-    t_l->insert(t_l, CREATE_LOGIC_NODE(ASSET_STRINGS[0], directions, directions->logic));
-    t_l->insert(t_l, CREATE_LOGIC_NODE(ASSET_STRINGS[1], forest_floor, forest_floor->logic));
-    t_l->insert(t_l, CREATE_LOGIC_NODE(ASSET_STRINGS[2], forest_trees, forest_trees->logic));
-    t_l->insert(t_l, CREATE_LOGIC_NODE(ASSET_STRINGS[3], hero, hero->logic));
-    t_l->insert(t_l, CREATE_LOGIC_NODE(ASSET_STRINGS[4], hero_walk, hero_walk->logic));
-    t_l->insert(t_l, CREATE_LOGIC_NODE(ASSET_STRINGS[5], hero_run, hero_run->logic));
-    t_l->insert(t_l, CREATE_LOGIC_NODE(ASSET_STRINGS[6], hero_attack_1, hero_attack_1->logic));
-    t_l->insert(t_l, CREATE_LOGIC_NODE(ASSET_STRINGS[7], hero_attack_2, hero_attack_2->logic));
-    t_l->insert(t_l, CREATE_LOGIC_NODE(yeti->key, yeti, yeti->logic));
+    t_l->insert(t_l, CREATE_LOGIC_NODE(ASSET_STRINGS[0], directions, directions->logic, NULL));
+    t_l->insert(t_l, CREATE_LOGIC_NODE(ASSET_STRINGS[1], forest_floor, forest_floor->logic, forest_floor->deallocate));
+    t_l->insert(t_l, CREATE_LOGIC_NODE(ASSET_STRINGS[2], forest_trees, forest_trees->logic, forest_trees->deallocate));
+    t_l->insert(t_l, CREATE_LOGIC_NODE(ASSET_STRINGS[3], hero, hero->logic, NULL));
+    t_l->insert(t_l, CREATE_LOGIC_NODE(ASSET_STRINGS[4], hero_walk, hero_walk->logic, NULL));
+    t_l->insert(t_l, CREATE_LOGIC_NODE(ASSET_STRINGS[5], hero_run, hero_run->logic, NULL));
+    t_l->insert(t_l, CREATE_LOGIC_NODE(ASSET_STRINGS[6], hero_attack_1, hero_attack_1->logic, NULL));
+    t_l->insert(t_l, CREATE_LOGIC_NODE(ASSET_STRINGS[7], hero_attack_2, hero_attack_2->logic, NULL));
+    t_l->insert(t_l, CREATE_LOGIC_NODE(yeti->key, yeti, yeti->logic, NULL));
 
     t_r->insert(t_r, CREATE_RENDER_NODE(ASSET_STRINGS[0], directions, directions->render));
     t_r->insert(t_r, CREATE_RENDER_NODE(ASSET_STRINGS[1], forest_floor, forest_floor->render));
@@ -162,12 +162,12 @@ Table_Container add_assets(Logic_Table* t_l, Render_Table* t_r, SDL_Renderer* re
 char** draw(Render_Table* table, char** state, SDL_Renderer* renderer, int num)
 {
     Render_Node* temp;
-    SDL_RenderClear(renderer); /* Clear Canvas */
+    SDL_RenderClear(renderer);
     for (int i = 0; i < num; i++) {
-        temp     = table->search(table, state[i]); /* Get render node */
+        temp     = table->search(table, state[i]);
         state[i] = strcpy(state[i], (*temp->funct)(temp->obj, renderer));
     }
-    SDL_RenderPresent(renderer); /* draw to canvas */
+    SDL_RenderPresent(renderer);
     return state;
 }
 

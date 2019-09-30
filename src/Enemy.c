@@ -53,7 +53,7 @@ static void move_enemy(Sprite* this)
         break;
     }
 }
-static set_array_null(Sprite** sprites, int num)
+static void set_array_null(Sprite** sprites, int num)
 {
     for (int i = 0; i < num; i++) {
         sprites[i] = NULL;
