@@ -17,6 +17,7 @@ typedef struct _Hero {
     int num_sprite;
     int moving;
     int *x, *y;
+    int in_action;
 
     char* key;
 } Hero;

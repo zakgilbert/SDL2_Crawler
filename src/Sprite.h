@@ -7,8 +7,8 @@
 typedef struct _Sprite {
     void (*destroy)(struct _Sprite* this);              /* Free allocated memory */
     void (*print)(struct _Sprite* this);                /* Print Sprite data */
-    char* (*render)(void* obj, SDL_Renderer* renderer); /* Render Sprite texture */
-    char* (*logic)(void* obj);                          /* Execute Sprite game logic */
+    int (*render)(void* obj, SDL_Renderer* renderer); /* Render Sprite texture */
+    int (*logic)(void* obj);                            /* Execute Sprite game logic */
 
     SDL_Rect** rects;     /* Array of SDL Rentangle pointers for each frame in the sprite */
     SDL_Rect rect;        /* SDL Rectangle for entire Sprite sheet texture */
@@ -33,13 +33,13 @@ typedef struct _Sprite {
     char* path;
     char* stand;
     char* walk;
-    char *run;
+    char* run;
     char* attack_1;
     char* attack_2;
 
 } Sprite;
 Sprite* CREATE_SPRITE(SDL_Renderer* renderer, char* path,
     int rows, int cols, int* x, int* y, int w, int h,
-    int state, int type, char* walk, char* stand, char * run, char* attack_1, char* attack_2);
+    int state, int type, char* walk, char* stand, char* run, char* attack_1, char* attack_2);
 
 #endif /* SPRITE_H */

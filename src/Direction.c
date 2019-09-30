@@ -43,7 +43,7 @@ static char* _render(void* obj, SDL_Renderer* renderer)
 static char* _logic(void* obj)
 {
     Direction* this = (Direction*)obj;
-    if (KEY == W || KEY == S) {
+    if (!IN_ACTION && (KEY == W || KEY == S)) {
         if (KEY == W)
             HERO_SPEED = 2;
         if (KEY == S)

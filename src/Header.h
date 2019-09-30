@@ -28,6 +28,7 @@ extern int VAL_HERO;        /* Starting position of hero */
 extern int VAL_SNOW_X;      /* Position of snow x*/
 extern int VAL_SNOW_Y;      /* Position of snow y*/
 extern int HERO_SPEED;      /*Speed that hero moves at */
+extern int IN_ACTION;
 
 int FPS;
 int FULLSCREEN_ON;
@@ -45,6 +46,7 @@ int VAL_HERO;
 int VAL_SNOW_X;
 int VAL_SNOW_Y;
 int HERO_SPEED;
+int IN_ACTION;
 
 /**
  * Enum values can be referenced as follows...
@@ -88,14 +90,17 @@ enum ASSET_KEYS_ENUM {
     MAP_DIRECTIONS_KEY,
     FLOOR_FOREST_GROUND_KEY,
     FLOOR_FOREST_TREES_KEY,
-    HERO_STAND_KEY,
-    HERO_WALK_KEY,
-    HERO_RUN_KEY,
-    HERO_ATTACK_1_KEY,
-    HERO_ATTACK_2_KEY,
+    HERO_K,
     YETI_KEY
 };
 
+enum HERO_STATES {
+    STAND_H,
+    WALK_H,
+    RUN_H,
+    ATTACK_ONE_H,
+    ATTACK_TWO_H
+};
 enum ENEMY_STATES {
     STAND,
     WALK,

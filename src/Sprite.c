@@ -3,44 +3,11 @@
 #include "Input.h"
 #include "Header.h"
 #include "Sprite.h"
+#include "Calc.h"
+
 static int rand_range(int low, int up)
 {
     return (rand() % (up - low + 1)) + low;
-}
-
-/**
- * Private
- * Return the angle between two points in radians
- */
-static double get_radian_angle(Sprite* this)
-{
-    typedef struct _point {
-        int x;
-        int y;
-    } point;
-    point p1 = { WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2 };
-    point p2 = { MOUSE_X, MOUSE_Y };
-
-    double delta_X = (double)(p1.x - p2.x);
-    double delta_Y = (double)(p2.y - p1.y);
-    double result  = atan2(delta_X, delta_Y);
-    return (result * (180 / PI));
-}
-
-/**
- * Private
- * Convert radian to degrees
- */
-static double get_degree_angle(double angle)
-{
-    double dif = 0.0f;
-    if (angle < 0.0f) {
-        dif = (abs(abs(angle) - 180.0f));
-        dif += 180.0f;
-    } else {
-        dif = angle;
-    }
-    return dif;
 }
 
 static int bounds(int* x, int* y, int direction, Sprite* this)
@@ -83,26 +50,6 @@ static int bounds(int* x, int* y, int direction, Sprite* this)
 }
 
 /**
- * Private
- * Return the proper sprite state for hero type
- */
-static char* check_hero_state(Sprite* this)
-{
-
-    if (KEY == W)
-        return this->walk;
-    else if (KEY == A)
-        return this->attack_1;
-    else if (KEY == S)
-        return this->run;
-    else if (KEY == D)
-        return this->attack_2;
-    else if (KEY == NON)
-        return this->stand;
-    return this->path;
-}
-
-/**
  * Set proper coordinates of each frame
  */
 static void set_sprite_cords(Sprite* this)
@@ -138,14 +85,14 @@ static void _print(Sprite* this)
     printf("%p", this);
 }
 
-static char* _render(void* obj, SDL_Renderer* renderer)
+static int _render(void* obj, SDL_Renderer* renderer)
 {
     Sprite* this = (Sprite*)obj;
     SDL_RenderCopy(renderer, this->texture, this->frame, &this->rect);
-    return this->path;
+    return 0;
 }
 
-static char* _logic_attack_enemy(void* obj)
+static int _logic_attack_enemy(void* obj)
 {
     Sprite* this = (Sprite*)obj;
 
@@ -164,16 +111,16 @@ static char* _logic_attack_enemy(void* obj)
             IN_ATTACK_TWO = 0;
         }
 
-        MOUSE_ANGLE     = (int)(get_degree_angle(get_radian_angle(this)) / 22.0f);
+        MOUSE_ANGLE     = (int)(get_degree_angle(get_radian_angle()) / 22.0f);
         this->row_index = (MOUSE_ANGLE * this->rows) + this->col_index;
 
         if (this->row_index >= this->num_frames)
             this->row_index = 0 + this->col_index;
         this->frame = this->rects[this->row_index];
     }
-    return this->path;
+    return 0;
 }
-static char* _logic_movement_enemy(void* obj)
+static int _logic_movement_enemy(void* obj)
 {
     Sprite* this = (Sprite*)obj;
 
@@ -190,17 +137,13 @@ static char* _logic_movement_enemy(void* obj)
             this->row_index = 0 + this->col_index;
         this->frame = this->rects[this->row_index];
     }
-    return check_hero_state(this);
+    return 0;
 }
 
-static char* _logic_attack_hero(void* obj)
+static int _logic_attack_hero(void* obj)
 {
     Sprite* this = (Sprite*)obj;
 
-    if (!this->action_started) {
-        this->row_index -= this->col_index;
-        this->action_started = 1;
-    }
     if (FRAMES_RENDERED % 3 == 0) {
         this->row_index++;
         this->col_index++;
@@ -209,20 +152,17 @@ static char* _logic_attack_hero(void* obj)
             this->col_index = 0;
             this->row_index -= this->rows;
 
-            return check_hero_state(this);
+            return 0;
         }
-
-        MOUSE_ANGLE     = (int)(get_degree_angle(get_radian_angle(this)) / 22.0f);
         this->row_index = (MOUSE_ANGLE * this->rows) + this->col_index;
-
         if (this->row_index >= this->num_frames)
             this->row_index = 0 + this->col_index;
         this->frame = this->rects[this->row_index];
     }
-    return this->path;
+    return 1;
 }
 
-static char* _logic_movement_hero(void* obj)
+static int _logic_movement_hero(void* obj)
 {
     Sprite* this = (Sprite*)obj;
 
@@ -234,14 +174,14 @@ static char* _logic_movement_hero(void* obj)
             this->col_index = 0;
             this->row_index -= this->rows;
         }
-        MOUSE_ANGLE     = (int)(get_degree_angle(get_radian_angle(this)) / 22.0f);
+        MOUSE_ANGLE     = (int)(get_degree_angle(get_radian_angle()) / 22.0f);
         this->row_index = (MOUSE_ANGLE * this->rows) + this->col_index;
 
         if (this->row_index >= this->num_frames)
             this->row_index = 0 + this->col_index;
         this->frame = this->rects[this->row_index];
     }
-    return check_hero_state(this);
+    return 0;
 }
 
 Sprite* CREATE_SPRITE(SDL_Renderer* renderer, char* path,

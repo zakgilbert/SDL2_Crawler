@@ -7,13 +7,34 @@
 #include "Hero.h"
 #include "Header.h"
 #include "Sprite.h"
+#include "Calc.h"
 
-static Sprite* get_stand(Hero* this) { return this->sprites[STAND]; }              /* Get standing sprite */
-static Sprite* get_walk(Hero* this) { return this->sprites[WALK]; }                /* Get walking sprite */
-static Sprite* get_run(Hero* this) { return this->sprites[RUN]; }                  /* Get running sprite */
-static Sprite* get_attack(Hero* this) { return this->sprites[ATTACK]; }            /* Get sprite */
-static Sprite* get_current(Hero* this) { return this->sprites[this->cur_sprite]; } /* Get current sprite */
-
+/**
+ * Private
+ * Return the proper sprite state for hero type
+ */
+static int check_hero_state(Hero* this)
+{
+    if (IN_ACTION) {
+        return this->cur_sprite;
+    }
+    if (KEY == W) {
+        return WALK_H;
+    } else if (KEY == A) {
+        this->in_action = 1;
+        MOUSE_ANGLE     = (int)(get_degree_angle(get_radian_angle()) / 22.0f);
+        return ATTACK_ONE_H;
+    } else if (KEY == D) {
+        this->in_action = 1;
+        MOUSE_ANGLE     = (int)(get_degree_angle(get_radian_angle()) / 22.0f);
+        return ATTACK_TWO_H;
+    } else if (KEY == S) {
+        return RUN_H;
+    } else if (KEY == NON) {
+        return STAND_H;
+    }
+    return this->cur_sprite;
+}
 static void move_enemy(Sprite* this)
 {
     int direction = (this->row_index - this->col_index) / this->rows;
@@ -91,12 +112,9 @@ static char* _render(void* obj, SDL_Renderer* renderer)
 static char* _logic(void* obj)
 {
     Hero* this       = (Hero*)obj;
-    this->cur_sprite = WALK;
+    this->cur_sprite = check_hero_state(this);
     Sprite* current  = this->sprites[this->cur_sprite];
-
-    current->rect.x = (*this->x) + X;
-    current->rect.y = (*this->x) + Y;
-    current->logic(current);
+    IN_ACTION        = current->logic(current);
     return this->key;
 }
 
@@ -119,12 +137,9 @@ Hero* CREATE_HERO(char* key, int num_sprite)
     this->cur_sprite = -1;
     this->num_sprite = num_sprite;
 
-    this->key    = key;
-    this->moving = 0;
-    /*
-    this->x      = x;
-    this->y      = y;
-    */
+    this->key       = key;
+    this->moving    = 0;
+    this->in_action = 0;
 
     this->sprites = malloc(sizeof(Sprite*) * this->num_sprite);
     set_array_null(this->sprites, this->num_sprite);

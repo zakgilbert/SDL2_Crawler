@@ -10,6 +10,7 @@
 #include "Sprite.h"
 #include "Direction.h"
 #include "Enemy.h"
+#include "Hero.h"
 
 #define ASSETS_NUM 2
 #define DARK_FOREST_STATES 3
@@ -30,11 +31,7 @@ static char* STATE_STRINGS[] = {
     "map_directions",
     "graphics/map.png",
     "graphics/forest.png",
-    "graphics/pally_1_edit.png",
-    "graphics/pally_walk.png",
-    "graphics/pally_run.png",
-    "graphics/pally_attack_1.png",
-    "graphics/pally_attack_2.png",
+    "hero",
     "yeti"
 };
 
@@ -61,7 +58,7 @@ int* get_dark_forest_states()
         MAP_DIRECTIONS_KEY,
         FLOOR_FOREST_GROUND_KEY,
         FLOOR_FOREST_TREES_KEY,
-        HERO_STAND_KEY,
+        HERO_K,
         YETI_KEY
     };
     for (int i = 0; i < size; i++) {
@@ -87,8 +84,9 @@ Table_Container add_assets(Logic_Table* t_l, Render_Table* t_r, SDL_Renderer* re
     Direction* directions = CREATE_DIRECTION(ASSET_STRINGS[0]);
     Floor* forest_floor   = CREATE_FLOOR(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT, renderer, ASSET_STRINGS[1]);
     Floor* forest_trees   = CREATE_FLOOR(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT, renderer, ASSET_STRINGS[2]);
+    Hero* hero            = CREATE_HERO(STATE_STRINGS[HERO_K], 5);
 
-    Sprite* hero = CREATE_SPRITE(renderer, ASSET_STRINGS[3], 16, 16, hero_x, hero_y, 62, 80, MOVEMENT, HERO,
+    Sprite* hero_stand = CREATE_SPRITE(renderer, ASSET_STRINGS[3], 16, 16, hero_x, hero_y, 62, 80, MOVEMENT, HERO,
         ASSET_STRINGS[HERO_WALK_PATH],
         ASSET_STRINGS[HERO_STAND_PATH],
         ASSET_STRINGS[HERO_RUN_PATH],
@@ -123,6 +121,12 @@ Table_Container add_assets(Logic_Table* t_l, Render_Table* t_r, SDL_Renderer* re
         ASSET_STRINGS[HERO_ATTACK_1_PATH],
         ASSET_STRINGS[HERO_ATTACK_2_PATH]);
 
+    hero->add_sprite(hero, hero_stand, STAND_H);
+    hero->add_sprite(hero, hero_walk, WALK_H);
+    hero->add_sprite(hero, hero_run, RUN_H);
+    hero->add_sprite(hero, hero_attack_1, ATTACK_ONE_H);
+    hero->add_sprite(hero, hero_attack_2, ATTACK_TWO_H);
+
     Sprite* enemy_stand = CREATE_SPRITE(renderer, ASSET_STRINGS[8], 8, 8, snow_x, snow_y, 104, 109, MOVEMENT, ENEMY,
         ASSET_STRINGS[ENEMY_WALK_PATH], ASSET_STRINGS[ENEMY_STAND_PATH], NULL, NULL, NULL);
 
@@ -136,21 +140,27 @@ Table_Container add_assets(Logic_Table* t_l, Render_Table* t_r, SDL_Renderer* re
     t_l->insert(t_l, CREATE_LOGIC_NODE(ASSET_STRINGS[0], directions, directions->logic, NULL));
     t_l->insert(t_l, CREATE_LOGIC_NODE(ASSET_STRINGS[1], forest_floor, forest_floor->logic, forest_floor->deallocate));
     t_l->insert(t_l, CREATE_LOGIC_NODE(ASSET_STRINGS[2], forest_trees, forest_trees->logic, forest_trees->deallocate));
+    /*
     t_l->insert(t_l, CREATE_LOGIC_NODE(ASSET_STRINGS[3], hero, hero->logic, NULL));
     t_l->insert(t_l, CREATE_LOGIC_NODE(ASSET_STRINGS[4], hero_walk, hero_walk->logic, NULL));
     t_l->insert(t_l, CREATE_LOGIC_NODE(ASSET_STRINGS[5], hero_run, hero_run->logic, NULL));
     t_l->insert(t_l, CREATE_LOGIC_NODE(ASSET_STRINGS[6], hero_attack_1, hero_attack_1->logic, NULL));
     t_l->insert(t_l, CREATE_LOGIC_NODE(ASSET_STRINGS[7], hero_attack_2, hero_attack_2->logic, NULL));
+*/
+    t_l->insert(t_l, CREATE_LOGIC_NODE(hero->key, hero, hero->logic, NULL));
     t_l->insert(t_l, CREATE_LOGIC_NODE(yeti->key, yeti, yeti->logic, NULL));
 
     t_r->insert(t_r, CREATE_RENDER_NODE(ASSET_STRINGS[0], directions, directions->render));
     t_r->insert(t_r, CREATE_RENDER_NODE(ASSET_STRINGS[1], forest_floor, forest_floor->render));
     t_r->insert(t_r, CREATE_RENDER_NODE(ASSET_STRINGS[2], forest_trees, forest_trees->render));
+    /*
     t_r->insert(t_r, CREATE_RENDER_NODE(ASSET_STRINGS[3], hero, hero->render));
     t_r->insert(t_r, CREATE_RENDER_NODE(ASSET_STRINGS[4], hero_walk, hero_walk->render));
     t_r->insert(t_r, CREATE_RENDER_NODE(ASSET_STRINGS[5], hero_run, hero_run->render));
     t_r->insert(t_r, CREATE_RENDER_NODE(ASSET_STRINGS[6], hero_attack_1, hero_attack_1->render));
     t_r->insert(t_r, CREATE_RENDER_NODE(ASSET_STRINGS[7], hero_attack_2, hero_attack_2->render));
+    */
+    t_r->insert(t_r, CREATE_RENDER_NODE(hero->key, hero, hero->render));
     t_r->insert(t_r, CREATE_RENDER_NODE(yeti->key, yeti, yeti->render));
 
     container.t_l = t_l;
