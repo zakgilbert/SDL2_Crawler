@@ -30,12 +30,12 @@ static char* ASSET_STRINGS[] = {
     "graphics/snow_walk.png"
 };
 static char* STATE_STRINGS[] = {
+    "col",
     "map_directions",
     "graphics/map.png",
     "graphics/forest.png",
     "hero",
-    "yeti",
-    "col"
+    "yeti"
 };
 
 char** create_state(int* states, int num, char** state)
@@ -58,12 +58,12 @@ int* get_dark_forest_states()
     int size    = 6;
     int* states = malloc(sizeof(int) * size);
     int temp[6] = {
+        COLLISION_KEY,
         MAP_DIRECTIONS_KEY,
         FLOOR_FOREST_GROUND_KEY,
         FLOOR_FOREST_TREES_KEY,
         HERO_K,
-        YETI_KEY,
-        COLLISION_KEY
+        YETI_KEY
     };
     for (int i = 0; i < size; i++) {
         states[i] = temp[i];
