@@ -39,6 +39,7 @@ char* _render(void* obj, SDL_Renderer* renderer)
 char* _logic(void* obj)
 {
     Collision* this = (Collision*)obj;
+    /*
     static int x, y;
     if ((SDL_FALSE == SDL_HasIntersection(this->ref, this->head->rect))) {
         x         = X;
@@ -49,7 +50,7 @@ char* _logic(void* obj)
         Y         = y;
         COLLIDING = 1;
     }
-
+*/
     return this->key;
 }
 

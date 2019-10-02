@@ -11,6 +11,7 @@
 #define PRIME_2 151       /* Prime numbers for seeding has tables */
 #define TABLE_SIZE 500    /* Generic size for hash tables */
 #define PI 3.14159        /* Ratio of a circle's circumference to its diameter */
+#define NUM_STATES 5      /* Number of states in state q */
 
 extern int FPS;             /* Frames per Second */
 extern int FULLSCREEN_ON;   /* Fullscreen boolean */
@@ -73,7 +74,7 @@ enum SPRITE_STATE_TYPES {
 };
 enum SPRITE_TYPES {
     HERO,
-    ENEMY 
+    ENEMY
 };
 
 enum ASSET_PATH_ENUM {
@@ -84,11 +85,13 @@ enum ASSET_PATH_ENUM {
     HERO_ATTACK_1_PATH,
     HERO_ATTACK_2_PATH,
     ENEMY_STAND_PATH,
-    ENEMY_WALK_PATH
+    ENEMY_WALK_PATH,
+    TERRAIN_PATH
 };
 enum ASSET_KEYS_ENUM {
     COLLISION_KEY,
     MAP_DIRECTIONS_KEY,
+    TERRAIN_KEY,
     HERO_K,
     YETI_KEY
 };

@@ -1,7 +1,6 @@
 #ifndef ASSETS_H
 #define ASSETS_H
 
-typedef struct _Floor Floor;
 typedef struct _Logic_Table Logic_Table;
 typedef struct _Render_Table Render_Table;
 typedef struct _Logic_Node Logic_Node;

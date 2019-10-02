@@ -1,6 +1,5 @@
 #include <SDL2/SDL.h>
 #include "Assets.h"
-#include "Floor.h"
 #include "Header.h"
 #include "Input.h"
 #include "Logic_Node.h"
@@ -13,6 +12,7 @@
 #include "Hero.h"
 #include "Collision.h"
 #include "Rect_Node.h"
+#include "Terrain.h" /* Hold tile textures for map graphics */
 
 #define ASSETS_NUM 2
 #define DARK_FOREST_STATES 3
@@ -25,11 +25,13 @@ static char* ASSET_STRINGS[] = {
     "graphics/pally_attack_1.png",
     "graphics/pally_attack_2.png",
     "graphics/snow_stand.png",
-    "graphics/snow_walk.png"
+    "graphics/snow_walk.png",
+    "graphics/outdoor_floor_sprite_1.png"
 };
 static char* STATE_STRINGS[] = {
     "col",
     "map_directions",
+    "terrain",
     "hero",
     "yeti"
 };
@@ -51,11 +53,12 @@ static int moving() { return ((KEY != NON) && (KEY == W)); }
 
 int* get_dark_forest_states()
 {
-    int size    = 4;
-    int* states = malloc(sizeof(int) * size);
-    int temp[4] = {
+    int size             = NUM_STATES;
+    int* states          = malloc(sizeof(int) * size);
+    int temp[NUM_STATES] = {
         COLLISION_KEY,
         MAP_DIRECTIONS_KEY,
+        TERRAIN_KEY,
         HERO_K,
         YETI_KEY
     };
@@ -79,6 +82,7 @@ Table_Container add_assets(Logic_Table* t_l, Render_Table* t_r, SDL_Renderer* re
     snow_x = &VAL_SNOW_X;
     snow_y = &VAL_SNOW_Y;
 
+    Terrain* terrain      = CREATE_TERRAIN(ASSET_STRINGS[TERRAIN_PATH], STATE_STRINGS[TERRAIN_KEY], renderer, 0, 0, WINDOW_WIDTH * 4, WINDOW_HEIGHT * 4, 160, 80, 28, 5);
     Direction* directions = CREATE_DIRECTION(ASSET_STRINGS[MAP_DIRECTIONS_PATH]);
     Hero* hero            = CREATE_HERO(STATE_STRINGS[HERO_K], 5);
 
@@ -108,11 +112,13 @@ Table_Container add_assets(Logic_Table* t_l, Render_Table* t_r, SDL_Renderer* re
     t_l->insert(t_l, CREATE_LOGIC_NODE(hero->key, hero, hero->logic, NULL));
     t_l->insert(t_l, CREATE_LOGIC_NODE(yeti->key, yeti, yeti->logic, NULL));
     t_l->insert(t_l, CREATE_LOGIC_NODE(collision->key, collision, collision->logic, NULL));
+    t_l->insert(t_l, CREATE_LOGIC_NODE(terrain->key, terrain, terrain->logic, NULL));
 
     t_r->insert(t_r, CREATE_RENDER_NODE(ASSET_STRINGS[MAP_DIRECTIONS_PATH], directions, directions->render));
     t_r->insert(t_r, CREATE_RENDER_NODE(hero->key, hero, hero->render));
     t_r->insert(t_r, CREATE_RENDER_NODE(yeti->key, yeti, yeti->render));
     t_r->insert(t_r, CREATE_RENDER_NODE(collision->key, collision, collision->render));
+    t_r->insert(t_r, CREATE_RENDER_NODE(terrain->key, terrain, terrain->render));
 
     container.t_l = t_l;
     container.t_r = t_r;

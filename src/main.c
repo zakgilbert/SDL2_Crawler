@@ -3,7 +3,6 @@
 #include "Assets.h"       /* Add game assests to hastables */
 #include "Atlas.h"        /* Font Atlas */
 #include "Delta.h"        /* Timing */
-#include "Floor.h"        /* Game Class */
 #include "Graphics.h"     /* SDL2 graphics functions */
 #include "Header.h"       /* Globals */
 #include "Input.h"        /* Player Input */
@@ -55,15 +54,15 @@ int main(int argc, char** argv)
     render_table->print_table(render_table);
     SDL_DetachThread(input_thread);
 
-    state = create_state(get_dark_forest_states(), 4, state);
+    state = create_state(get_dark_forest_states(), NUM_STATES, state);
 
     while (!EXIT()) {
         start_timer();
 
         mouse->get_state(mouse);
 
-        state = logic(logic_table, state, 4);
-        state = draw(render_table, state, renderer, 4);
+        state = logic(logic_table, state, NUM_STATES);
+        state = draw(render_table, state, renderer, NUM_STATES);
 
         delay();
         set_fullscreen(window);
