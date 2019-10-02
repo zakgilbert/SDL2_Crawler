@@ -50,7 +50,6 @@ char** create_state(int* states, int num, char** state)
     return state;
 }
 
-static int moving() { return ((KEY != NON) && (KEY == W)); }
 
 int* get_dark_forest_states()
 {

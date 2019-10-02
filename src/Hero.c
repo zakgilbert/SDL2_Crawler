@@ -48,45 +48,6 @@ static int check_hero_state(Hero* this)
     MOUSE_ANGLE = get_mouse_angle(this);
     return this->cur_sprite;
 }
-static void move_enemy(Sprite* this)
-{
-    int direction = (this->row_index - this->col_index) / this->rows;
-    int speed     = 1;
-    switch (direction) {
-    case 0:
-    case 8:
-        (*this->y_origin) += speed;
-        break;
-    case 1:
-        (*this->x_origin) -= speed;
-        (*this->y_origin) += speed;
-        break;
-    case 2:
-        (*this->x_origin) -= speed;
-        break;
-    case 3:
-        (*this->x_origin) -= speed;
-        (*this->y_origin) -= speed;
-        break;
-    case 4:
-        (*this->y_origin) -= speed;
-        break;
-    case 5:
-        (*this->x_origin) += speed;
-        (*this->y_origin) -= speed;
-        break;
-    case 6:
-        (*this->x_origin) += speed;
-        break;
-    case 7:
-        (*this->x_origin) += speed;
-        (*this->y_origin) += speed;
-        break;
-
-    default:
-        break;
-    }
-}
 static void set_array_null(Sprite** sprites, int num)
 {
     for (int i = 0; i < num; i++) {

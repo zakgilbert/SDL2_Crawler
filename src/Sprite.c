@@ -5,45 +5,6 @@
 #include "Sprite.h"
 #include "Calc.h"
 
-static int bounds(int* x, int* y, int direction, Sprite* this)
-{
-    int result = direction;
-    if ((*y) < 0) {
-        if (direction == 3) {
-            result = 1;
-        } else if (direction == 5) {
-            result = 7;
-        } else
-            result = 0;
-        printf("ret: %d\n", 1);
-    } else if ((*x) < 0) {
-        if (direction == 3) {
-            result = 5;
-        } else if (direction == 1) {
-            result = 7;
-        } else
-            result = 6;
-        printf("ret: %d\n", 2);
-    } else if ((*x) > 2048 - (WINDOW_WIDTH - this->rect.w)) {
-        if (direction == 5) {
-            result = 3;
-        } else if (direction == 7) {
-            result = 1;
-        } else
-            result = 2;
-        printf("ret: %d\n", 3);
-    } else if ((*y) > 1792 - (WINDOW_HEIGHT - this->rect.h)) {
-        if (direction == 1) {
-            result = 3;
-        } else if (direction == 7) {
-            result = 1;
-        } else
-            result = 4;
-        printf("ret: %d\n", 4);
-    }
-    return result;
-}
-
 /**
  * Set proper coordinates of each frame
  */
