@@ -5,10 +5,6 @@
 #include "Sprite.h"
 #include "Calc.h"
 
-static int rand_range(int low, int up)
-{
-    return (rand() % (up - low + 1)) + low;
-}
 
 static int bounds(int* x, int* y, int direction, Sprite* this)
 {
