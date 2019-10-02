@@ -56,7 +56,8 @@ static void set_sprite_cords(Terrain* this)
     for (int i = 0; i < this->num_tiles; i++) {
         this->map[i] = rand_range(0, this->num_frames - 2);
     }
-    print_map(this);
+    if (PRINT)
+        print_map(this);
 }
 
 /**

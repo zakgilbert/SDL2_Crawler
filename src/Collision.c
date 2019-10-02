@@ -40,15 +40,10 @@ char* _render(void* obj, SDL_Renderer* renderer)
 char* _logic(void* obj)
 {
     Collision* this = (Collision*)obj;
-    static int x, y;
     if ((SDL_TRUE == SDL_HasIntersection(*this->ref, *this->head->rect))) {
         COLLIDING = 1;
-        X         = x;
-        Y         = y;
     } else {
         COLLIDING = 0;
-        x         = X;
-        y         = Y;
     }
     /**
     printf("hero x: %d, y: %d\n", this->ref->x, this->ref->y);

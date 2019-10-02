@@ -19,6 +19,7 @@ typedef struct _Enemy {
     int moving;
     int *x, *y;
     int angle;
+    int in_action;
 
     char* key;
 } Enemy;

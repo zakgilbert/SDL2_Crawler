@@ -90,32 +90,27 @@ static int _render(void* obj, SDL_Renderer* renderer)
 static int _logic_attack_enemy(void* obj)
 {
     Sprite* this = (Sprite*)obj;
-
-    if (!this->action_started) {
-        this->row_index -= this->col_index;
-        this->action_started = 1;
-    }
     if (FRAMES_RENDERED % 3 == 0) {
+        if (this->col_index == 6) {
+            OPEN_FOR_ATK = 1;
+        } else {
+            OPEN_FOR_ATK = 0;
+        }
+
         this->row_index++;
         this->col_index++;
 
         if (this->row_index % this->rows == 0 && this->row_index != 0) {
             this->col_index = 0;
             this->row_index -= this->rows;
-            IN_ATTACK_ONE = 0;
-            IN_ATTACK_TWO = 0;
+            return 0;
         }
-
-        /**
-            MOUSE_ANGLE     = (int)(get_degree_angle(get_radian_angle()) / 22.0f);
-            this->row_index = (MOUSE_ANGLE * this->rows) + this->col_index;
-*/
 
         if (this->row_index >= this->num_frames)
             this->row_index = 0 + this->col_index;
         this->frame = this->rects[this->row_index];
     }
-    return 0;
+    return 1;
 }
 static int _logic_movement_enemy(void* obj)
 {
@@ -128,6 +123,7 @@ static int _logic_movement_enemy(void* obj)
         if (this->row_index % this->rows == 0 && this->row_index != 0) {
             this->col_index = 0;
             this->row_index -= this->rows;
+            return 1;
         }
 
         if (this->row_index >= this->num_frames)
@@ -171,7 +167,6 @@ static int _logic_movement_hero(void* obj)
             this->col_index = 0;
             this->row_index -= this->rows;
         }
-        MOUSE_ANGLE     = (int)(get_degree_angle(get_radian_angle(MOUSE_X, MOUSE_Y, WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2)) / 22.5f);
         this->row_index = (MOUSE_ANGLE * this->rows) + this->col_index;
 
         if (this->row_index >= this->num_frames)
@@ -198,6 +193,8 @@ Sprite* CREATE_SPRITE(SDL_Renderer* renderer, char* path,
     if (type == HERO) {
         this->rect.x = get_middle_x(WINDOW_WIDTH, w);
         this->rect.y = get_middle_y(WINDOW_HEIGHT, h);
+        HERO_WIDTH   = w / 2;
+        HERO_HEIGHT  = h / 2;
 
         if (this->state == MOVEMENT)
             this->logic = _logic_movement_hero;

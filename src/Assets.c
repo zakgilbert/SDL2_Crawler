@@ -26,7 +26,8 @@ static char* ASSET_STRINGS[] = {
     "graphics/pally_attack_2.png",
     "graphics/snow_stand.png",
     "graphics/snow_walk.png",
-    "graphics/dungeon_floor.png"
+    "graphics/dungeon_floor.png",
+    "graphics/snow_atk_1.png"
 };
 static char* STATE_STRINGS[] = {
     "col",
@@ -100,10 +101,12 @@ Table_Container add_assets(Logic_Table* t_l, Render_Table* t_r, SDL_Renderer* re
 
     Sprite* enemy_stand = CREATE_SPRITE(renderer, ASSET_STRINGS[ENEMY_STAND_PATH], 8, 8, snow_x, snow_y, 104, 109, MOVEMENT, ENEMY);
     Sprite* enemy_walk  = CREATE_SPRITE(renderer, ASSET_STRINGS[ENEMY_WALK_PATH], 12, 8, snow_x, snow_y, 106, 120, MOVEMENT, ENEMY);
+    Sprite* enemy_atk_1 = CREATE_SPRITE(renderer, ASSET_STRINGS[ENEMY_ATK_1_PATH], 12, 8, snow_x, snow_y, 217, 120, ACTION, ENEMY);
 
-    Enemy* yeti = CREATE_ENEMY("yeti", 2, snow_x, snow_y);
+    Enemy* yeti = CREATE_ENEMY("yeti", 3, snow_x, snow_y);
     yeti->add_sprite(yeti, enemy_stand, STAND);
     yeti->add_sprite(yeti, enemy_walk, WALK);
+    yeti->add_sprite(yeti, enemy_atk_1, ATTACK);
 
     Collision* collision = CREATE_COLLISION(STATE_STRINGS[COLLISION_KEY], &hero->col_rect);
     collision->add(collision, CREATE_RECT_NODE(&yeti->col_rect));

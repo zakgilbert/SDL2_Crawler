@@ -16,7 +16,7 @@ void SDL_init()
 SDL_Window* make_window(char* name)
 {
     struct SDL_Window* window = NULL;
-    window = SDL_CreateWindow(name, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, WINDOW_WIDTH,
+    window                    = SDL_CreateWindow(name, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, WINDOW_WIDTH,
         WINDOW_HEIGHT, 0);
     if (!window) {
         printf("\nERROR: SDL window failed--\n%s\n", SDL_GetError());
@@ -29,7 +29,7 @@ SDL_Renderer* make_renderer(SDL_Window** window)
 {
     Uint32 render_flags;
     SDL_Renderer* renderer = NULL;
-    render_flags = SDL_RENDERER_PRESENTVSYNC | SDL_RENDERER_TARGETTEXTURE;
+    render_flags           = SDL_RENDERER_PRESENTVSYNC | SDL_RENDERER_TARGETTEXTURE;
 
     renderer = SDL_CreateRenderer(*window, -1, render_flags);
 
@@ -95,6 +95,11 @@ int get_middle_x(int frame_size, int sprite_size)
 int get_middle_y(int frame_size, int sprite_size)
 {
     return (frame_size / 2) - (sprite_size / 2);
+}
+
+int mid(int cord, int len)
+{
+    return cord + (len / 2);
 }
 
 void set_fullscreen(SDL_Window* window)

@@ -29,4 +29,6 @@ int get_middle_y(int frame_size, int sprite_size);
 /* If user KEY = F turn fullscreen on or off */
 void set_fullscreen(SDL_Window* window);
 
-#endif //GRAPHICS_H
+int mid(int cord, int len);
+
+#endif  //GRAPHICS_H

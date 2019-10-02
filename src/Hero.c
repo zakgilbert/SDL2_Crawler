@@ -8,7 +8,16 @@
 #include "Header.h"
 #include "Sprite.h"
 #include "Calc.h"
+#include "Graphics.h"
 
+static int get_mouse_angle(Hero* this)
+{
+    return ((int)(get_degree_angle(
+                      get_radian_angle(MOUSE_X, MOUSE_Y,
+                          mid(this->col_rect->x, this->col_rect->w),
+                          mid(this->col_rect->y, this->col_rect->h)))
+        / 22.5f));
+}
 /**
  * Private
  * Return the proper sprite state for hero type
@@ -19,20 +28,24 @@ static int check_hero_state(Hero* this)
         return this->cur_sprite;
     }
     if (KEY == W) {
+        MOUSE_ANGLE = get_mouse_angle(this);
         return WALK_H;
     } else if (KEY == A) {
         this->in_action = 1;
-        MOUSE_ANGLE     = (int)(get_degree_angle(get_radian_angle(MOUSE_X, MOUSE_Y, WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2)) / 22.5f);
+        MOUSE_ANGLE     = get_mouse_angle(this);
         return ATTACK_ONE_H;
     } else if (KEY == D) {
         this->in_action = 1;
-        MOUSE_ANGLE     = (int)(get_degree_angle(get_radian_angle(MOUSE_X, MOUSE_Y, WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2)) / 22.5f);
+        MOUSE_ANGLE     = get_mouse_angle(this);
         return ATTACK_TWO_H;
     } else if (KEY == S) {
+        MOUSE_ANGLE = get_mouse_angle(this);
         return RUN_H;
     } else if (KEY == NON) {
+        MOUSE_ANGLE = get_mouse_angle(this);
         return STAND_H;
     }
+    MOUSE_ANGLE = get_mouse_angle(this);
     return this->cur_sprite;
 }
 static void move_enemy(Sprite* this)
@@ -105,9 +118,10 @@ static char* _render(void* obj, SDL_Renderer* renderer)
     Sprite* current = this->sprites[this->cur_sprite];
 
     current->render(current, renderer);
-    /**
-        SDL_RenderDrawRect(renderer, this->col_rect);
-*/
+    SDL_RenderDrawRect(renderer, this->col_rect);
+    SDL_SetRenderDrawColor(renderer, 255, 255, 255, 0);
+    SDL_RenderDrawPoint(renderer, this->col_rect->x, this->col_rect->y);
+    SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0);
 
     return this->key;
 }
@@ -119,6 +133,8 @@ static char* _logic(void* obj)
     Sprite* current  = this->sprites[this->cur_sprite];
     IN_ACTION        = current->logic(current);
     this->col_rect   = &current->rect;
+    HERO_WIDTH       = this->col_rect->x + (this->col_rect->w / 2);
+    HERO_HEIGHT      = this->col_rect->y + (this->col_rect->h / 2);
 
     return this->key;
 }

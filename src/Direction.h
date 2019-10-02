@@ -6,8 +6,36 @@ typedef struct _Direction {
     char* (*render)(void* obj, SDL_Renderer* renderer);
     char* (*logic)(void* obj);
 
+    void (*hit_functions[8])(int x, int y);
+    void (*move_functions[17])(int x, int y);
     char* key;
 } Direction;
 Direction* CREATE_DIRECTION(char* key);
+
+void move_down(int x, int y);
+void move_down_down_left(int x, int y);
+void move_down_left(int x, int y);
+void move_down_left_left(int x, int y);
+void move_left(int x, int y);
+void move_up_left_left(int x, int y);
+void move_up_left(int x, int y);
+void move_up_up_left(int x, int y);
+void move_up(int x, int y);
+void move_up_up_right(int x, int y);
+void move_up_right(int x, int y);
+void move_up_right_right(int x, int y);
+void move_right(int x, int y);
+void move_down_right_right(int x, int y);
+void move_down_right(int x, int y);
+void move_down_down_right(int x, int y);
+
+void hit_down(int x, int y);
+void hit_down_left(int x, int y);
+void hit_left(int x, int y);
+void hit_up_left(int x, int y);
+void hit_up(int x, int y);
+void hit_up_right(int x, int y);
+void hit_right(int x, int y);
+void hit_down_right(int x, int y);
 
 #endif /* DIRECTION_H */

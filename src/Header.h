@@ -34,6 +34,10 @@ extern int HERO_SPEED;      /*Speed that hero moves at */
 extern int IN_ACTION;       /* Is the hero acting */
 extern int COLLIDING;       /* Is the hero colliding */
 extern int COLLISION_INDEX; /* Index of collided object */
+extern int HERO_WIDTH;      /* Index of collided object */
+extern int HERO_HEIGHT;     /* Index of collided object */
+extern int OPEN_FOR_ATK;    /* Index of collided object */
+extern int HIT_ANGLE;       /* Index of collided object */
 
 int FPS;
 int FULLSCREEN_ON;
@@ -54,6 +58,10 @@ int HERO_SPEED;
 int IN_ACTION;
 int COLLIDING;
 int COLLISION_INDEX;
+int HERO_WIDTH;
+int HERO_HEIGHT;
+int OPEN_FOR_ATK;
+int HIT_ANGLE;
 
 /**
  * Enum values can be referenced as follows...
@@ -90,7 +98,8 @@ enum ASSET_PATH_ENUM {
     HERO_ATTACK_2_PATH,
     ENEMY_STAND_PATH,
     ENEMY_WALK_PATH,
-    TERRAIN_PATH
+    TERRAIN_PATH,
+    ENEMY_ATK_1_PATH
 };
 enum ASSET_KEYS_ENUM {
     COLLISION_KEY,
@@ -110,7 +119,6 @@ enum HERO_STATES {
 enum ENEMY_STATES {
     STAND,
     WALK,
-    RUN,
     ATTACK
 };
 
