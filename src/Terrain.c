@@ -12,6 +12,19 @@ static int rand_range(int low, int up)
 {
     return (rand() % (up - low + 1)) + low;
 }
+static void print_map(Terrain* this)
+{
+    printf("Map\n[");
+    int col = 0;
+    for (int i = 0; i < this->num_tiles; i++) {
+        if (col == this->num_tiles_col) {
+            col = 0;
+            printf("]\n[");
+        }
+        printf("%d\t", this->map[i]);
+        col++;
+    }
+}
 static void set_sprite_cords(Terrain* this)
 {
     int x = 0;
@@ -30,8 +43,9 @@ static void set_sprite_cords(Terrain* this)
         x += this->rect.w;
     }
     for (int i = 0; i < this->num_tiles; i++) {
-        this->map[i] = rand_range(0, this->num_frames - 1);
+        this->map[i] = rand_range(0, this->num_frames - 2);
     }
+    print_map(this);
 }
 
 static void _destroy(Terrain* this)
@@ -67,17 +81,14 @@ static void create_map(Terrain* this, Rend* renderer)
     int i;
     int num_ti;
     int col;
-    int row;
     int k_col;
     int k_row;
-    int k_rand;
     int *x, *y, w, h, half_w, half_h;
-    int stag = 1;
+    int stag = 0;
 
     i            = 0;
     num_ti       = this->num_tiles;
     col          = this->num_tiles_col;
-    row          = this->num_tiles_row;
     w            = this->tile_w;
     h            = this->tile_h;
     half_w       = w / 2;
@@ -144,7 +155,7 @@ Terrain* CREATE_TERRAIN(char* path, char* key, Rend* renderer, int x, int y, int
     this->tex_t  = NULL;
     this->rect.w = tile_w;
     this->rect.h = tile_h;
-    // mTexture = SDL_CreateTexture( gRenderer, SDL_PIXELFORMAT_RGBA8888, access, width, height );
+
     this->tex_t = SDL_CreateTexture(renderer, SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_TARGET, w, h);
     this->map   = malloc(sizeof(int) * this->num_tiles);
     this->rects = malloc(sizeof(struct SDL_Rect*) * this->num_frames);

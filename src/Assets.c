@@ -26,7 +26,7 @@ static char* ASSET_STRINGS[] = {
     "graphics/pally_attack_2.png",
     "graphics/snow_stand.png",
     "graphics/snow_walk.png",
-    "graphics/outdoor_floor_sprite_1.png"
+    "graphics/dungeon_floor.png"
 };
 static char* STATE_STRINGS[] = {
     "col",
@@ -82,7 +82,7 @@ Table_Container add_assets(Logic_Table* t_l, Render_Table* t_r, SDL_Renderer* re
     snow_x = &VAL_SNOW_X;
     snow_y = &VAL_SNOW_Y;
 
-    Terrain* terrain      = CREATE_TERRAIN(ASSET_STRINGS[TERRAIN_PATH], STATE_STRINGS[TERRAIN_KEY], renderer, 0, 0, WINDOW_WIDTH * 4, WINDOW_HEIGHT * 4, 160, 80, 28, 5);
+    Terrain* terrain      = CREATE_TERRAIN(ASSET_STRINGS[TERRAIN_PATH], STATE_STRINGS[TERRAIN_KEY], renderer, 0, 0, WINDOW_WIDTH * 2, WINDOW_WIDTH * 4, 160, 80, 4, 5);
     Direction* directions = CREATE_DIRECTION(ASSET_STRINGS[MAP_DIRECTIONS_PATH]);
     Hero* hero            = CREATE_HERO(STATE_STRINGS[HERO_K], 5);
 

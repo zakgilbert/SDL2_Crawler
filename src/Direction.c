@@ -122,10 +122,10 @@ void map_bounds()
         Y = 0;
     if (X > 0)
         X = 0;
-    if (X < -2048 + WINDOW_WIDTH)
-        X = -2048 + WINDOW_WIDTH;
-    if (Y < -1792 + WINDOW_HEIGHT)
-        Y = -1792 + WINDOW_HEIGHT;
+    if (X < -MAP_W + WINDOW_WIDTH)
+        X = -MAP_W + WINDOW_WIDTH;
+    if (Y < -MAP_H + WINDOW_HEIGHT)
+        Y = -MAP_H + WINDOW_HEIGHT;
 }
 
 static char* _render(void* obj, SDL_Renderer* renderer)
