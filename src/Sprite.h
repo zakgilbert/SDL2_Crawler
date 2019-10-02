@@ -5,10 +5,10 @@
  * Encapsulate data for rendering textures from a sprite sheet 
  */
 typedef struct _Sprite {
-    void (*destroy)(struct _Sprite* this);              /* Free allocated memory */
-    void (*print)(struct _Sprite* this);                /* Print Sprite data */
+    void (*destroy)(struct _Sprite* this);            /* Free allocated memory */
+    void (*print)(struct _Sprite* this);              /* Print Sprite data */
     int (*render)(void* obj, SDL_Renderer* renderer); /* Render Sprite texture */
-    int (*logic)(void* obj);                            /* Execute Sprite game logic */
+    int (*logic)(void* obj);                          /* Execute Sprite game logic */
 
     SDL_Rect** rects;     /* Array of SDL Rentangle pointers for each frame in the sprite */
     SDL_Rect rect;        /* SDL Rectangle for entire Sprite sheet texture */
@@ -40,6 +40,6 @@ typedef struct _Sprite {
 } Sprite;
 Sprite* CREATE_SPRITE(SDL_Renderer* renderer, char* path,
     int rows, int cols, int* x, int* y, int w, int h,
-    int state, int type, char* walk, char* stand, char* run, char* attack_1, char* attack_2);
+    int state, int type);
 
 #endif /* SPRITE_H */

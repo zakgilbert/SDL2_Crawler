@@ -186,7 +186,7 @@ static int _logic_movement_hero(void* obj)
 
 Sprite* CREATE_SPRITE(SDL_Renderer* renderer, char* path,
     int rows, int cols, int* x, int* y, int w, int h,
-    int state, int type, char* walk, char* stand, char* run, char* attack_1, char* attack_2)
+    int state, int type)
 {
     Sprite* this = malloc(sizeof(*this));
     this->state  = state;
@@ -199,13 +199,8 @@ Sprite* CREATE_SPRITE(SDL_Renderer* renderer, char* path,
     this->y_origin = y;
 
     if (type == HERO) {
-        this->stand    = stand;
-        this->walk     = walk;
-        this->run      = run;
-        this->attack_1 = attack_1;
-        this->attack_2 = attack_2;
-        this->rect.x   = get_middle_x(WINDOW_WIDTH, w);
-        this->rect.y   = get_middle_y(WINDOW_HEIGHT, h);
+        this->rect.x = get_middle_x(WINDOW_WIDTH, w);
+        this->rect.y = get_middle_y(WINDOW_HEIGHT, h);
 
         if (this->state == MOVEMENT)
             this->logic = _logic_movement_hero;
@@ -213,8 +208,6 @@ Sprite* CREATE_SPRITE(SDL_Renderer* renderer, char* path,
             this->logic = _logic_attack_hero;
 
     } else if (type == ENEMY) {
-        this->stand    = stand;
-        this->walk     = walk;
         this->x_origin = x;
         this->y_origin = y;
         this->rect.x   = (*this->x_origin);
@@ -239,7 +232,6 @@ Sprite* CREATE_SPRITE(SDL_Renderer* renderer, char* path,
     this->time_end       = 0;
     this->rects          = malloc(sizeof(struct SDL_Rect*) * this->num_frames);
 
-    this->path              = path;
     this->current_direction = 0;
     set_sprite_cords(this);
 

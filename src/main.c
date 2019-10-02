@@ -55,15 +55,15 @@ int main(int argc, char** argv)
     render_table->print_table(render_table);
     SDL_DetachThread(input_thread);
 
-    state = create_state(get_dark_forest_states(), 6, state);
+    state = create_state(get_dark_forest_states(), 4, state);
 
     while (!EXIT()) {
         start_timer();
 
         mouse->get_state(mouse);
 
-        state = logic(logic_table, state, 6);
-        state = draw(render_table, state, renderer, 6);
+        state = logic(logic_table, state, 4);
+        state = draw(render_table, state, renderer, 4);
 
         delay();
         set_fullscreen(window);
