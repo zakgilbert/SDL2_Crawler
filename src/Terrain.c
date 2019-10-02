@@ -8,10 +8,17 @@
 #include "Graphics.h"
 #include "Header.h"
 
-static int rand_range(int low, int up)
+/**
+ * Generate random number between this and that
+ */
+static int rand_range(int this, int that)
 {
-    return (rand() % (up - low + 1)) + low;
+    return (rand() % (that - this + 1)) + this;
 }
+
+/**
+ * Print the map as 2d array
+ */
 static void print_map(Terrain* this)
 {
     printf("Map\n[");
@@ -25,6 +32,10 @@ static void print_map(Terrain* this)
         col++;
     }
 }
+
+/**
+ * Set the coordinates for all rectangles 
+ */
 static void set_sprite_cords(Terrain* this)
 {
     int x = 0;
@@ -46,6 +57,47 @@ static void set_sprite_cords(Terrain* this)
         this->map[i] = rand_range(0, this->num_frames - 2);
     }
     print_map(this);
+}
+
+/**
+ * Render map tiles to map texture 
+ */
+static void create_map(Terrain* this, Rend* renderer)
+{
+    int i;     /* Index of tiles with respect to the number of tiles */
+    int k_col; /* current column index */
+    int k_row; /* current row index */
+    int stag;  /* decide wether to stagger the row or not */
+
+    i            = 0;
+    this->rect.x = 0 - (this->tile_w / 2);
+    this->rect.y = 0 - (this->tile_h / 2);
+    k_col        = 0;
+    k_row        = 0;
+    stag         = 0;
+
+    SDL_SetRenderTarget(renderer, this->tex_t);
+    SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0);
+    SDL_RenderClear(renderer);
+
+    for (; i < this->num_tiles; i++) {
+        if (k_col > this->num_tiles_col) {
+            k_col = 0;
+            k_row++;
+            if (stag) {
+                this->rect.x = 0 - (this->tile_w / 2);
+            } else {
+                this->rect.x = 0;
+            }
+            this->rect.y += (this->tile_h / 2);
+            stag = !stag;
+        } else {
+            k_col++;
+            this->rect.x += this->tile_w;
+        }
+        SDL_RenderCopy(renderer, this->tex, this->rects[this->map[i]], &this->rect);
+    }
+    SDL_SetRenderTarget(renderer, NULL);
 }
 
 static void _destroy(Terrain* this)
@@ -76,53 +128,7 @@ static char* _logic(void* obj)
     this->map_rect.y = Y;
     return this->key;
 }
-static void create_map(Terrain* this, Rend* renderer)
-{
-    int i;
-    int num_ti;
-    int col;
-    int k_col;
-    int k_row;
-    int *x, *y, w, h, half_w, half_h;
-    int stag = 0;
 
-    i            = 0;
-    num_ti       = this->num_tiles;
-    col          = this->num_tiles_col;
-    w            = this->tile_w;
-    h            = this->tile_h;
-    half_w       = w / 2;
-    half_h       = h / 2;
-    this->rect.x = 0 - half_w;
-    this->rect.y = 0 - half_h;
-    x            = &this->rect.x;
-    y            = &this->rect.y;
-    k_col        = 0;
-    k_row        = 0;
-
-    SDL_SetRenderTarget(renderer, this->tex_t);
-    SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0);
-    SDL_RenderClear(renderer);
-
-    for (; i < num_ti; i++) {
-        if (k_col >= col) {
-            k_col = 0;
-            k_row++;
-            if (stag) {
-                *x = 0 - half_w;
-            } else {
-                *x = 0;
-            }
-            *y += half_h;
-            stag = !stag;
-        } else {
-            k_col++;
-            *x += w;
-        }
-        SDL_RenderCopy(renderer, this->tex, this->rects[this->map[i]], &this->rect);
-    }
-    SDL_SetRenderTarget(renderer, NULL);
-}
 Terrain* CREATE_TERRAIN(char* path, char* key, Rend* renderer, int x, int y, int w, int h, int tile_w, int tile_h, int rows, int cols)
 {
     Terrain* this = malloc(sizeof(*this));
@@ -148,7 +154,6 @@ Terrain* CREATE_TERRAIN(char* path, char* key, Rend* renderer, int x, int y, int
     this->num_tiles_col = w / tile_w;
     this->num_tiles_row = h / tile_h;
     this->num_tiles     = this->num_tiles_col * this->num_tiles_row;
-    this->path          = path;
     this->key           = key;
 
     this->tex    = create_texture(renderer, path, &this->rect);
