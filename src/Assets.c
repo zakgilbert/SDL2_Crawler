@@ -101,12 +101,12 @@ Table_Container add_assets(Logic_Table* t_l, Render_Table* t_r, SDL_Renderer* re
     Sprite* enemy_stand = CREATE_SPRITE(renderer, ASSET_STRINGS[ENEMY_STAND_PATH], 8, 8, snow_x, snow_y, 104, 109, MOVEMENT, ENEMY);
     Sprite* enemy_walk  = CREATE_SPRITE(renderer, ASSET_STRINGS[ENEMY_WALK_PATH], 12, 8, snow_x, snow_y, 106, 120, MOVEMENT, ENEMY);
 
-    Enemy* yeti = CREATE_ENEMY("yeti", 4, snow_x, snow_y);
+    Enemy* yeti = CREATE_ENEMY("yeti", 2, snow_x, snow_y);
     yeti->add_sprite(yeti, enemy_stand, STAND);
     yeti->add_sprite(yeti, enemy_walk, WALK);
 
-    Collision* collision = CREATE_COLLISION(STATE_STRINGS[COLLISION_KEY], hero->col_rect);
-    collision->add(collision, CREATE_RECT_NODE(yeti->col_rect));
+    Collision* collision = CREATE_COLLISION(STATE_STRINGS[COLLISION_KEY], &hero->col_rect);
+    collision->add(collision, CREATE_RECT_NODE(&yeti->col_rect));
 
     t_l->insert(t_l, CREATE_LOGIC_NODE(ASSET_STRINGS[MAP_DIRECTIONS_PATH], directions, directions->logic, NULL));
     t_l->insert(t_l, CREATE_LOGIC_NODE(hero->key, hero, hero->logic, NULL));

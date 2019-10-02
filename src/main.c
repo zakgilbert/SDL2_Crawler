@@ -91,9 +91,10 @@ void DEFINE_GLOBALS()
     IN_ATTACK_TWO   = 0;
     SECONDS_ELAPSED = 0;
     VAL_HERO        = 0;
-    VAL_SNOW_X      = 350;
-    VAL_SNOW_Y      = 350;
+    VAL_SNOW_X      = 450;
+    VAL_SNOW_Y      = 450;
     HERO_SPEED      = 5;
     IN_ACTION       = 0;
     COLLIDING       = 0;
+    COLLISION_INDEX = -1;
 }

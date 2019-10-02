@@ -49,87 +49,85 @@ static char* _logic(void* obj)
         if (KEY == S)
             HERO_SPEED = 4;
 
-        if (!COLLIDING) {
-            switch (MOUSE_ANGLE) {
-            case 0:
-            case 16:
-                Y -= HERO_SPEED;
-                break;
-            case 1:
-                if (FRAMES_RENDERED % 2 == 0)
-                    X += HERO_SPEED;
-                Y -= HERO_SPEED;
-                break;
-            case 2:
-                if (FRAMES_RENDERED % 1 == 0)
-                    Y -= HERO_SPEED;
+        switch (MOUSE_ANGLE) {
+        case 0:
+        case 16:
+            Y -= HERO_SPEED;
+            break;
+        case 1:
+            if (FRAMES_RENDERED % 2 == 0)
                 X += HERO_SPEED;
-                break;
-            case 3:
-                if (FRAMES_RENDERED % 2 == 0)
-                    Y -= HERO_SPEED;
-                X += HERO_SPEED;
-                break;
+            Y -= HERO_SPEED;
+            break;
+        case 2:
+            if (FRAMES_RENDERED % 1 == 0)
+                Y -= HERO_SPEED;
+            X += HERO_SPEED;
+            break;
+        case 3:
+            if (FRAMES_RENDERED % 2 == 0)
+                Y -= HERO_SPEED;
+            X += HERO_SPEED;
+            break;
 
-            case 4:
+        case 4:
+            X += HERO_SPEED;
+            break;
+        case 5:
+            if (FRAMES_RENDERED % 2 == 0)
+                Y += HERO_SPEED;
+            X += HERO_SPEED;
+            break;
+        case 6:
+            if (FRAMES_RENDERED % 1 == 0)
                 X += HERO_SPEED;
-                break;
-            case 5:
-                if (FRAMES_RENDERED % 2 == 0)
-                    Y += HERO_SPEED;
+            Y += HERO_SPEED;
+            break;
+        case 7:
+            if (FRAMES_RENDERED % 2 == 0)
                 X += HERO_SPEED;
-                break;
-            case 6:
-                if (FRAMES_RENDERED % 1 == 0)
-                    X += HERO_SPEED;
-                Y += HERO_SPEED;
-                break;
-            case 7:
-                if (FRAMES_RENDERED % 2 == 0)
-                    X += HERO_SPEED;
-                Y += HERO_SPEED;
-                break;
+            Y += HERO_SPEED;
+            break;
 
-            case 8:
+        case 8:
+            Y += HERO_SPEED;
+            break;
+        case 9:
+            if (FRAMES_RENDERED % 2 == 0)
+                X -= HERO_SPEED;
+            Y += HERO_SPEED;
+            break;
+        case 10:
+            if (FRAMES_RENDERED % 1 == 0)
                 Y += HERO_SPEED;
-                break;
-            case 9:
-                if (FRAMES_RENDERED % 2 == 0)
-                    X -= HERO_SPEED;
+            X -= HERO_SPEED;
+            break;
+        case 11:
+            if (FRAMES_RENDERED % 2 == 0)
                 Y += HERO_SPEED;
-                break;
-            case 10:
-                if (FRAMES_RENDERED % 1 == 0)
-                    Y += HERO_SPEED;
-                X -= HERO_SPEED;
-                break;
-            case 11:
-                if (FRAMES_RENDERED % 2 == 0)
-                    Y += HERO_SPEED;
-                X -= HERO_SPEED;
-                break;
-            case 12:
-                X -= HERO_SPEED;
-                break;
-            case 13:
-                if (FRAMES_RENDERED % 2 == 0)
-                    Y -= HERO_SPEED;
-                X -= HERO_SPEED;
-                break;
-            case 14:
-                if (FRAMES_RENDERED % 1 == 0)
-                    X -= HERO_SPEED;
+            X -= HERO_SPEED;
+            break;
+        case 12:
+            X -= HERO_SPEED;
+            break;
+        case 13:
+            if (FRAMES_RENDERED % 2 == 0)
                 Y -= HERO_SPEED;
-                break;
-            case 15:
-                if (FRAMES_RENDERED % 2 == 0)
-                    X -= HERO_SPEED;
-                Y -= HERO_SPEED;
-                break;
+            X -= HERO_SPEED;
+            break;
+        case 14:
+            if (FRAMES_RENDERED % 1 == 0)
+                X -= HERO_SPEED;
+            Y -= HERO_SPEED;
+            break;
+        case 15:
+            if (FRAMES_RENDERED % 2 == 0)
+                X -= HERO_SPEED;
+            Y -= HERO_SPEED;
+            break;
 
-            default:
-                break;
-            }
+        default:
+            break;
         }
     }
     if (PRINT)

@@ -5,7 +5,6 @@
 #include "Sprite.h"
 #include "Calc.h"
 
-
 static int bounds(int* x, int* y, int direction, Sprite* this)
 {
     int result = direction;
@@ -107,8 +106,10 @@ static int _logic_attack_enemy(void* obj)
             IN_ATTACK_TWO = 0;
         }
 
-        MOUSE_ANGLE     = (int)(get_degree_angle(get_radian_angle()) / 22.0f);
-        this->row_index = (MOUSE_ANGLE * this->rows) + this->col_index;
+        /**
+            MOUSE_ANGLE     = (int)(get_degree_angle(get_radian_angle()) / 22.0f);
+            this->row_index = (MOUSE_ANGLE * this->rows) + this->col_index;
+*/
 
         if (this->row_index >= this->num_frames)
             this->row_index = 0 + this->col_index;
@@ -170,7 +171,7 @@ static int _logic_movement_hero(void* obj)
             this->col_index = 0;
             this->row_index -= this->rows;
         }
-        MOUSE_ANGLE     = (int)(get_degree_angle(get_radian_angle()) / 22.0f);
+        MOUSE_ANGLE     = (int)(get_degree_angle(get_radian_angle(MOUSE_X, MOUSE_Y, WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2)) / 22.5f);
         this->row_index = (MOUSE_ANGLE * this->rows) + this->col_index;
 
         if (this->row_index >= this->num_frames)

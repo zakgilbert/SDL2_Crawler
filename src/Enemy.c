@@ -7,6 +7,7 @@
 #include "Enemy.h"
 #include "Header.h"
 #include "Sprite.h"
+#include "Calc.h"
 
 static Sprite* get_stand(Enemy* this) { return this->sprites[STAND]; }              /* Get standing sprite */
 static Sprite* get_walk(Enemy* this) { return this->sprites[WALK]; }                /* Get walking sprite */
@@ -14,39 +15,41 @@ static Sprite* get_run(Enemy* this) { return this->sprites[RUN]; }              
 static Sprite* get_attack(Enemy* this) { return this->sprites[ATTACK]; }            /* Get sprite */
 static Sprite* get_current(Enemy* this) { return this->sprites[this->cur_sprite]; } /* Get current sprite */
 
-static void move_enemy(Sprite* this)
+static void move_enemy(Sprite* sprite, Enemy* this)
 {
-    int direction = (this->row_index - this->col_index) / this->rows;
-    int speed     = 1;
+
+    int speed         = 1;
+    int direction     = this->angle;
+    sprite->row_index = (this->angle * sprite->rows) + sprite->col_index;
     switch (direction) {
     case 0:
     case 8:
-        (*this->y_origin) += speed;
+        (*sprite->y_origin) += speed;
         break;
     case 1:
-        (*this->x_origin) -= speed;
-        (*this->y_origin) += speed;
+        (*sprite->x_origin) -= speed;
+        (*sprite->y_origin) += speed;
         break;
     case 2:
-        (*this->x_origin) -= speed;
+        (*sprite->x_origin) -= speed;
         break;
     case 3:
-        (*this->x_origin) -= speed;
-        (*this->y_origin) -= speed;
+        (*sprite->x_origin) -= speed;
+        (*sprite->y_origin) -= speed;
         break;
     case 4:
-        (*this->y_origin) -= speed;
+        (*sprite->y_origin) -= speed;
         break;
     case 5:
-        (*this->x_origin) += speed;
-        (*this->y_origin) -= speed;
+        (*sprite->x_origin) += speed;
+        (*sprite->y_origin) -= speed;
         break;
     case 6:
-        (*this->x_origin) += speed;
+        (*sprite->x_origin) += speed;
         break;
     case 7:
-        (*this->x_origin) += speed;
-        (*this->y_origin) += speed;
+        (*sprite->x_origin) += speed;
+        (*sprite->y_origin) += speed;
         break;
 
     default:
@@ -82,20 +85,28 @@ static char* _render(void* obj, SDL_Renderer* renderer)
 {
     Enemy* this     = (Enemy*)obj;
     Sprite* current = this->sprites[this->cur_sprite];
-
     current->render(current, renderer);
-    SDL_RenderDrawRect(renderer, this->col_rect);
 
     return this->key;
 }
 
 static char* _logic(void* obj)
 {
-    Enemy* this     = (Enemy*)obj;
-    Sprite* current = this->sprites[this->cur_sprite];
+    Enemy* this = (Enemy*)obj;
+    Sprite* current;
+    
+    if (!COLLIDING) {
+        this->cur_sprite = WALK;
+        current          = this->sprites[this->cur_sprite];
+        this->angle      = (int)(get_degree_angle(get_radian_angle(WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2, current->rect.x, current->rect.y)) / 45.0f);
+        move_enemy(current, this);
+    } else if (COLLIDING) {
+        this->cur_sprite = STAND;
+        current          = this->sprites[this->cur_sprite];
+    }
 
-    current->rect.x = (*this->x) + X;
-    current->rect.y = (*this->x) + Y;
+    current->rect.x = (*current->x_origin) + X;
+    current->rect.y = (*current->y_origin) + Y;
     current->logic(current);
     this->col_rect = &current->rect;
     return this->key;

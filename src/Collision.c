@@ -32,24 +32,27 @@ static void _print(Collision* this, const char* message)
 char* _render(void* obj, SDL_Renderer* renderer)
 {
     Collision* this = (Collision*)obj;
-    SDL_RenderDrawRect(renderer, this->inter);
+    SDL_RenderDrawRect(renderer, *this->ref);
+    SDL_RenderDrawRect(renderer, *this->head->rect);
     return this->key;
 }
 
 char* _logic(void* obj)
 {
     Collision* this = (Collision*)obj;
-    /*
     static int x, y;
-    if ((SDL_FALSE == SDL_HasIntersection(this->ref, this->head->rect))) {
-        x         = X;
-        y         = Y;
-        COLLIDING = 0;
-    } else {
+    if ((SDL_TRUE == SDL_HasIntersection(*this->ref, *this->head->rect))) {
+        COLLIDING = 1;
         X         = x;
         Y         = y;
-        COLLIDING = 1;
+    } else {
+        COLLIDING = 0;
+        x         = X;
+        y         = Y;
     }
+    /**
+    printf("hero x: %d, y: %d\n", this->ref->x, this->ref->y);
+    printf("enemy x: %d, y: %d\n", this->head->rect->x, this->head->rect->y);
 */
     return this->key;
 }
@@ -68,7 +71,7 @@ static void _add(Collision* this, Rect_Node* node)
     }
 }
 
-Collision* CREATE_COLLISION(char* key, SDL_Rect* ref)
+Collision* CREATE_COLLISION(char* key, SDL_Rect** ref)
 {
     Collision* this = malloc(sizeof(*this));
     this->destroy   = _destroy;

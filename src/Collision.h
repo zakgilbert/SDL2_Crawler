@@ -9,11 +9,11 @@ typedef struct _Collision {
     char* (*logic)(void* obj);
 
     Rect_Node* head;
-    SDL_Rect* ref;
-    SDL_Rect* inter;
+    SDL_Rect** ref;
+    SDL_Rect** inter;
     char* key;
 
 } Collision;
-Collision* CREATE_COLLISION(char* key, SDL_Rect* ref);
+Collision* CREATE_COLLISION(char* key, SDL_Rect** ref);
 
 #endif /* COLLISION_H */

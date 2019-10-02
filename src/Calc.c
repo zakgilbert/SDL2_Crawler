@@ -10,14 +10,14 @@
 /**
  * Return the angle between two points in radians
  */
-double get_radian_angle()
+double get_radian_angle(int x_1, int y_1, int x_2, int y_2)
 {
     typedef struct _point {
         int x;
         int y;
     } point;
-    point p1 = { WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2 };
-    point p2 = { MOUSE_X, MOUSE_Y };
+    point p1 = { x_2, y_2 };
+    point p2 = { x_1, y_1 };
 
     double delta_X = (double)(p1.x - p2.x);
     double delta_Y = (double)(p2.y - p1.y);

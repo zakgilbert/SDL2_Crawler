@@ -20,7 +20,7 @@ static void _print(Rect_Node* this, const char* message)
     printf("Rect_Node: %p  %s\n", this, message);
 }
 
-Rect_Node* CREATE_RECT_NODE(SDL_Rect* rect)
+Rect_Node* CREATE_RECT_NODE(SDL_Rect** rect)
 {
     Rect_Node* this = malloc(sizeof(*this));
     this->destroy   = _destroy;

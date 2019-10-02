@@ -22,11 +22,11 @@ static int check_hero_state(Hero* this)
         return WALK_H;
     } else if (KEY == A) {
         this->in_action = 1;
-        MOUSE_ANGLE     = (int)(get_degree_angle(get_radian_angle()) / 22.0f);
+        MOUSE_ANGLE     = (int)(get_degree_angle(get_radian_angle(MOUSE_X, MOUSE_Y, WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2)) / 22.5f);
         return ATTACK_ONE_H;
     } else if (KEY == D) {
         this->in_action = 1;
-        MOUSE_ANGLE     = (int)(get_degree_angle(get_radian_angle()) / 22.0f);
+        MOUSE_ANGLE     = (int)(get_degree_angle(get_radian_angle(MOUSE_X, MOUSE_Y, WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2)) / 22.5f);
         return ATTACK_TWO_H;
     } else if (KEY == S) {
         return RUN_H;
@@ -105,7 +105,9 @@ static char* _render(void* obj, SDL_Renderer* renderer)
     Sprite* current = this->sprites[this->cur_sprite];
 
     current->render(current, renderer);
-    SDL_RenderDrawRect(renderer, this->col_rect);
+    /**
+        SDL_RenderDrawRect(renderer, this->col_rect);
+*/
 
     return this->key;
 }
@@ -116,6 +118,7 @@ static char* _logic(void* obj)
     this->cur_sprite = check_hero_state(this);
     Sprite* current  = this->sprites[this->cur_sprite];
     IN_ACTION        = current->logic(current);
+    this->col_rect   = &current->rect;
 
     return this->key;
 }
