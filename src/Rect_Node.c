@@ -10,7 +10,8 @@
 static void _destroy(Rect_Node* this)
 {
     if (NULL != this) {
-        this->print(this, "Freeing");
+        if (PRINT)
+            printf("%p\n", this);
         free(this);
     }
 }
@@ -30,7 +31,7 @@ Rect_Node* CREATE_RECT_NODE(SDL_Rect** rect)
     this->next = NULL;
 
     if (PRINT)
-        this->print(this, "Allocating");
+        printf("%p\n", this);
 
     return this;
 }

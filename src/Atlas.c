@@ -62,7 +62,7 @@ static void _destroy(Atlas* this)
         }
 
         if (PRINT)
-            printf("Destroy: %p\n", this);
+            printf("%p\n", this);
         free(this);
         this = NULL;
     }
@@ -111,8 +111,6 @@ static void _map(Atlas* this, SDL_Renderer* renderer)
     int i          = 0;
     char** alp_str = get_alphabet_str();
     char* path     = malloc(50);
-    if (PRINT)
-        printf("Create: %p\n", path);
     strcpy(path, "art/letters/");
     for (i = 0; i < 62; i++) {
         strcpy(path, "art/letters/");
@@ -126,8 +124,6 @@ static void _map(Atlas* this, SDL_Renderer* renderer)
     this->insert(this, "/", renderer, strcat(path, "f_slash"));
     strcpy(path, "art/letters/");
     this->insert(this, " ", renderer, strcat(path, "spc4.png"));
-    if (PRINT)
-        printf("Destroy: %p\n", path);
     free(path);
 }
 
@@ -140,7 +136,7 @@ Atlas* CREATE_ATLAS()
     this->search  = _search;
     this->insert  = _insert;
     if (PRINT)
-        printf("Create: %p\n", this);
+        printf("%p\n", this);
     this->size    = 127;
     this->letters = calloc(this->size, sizeof(struct Alpha_Node*));
     this->count   = 0;

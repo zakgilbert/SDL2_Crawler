@@ -8,10 +8,8 @@
 static void _destroy(Render_Node* this)
 {
     if (NULL != this) {
-        if (PRINT) {
-            this->print(this, this->index);
-            printf("%*s\n", 10, "Delete");
-        }
+        if (PRINT)
+            printf("%p\n", this);
         free(this);
     }
 }
@@ -34,6 +32,8 @@ Render_Node* CREATE_RENDER_NODE(char* key, void* obj, render_function funct)
     this->key   = key;
     this->funct = funct;
     this->obj   = obj;
+    if (PRINT)
+        printf("%p\n", this);
 
     return this;
 }

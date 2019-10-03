@@ -30,15 +30,15 @@ static void set_sprite_cords(Sprite* this)
 static void _destroy(Sprite* this)
 {
     if (NULL != this) {
-        this->print(this);
-        printf("%*s\n", 10, "Delete Sprite");
+        if (PRINT)
+            printf("%p\n", this);
         free(this);
     }
 }
 
 static void _print(Sprite* this)
 {
-    printf("%p", this);
+    printf("%p   ", this);
 }
 
 static int _render(void* obj, SDL_Renderer* renderer)
@@ -191,5 +191,7 @@ Sprite* CREATE_SPRITE(SDL_Renderer* renderer, char* path,
     set_sprite_cords(this);
 
     this->frame = this->rects[0];
+    if (PRINT)
+        printf("%p\n", this);
     return this;
 }

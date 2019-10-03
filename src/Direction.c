@@ -16,8 +16,7 @@ static void _destroy(Direction* this)
 {
     if (NULL != this) {
         if (PRINT) {
-            print(this);
-            printf("%*s\n", 10, "Delete");
+            printf("%p\n", this);
         }
         free(this);
     }
@@ -55,8 +54,6 @@ static char* _logic(void* obj)
             HERO_SPEED = 4;
         (*this->move_functions[MOUSE_ANGLE])(HERO_SPEED, HERO_SPEED);
     }
-    if (PRINT)
-        printf("x: %d   y: %d\n", X, Y);
     map_bounds();
     return this->key;
 }
@@ -98,7 +95,7 @@ Direction* CREATE_DIRECTION(char* key)
     this->key = key;
 
     if (PRINT)
-        print(this);
+        printf("%p\n", this);
     return this;
 }
 

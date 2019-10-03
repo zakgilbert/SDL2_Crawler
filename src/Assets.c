@@ -50,7 +50,6 @@ char** create_state(int* states, int num, char** state)
     return state;
 }
 
-
 int* get_dark_forest_states()
 {
     int size             = NUM_STATES;
@@ -111,7 +110,7 @@ Table_Container add_assets(Logic_Table* t_l, Render_Table* t_r, SDL_Renderer* re
     collision->add(collision, CREATE_RECT_NODE(&yeti->col_rect));
 
     t_l->insert(t_l, CREATE_LOGIC_NODE(ASSET_STRINGS[MAP_DIRECTIONS_PATH], directions, directions->logic, NULL));
-    t_l->insert(t_l, CREATE_LOGIC_NODE(hero->key, hero, hero->logic, NULL));
+    t_l->insert(t_l, CREATE_LOGIC_NODE(hero->key, hero, hero->logic, hero->deallocate));
     t_l->insert(t_l, CREATE_LOGIC_NODE(yeti->key, yeti, yeti->logic, NULL));
     t_l->insert(t_l, CREATE_LOGIC_NODE(collision->key, collision, collision->logic, NULL));
     t_l->insert(t_l, CREATE_LOGIC_NODE(terrain->key, terrain, terrain->logic, NULL));

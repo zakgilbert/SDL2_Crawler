@@ -52,14 +52,16 @@ static void _destroy(Logic_Table* this)
     Logic_Node* temp  = NULL;
     Logic_Node* dummy = NULL;
     if (NULL != this) {
-        if (PRINT)
-            printf("\n  Deallocating Hash_l Table            %p\n\n", this);
         for (size_t i = 0; i < this->size; i++) {
             temp = this->table[i];
             if (NULL != temp) {
                 this->table[i] = dummy;
                 temp->destroy(temp);
             }
+        }
+        if (PRINT) {
+            printf("%p\n", this);
+            printf("%p\n", this->table);
         }
         free(this->table);
         free(this);
@@ -114,13 +116,11 @@ static void _grow(Logic_Table* this)
     this->table = realloc(this->table, (sizeof(Logic_Node*)) * (this->size));
     this->count = 0;
 
-    if (PRINT)
-        printf("\n       Resizing Hash_l Table               %p\n\n", this->table);
 
     for (int i = 0; i < old_size; i++) {
         temp_n = temp[i];
         if (NULL != temp_n) {
-            this->insert(this, CREATE_LOGIC_NODE(temp_n->key, temp_n->obj, temp_n->funct , NULL));
+            this->insert(this, CREATE_LOGIC_NODE(temp_n->key, temp_n->obj, temp_n->funct, NULL));
             this->table[i] = dummy;
             temp_n->destroy(temp_n);
         }
@@ -150,10 +150,12 @@ static void _insert(Logic_Table* this, Logic_Node* item)
     }
     this->table[index]        = item;
     this->table[index]->index = index;
-    if (PRINT) {
-        print_node(this->table[index], index);
-        printf("%*s\n", 10, "Added");
-    }
+/**
+        if (PRINT) {
+            print_node(this->table[index], index);
+            printf("%*s\n", 10, "Added");
+        }
+*/
     this->count++;
 }
 
@@ -189,8 +191,10 @@ Logic_Table* CREATE_LOGIC_TABLE(int size)
 
     for (int i = 0; i < this->size; i++)
         this->table[i] = NULL;
-    if (PRINT)
-        printf("\n  Allocating Hash_l Table              %p\n\n", this);
+    if (PRINT) {
+        printf("%p\n", this);
+        printf("%p\n", this->table);
+    }
 
     return this;
 }

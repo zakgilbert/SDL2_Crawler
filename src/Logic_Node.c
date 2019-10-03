@@ -5,12 +5,11 @@
 static void _destroy(Logic_Node* this)
 {
     if (NULL != this) {
-        if (PRINT) {
-            this->print(this, this->index);
-            printf("%*s\n", 10, "Delete");
-        }
         if (this->deallocation_f) {
             (*this->deallocation_f)(this->obj);
+        }
+        if (PRINT) {
+            printf("%p\n", this);
         }
         free(this);
     }
@@ -29,5 +28,8 @@ Logic_Node* CREATE_LOGIC_NODE(char* key, void* obj, logic_function funct, deallo
     this->funct          = funct;
     this->deallocation_f = deallocation_f;
 
+    if (PRINT) {
+        printf("%p\n", this);
+    }
     return this;
 }

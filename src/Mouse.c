@@ -5,8 +5,11 @@
 /* Free memory allocated for Mouse object */
 static void _destroy(Mouse* this)
 {
-    if (NULL == this)
+    if (NULL == this) {
+        if (PRINT)
+            printf("%p\n", this);
         free(this);
+    }
 }
 
 /**
@@ -63,6 +66,8 @@ Mouse* CREATE_MOUSE(int rect_size)
 
     this->rect_size = rect_size;
     this->bool      = 0;
+    if (PRINT)
+        printf("%p\n", this);
 
     return this;
 }

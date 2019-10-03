@@ -4,7 +4,7 @@
 #ifndef JRPG_HEADER_H
 #define JRPG_HEADER_H
 
-#define PRINT 0                  /* Set to 1 to print game data */
+#define PRINT 1                  /* Set to 1 to print game data */
 #define WINDOW_WIDTH 720         /* Width of window before fullscreen */
 #define WINDOW_HEIGHT 576        /* Width of window before fullscreen */
 #define MAP_W (WINDOW_WIDTH * 2) /* Width of map */

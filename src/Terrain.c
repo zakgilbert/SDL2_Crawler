@@ -3,7 +3,6 @@
 *  Terrain.c
 */
 #include <SDL2/SDL.h>
-#include "Tile.h"
 #include "Terrain.h"
 #include "Graphics.h"
 #include "Header.h"
@@ -56,8 +55,6 @@ static void set_sprite_cords(Terrain* this)
     for (int i = 0; i < this->num_tiles; i++) {
         this->map[i] = rand_range(0, this->num_frames - 2);
     }
-    if (PRINT)
-        print_map(this);
 }
 
 /**
@@ -105,7 +102,8 @@ static void _destroy(Terrain* this)
 {
     if (NULL != this) {
         if (PRINT)
-            this->print(this, "Freeing");
+            printf("%p\n", this);
+
         free(this);
     }
 }
@@ -168,7 +166,7 @@ Terrain* CREATE_TERRAIN(char* path, char* key, Rend* renderer, int x, int y, int
     set_sprite_cords(this);
     create_map(this, renderer);
     if (PRINT)
-        this->print(this, "Allocating");
+        printf("%p\n", this);
 
     return this;
 }

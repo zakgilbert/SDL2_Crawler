@@ -52,14 +52,16 @@ static void _destroy(Render_Table* this)
     Render_Node* temp  = NULL;
     Render_Node* dummy = NULL;
     if (NULL != this) {
-        if (PRINT)
-            printf("\n  Deallocating Render_Table Table            %p\n\n", this);
         for (size_t i = 0; i < this->size; i++) {
             temp = this->table[i];
             if (NULL != temp) {
                 this->table[i] = dummy;
                 temp->destroy(temp);
             }
+        }
+        if (PRINT) {
+            printf("%p\n", this);
+            printf("%p\n", this->table);
         }
         free(this->table);
         free(this);
@@ -142,10 +144,12 @@ static void _insert(Render_Table* this, Render_Node* item)
     }
     this->table[index]        = item;
     this->table[index]->index = index;
-    if (PRINT) {
-        print_node(this->table[index], index);
-        printf("%*s\n", 10, "Added");
-    }
+/**
+        if (PRINT) {
+            print_node(this->table[index], index);
+            printf("%*s\n", 10, "Added");
+        }
+*/
     this->count++;
 }
 
@@ -180,7 +184,9 @@ Render_Table* CREATE_RENDER_TABLE(int size)
     this->insert      = _insert;
     this->delete      = _delete;
     this->count       = 0;
-    if (PRINT)
-        printf("\n  Allocating Render_Table Table              %p\n\n", this);
+    if (PRINT) {
+        printf("%p\n", this);
+        printf("%p\n", this->table);
+    }
     return this;
 }

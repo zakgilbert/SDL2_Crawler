@@ -7,7 +7,7 @@ static void _destroy(Alpha_Node* this)
 {
     if (NULL != this) {
         if (PRINT)
-            printf("Destroy: %p\n", this);
+            printf("%p\n", this);
         free(this);
     }
 }
@@ -21,7 +21,7 @@ Alpha_Node* CREATE_ALPHA_NODE(char* key, char* path, SDL_Renderer* renderer)
     this->texture = create_texture(renderer, path, &this->rect);
 
     if (PRINT)
-        printf("Create: %p\n", this);
+        printf("%p\n", this);
 
     return this;
 }

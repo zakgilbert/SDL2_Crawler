@@ -12,7 +12,7 @@ static void _destroy(Collision* this)
 {
     if (NULL != this) {
         if (PRINT)
-            this->print(this, "Freeing");
+            printf("%p\n", this);
 
         Rect_Node* temp = NULL;
         while (this->head) {
@@ -80,7 +80,7 @@ Collision* CREATE_COLLISION(char* key, SDL_Rect** ref)
     this->key  = key;
 
     if (PRINT)
-        this->print(this, "Allocating");
+        printf("%p\n", this);
 
     return this;
 }

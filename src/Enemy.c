@@ -59,11 +59,13 @@ static void set_array_null(Sprite** sprites, int num)
 static void _destroy(Enemy* this)
 {
     if (NULL != this) {
-        this->print(this, "Freeing");
         SDL_DestroyTexture(this->texture);
 
-        while (*(++this->sprites))
-            (*this->sprites)->destroy((*this->sprites));
+        for (int i = 0; i < this->num_sprite; i++) {
+            this->sprites[i]->destroy(this->sprites[i]);
+        }
+        if (PRINT)
+            printf("%p\n", this);
 
         free(this);
     }
@@ -148,7 +150,7 @@ Enemy* CREATE_ENEMY(char* key, int num_sprite, int* x, int* y)
     set_array_null(this->sprites, this->num_sprite);
 
     if (PRINT)
-        this->print(this, "Allocating");
+        printf("%p\n", this);
 
     return this;
 }

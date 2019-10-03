@@ -58,12 +58,14 @@ static void set_array_null(Sprite** sprites, int num)
 static void _destroy(Hero* this)
 {
     if (NULL != this) {
-        this->print(this, "Freeing");
         SDL_DestroyTexture(this->texture);
 
-        while (*(++this->sprites))
-            (*this->sprites)->destroy((*this->sprites));
+        for (int i = 0; i < this->num_sprite; i++) {
+            this->sprites[i]->destroy(this->sprites[i]);
+        }
 
+        if (PRINT)
+            printf("%p\n", this);
         free(this);
     }
 }
@@ -100,6 +102,11 @@ static char* _logic(void* obj)
     return this->key;
 }
 
+static void _deallocate(void* obj)
+{
+    Hero* this = (Hero*)obj;
+    this->destroy(this);
+}
 static void _add_sprite(Hero* this, Sprite* sprite, int key)
 {
     this->sprites[key] = sprite;
@@ -112,10 +119,11 @@ Hero* CREATE_HERO(char* key, int num_sprite)
 {
     Hero* this = malloc(sizeof(*this));
 
-    this->destroy    = _destroy;    /* Free Allocated Memory */
-    this->print      = _print;      /* Print address of Hero type with message */
-    this->render     = _render;     /* Render function */
-    this->logic      = _logic;      /* Logic Function */
+    this->destroy    = _destroy; /* Free Allocated Memory */
+    this->print      = _print;   /* Print address of Hero type with message */
+    this->render     = _render;  /* Render function */
+    this->logic      = _logic;   /* Logic Function */
+    this->deallocate = _deallocate;
     this->add_sprite = _add_sprite; /* Add a sprite sheet to class */
 
     this->cur_sprite = -1;
@@ -129,7 +137,7 @@ Hero* CREATE_HERO(char* key, int num_sprite)
     set_array_null(this->sprites, this->num_sprite);
 
     if (PRINT)
-        this->print(this, "Allocating");
+        printf("%p\n", this);
 
     return this;
 }
