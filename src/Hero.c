@@ -9,6 +9,7 @@
 #include "Sprite.h"
 #include "Calc.h"
 #include "Graphics.h"
+#include "Direction.h"
 
 static int get_mouse_angle(Hero* this)
 {
@@ -29,33 +30,27 @@ static int check_hero_state(Hero* this)
     if (IN_ACTION) {
         return this->cur_sprite;
     }
-    if (KEY == R && !IN_ACTION) {
+    if (STANCE_F(true) && !IN_ACTION) {
         this->ready = !this->ready;
     }
-    if (KEY == W) {
-        MOUSE_ANGLE = get_mouse_angle(this);
+    MOUSE_ANGLE = get_mouse_angle(this);
+    if (WALK_F(false)) {
         if (this->ready)
             return WALK_RDY_H;
         return WALK_H;
-    } else if (KEY == A) {
-        IN_ACTION   = 1;
-        MOUSE_ANGLE = get_mouse_angle(this);
-        return ATTACK_ONE_H;
-    } else if (KEY == D) {
-        IN_ACTION   = 1;
-        MOUSE_ANGLE = get_mouse_angle(this);
-        return ATTACK_TWO_H;
-    } else if (KEY == S) {
-        MOUSE_ANGLE = get_mouse_angle(this);
-        return RUN_H;
-    } else if (KEY == NON) {
-        MOUSE_ANGLE = get_mouse_angle(this);
-        if (this->ready)
-            return STAND_RDY_H;
-        return STAND_H;
     }
-    MOUSE_ANGLE = get_mouse_angle(this);
-    return this->cur_sprite;
+    if (ATTACK_1_F(true) && this->ready) {
+        return ATTACK_ONE_H;
+    }
+    if (ATTACK_2_F(true) && this->ready) {
+        return ATTACK_TWO_H;
+    }
+    if (RUN_F(false)) {
+        return RUN_H;
+    }
+    if (this->ready)
+        return STAND_RDY_H;
+    return STAND_H;
 }
 static void set_array_null(Sprite** sprites, int num)
 {

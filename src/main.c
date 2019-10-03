@@ -67,11 +67,6 @@ int main(int argc, char** argv)
         delay();
         set_fullscreen(window);
         reset_timer();
-
-        for (int i = 0; i < KEY_STATE_LEN; i++) {
-            printf("%d", KEY_STATE[i]);
-        }
-        prln();
     }
 
     /**

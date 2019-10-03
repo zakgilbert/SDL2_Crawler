@@ -38,4 +38,14 @@ void hit_up_right(int x, int y);
 void hit_right(int x, int y);
 void hit_down_right(int x, int y);
 
+int WALK_F(int close);
+int ATTACK_1_F(int close);
+int ATTACK_2_F(int close);
+int RUN_F(int close);
+int STANCE_F(int close);
+int CONFIRM(int close);
+int CANCEL(int close);
+int EXIT(int close);
+int FULL(int close);
+int NOTHING_PRESSED(int close);
 #endif /* DIRECTION_H */

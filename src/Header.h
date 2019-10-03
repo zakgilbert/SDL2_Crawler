@@ -14,6 +14,8 @@
 #define TABLE_SIZE 500           /* Generic size for hash tables */
 #define PI 3.14159               /* Ratio of a circle's circumference to its diameter */
 #define NUM_STATES 5             /* Number of states in state q */
+#define true 1                   /* true */
+#define false 0                  /* false */
 
 extern int FPS;             /* Frames per Second */
 extern int FULLSCREEN_ON;   /* Fullscreen boolean */

@@ -47,7 +47,7 @@ static char* _logic(void* obj)
         OPEN_FOR_HIT = 0;
         HIT_ANGLE    = -1;
     }
-    if (!IN_ACTION && (KEY == W || KEY == S)) {
+    if (!IN_ACTION && (WALK_F(false) || RUN_F(false))) {
         if (KEY == W)
             HERO_SPEED = 2;
         if (KEY == S)
@@ -99,6 +99,63 @@ Direction* CREATE_DIRECTION(char* key)
     return this;
 }
 
+static int confirm(int val)
+{
+    if (!val)
+        return 0;
+    KEY_STATE[KEY] = 0;
+    return 1;
+}
+
+int WALK_F(int close)
+{
+    if (close)
+        return confirm(KEY_STATE[W]);
+    return (KEY_STATE[W]);
+}
+int ATTACK_1_F(int close)
+{
+    if (close)
+        return confirm(KEY_STATE[A]);
+    return (KEY_STATE[A]);
+}
+int ATTACK_2_F(int close)
+{
+    if (close)
+        return confirm(KEY_STATE[D]);
+    return (KEY_STATE[D]);
+}
+int RUN_F(int close)
+{
+    if (close)
+        return confirm(KEY_STATE[S]);
+    return (KEY_STATE[S]);
+}
+int STANCE_F(int close) { return (close) ? confirm(KEY_STATE[R]) : KEY_STATE[R]; }
+int CONFIRM(int close)
+{
+    if (close)
+        return confirm(KEY_STATE[J]);
+    return (KEY_STATE[J]);
+}
+int CANCEL(int close)
+{
+    if (close)
+        return confirm(KEY_STATE[L]);
+    return (KEY_STATE[L]);
+}
+int FULL(int close)
+{
+    if (close)
+        return confirm(KEY_STATE[F]);
+    return (KEY_STATE[F]);
+}
+int NOTHING_PRESSED(int close)
+{
+    if (close)
+        return confirm(KEY_STATE[NON]);
+    return (KEY_STATE[NON]);
+}
 void move_down(int x, int y)
 {
     Y -= y;
