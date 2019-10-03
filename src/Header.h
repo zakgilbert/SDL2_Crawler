@@ -1,14 +1,14 @@
 /**
  * Header.h contains all Globals and preprocessor definitions for SDL2_Crawler 
  */
-#ifndef JRPG_HEADER_H
-#define JRPG_HEADER_H
+#ifndef HEADER_H
+#define HEADER_H
 
 #define PRINT 1                  /* Set to 1 to print game data */
 #define WINDOW_WIDTH 720         /* Width of window before fullscreen */
 #define WINDOW_HEIGHT 576        /* Width of window before fullscreen */
-#define MAP_W (WINDOW_WIDTH * 2) /* Width of map */
-#define MAP_H (WINDOW_WIDTH * 2) /* Height of map */
+#define MAP_W (WINDOW_WIDTH * 8) /* Width of map */
+#define MAP_H (WINDOW_WIDTH * 8) /* Height of map */
 #define PRIME_1 163              /* Prime numbers for seeding has tables */
 #define PRIME_2 151              /* Prime numbers for seeding has tables */
 #define TABLE_SIZE 500           /* Generic size for hash tables */
@@ -30,7 +30,7 @@ extern int IN_ATTACK_TWO;   /* Action Animation in progress */
 extern int VAL_HERO;        /* Starting position of hero */
 extern int VAL_SNOW_X;      /* Position of snow x*/
 extern int VAL_SNOW_Y;      /* Position of snow y*/
-extern int HERO_SPEED;      /*Speed that hero moves at */
+extern int HERO_SPEED;      /* Speed that hero moves at */
 extern int IN_ACTION;       /* Is the hero acting */
 extern int COLLIDING;       /* Is the hero colliding */
 extern int COLLISION_INDEX; /* Index of collided object */
@@ -96,6 +96,8 @@ enum ASSET_PATH_ENUM {
     HERO_RUN_PATH,
     HERO_ATTACK_1_PATH,
     HERO_ATTACK_2_PATH,
+    HERO_READY_STAND_PATH,
+    HERO_READY_WALK_PATH,
     ENEMY_STAND_PATH,
     ENEMY_WALK_PATH,
     TERRAIN_PATH,
@@ -114,7 +116,9 @@ enum HERO_STATES {
     WALK_H,
     RUN_H,
     ATTACK_ONE_H,
-    ATTACK_TWO_H
+    ATTACK_TWO_H,
+    STAND_RDY_H,
+    WALK_RDY_H
 };
 enum ENEMY_STATES {
     STAND,
@@ -122,4 +126,4 @@ enum ENEMY_STATES {
     ATTACK
 };
 
-#endif
+#endif /* HEADER_H */

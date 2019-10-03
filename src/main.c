@@ -49,8 +49,8 @@ int main(int argc, char** argv)
 
     /**
     letters->map(letters, renderer);
-        logic_table->print_table(logic_table);
-        render_table->print_table(render_table);
+    logic_table->print_table(logic_table);
+    render_table->print_table(render_table);
 */
     SDL_DetachThread(input_thread);
 
