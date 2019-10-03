@@ -67,6 +67,11 @@ int main(int argc, char** argv)
         delay();
         set_fullscreen(window);
         reset_timer();
+
+        for (int i = 0; i < KEY_STATE_LEN; i++) {
+            printf("%d", KEY_STATE[i]);
+        }
+        prln();
     }
 
     /**
@@ -87,7 +92,7 @@ void DEFINE_GLOBALS()
 {
     KEY             = NON;
     FULLSCREEN_ON   = 0;
-    KEY_STATE       = (Uint8*)SDL_GetKeyboardState(NULL);
+    KEY_STATE       = (Uint8*)SDL_GetKeyboardState(&KEY_STATE_LEN);
     FPS             = 60;
     IN_ATTACK_ONE   = 0;
     IN_ATTACK_TWO   = 0;

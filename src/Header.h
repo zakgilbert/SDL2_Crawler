@@ -25,6 +25,7 @@ extern int MOUSE_ANGLE;     /* Angle in degrees of from center of frame to mouse
 extern int MOUSE_X;         /* Global mouse x coordinate */
 extern int MOUSE_Y;         /* Global mouse y coordinate */
 extern Uint8* KEY_STATE;    /* Array of key states */
+extern int KEY_STATE_LEN;   /* Length of KEY_STATE array */
 extern int IN_ATTACK_ONE;   /* Action Animation in progress */
 extern int IN_ATTACK_TWO;   /* Action Animation in progress */
 extern int VAL_HERO;        /* Starting position of hero */
@@ -49,6 +50,7 @@ int MOUSE_ANGLE;
 int MOUSE_X;
 int MOUSE_Y;
 Uint8* KEY_STATE;
+int KEY_STATE_LEN;
 int IN_ATTACK_ONE;
 int IN_ATTACK_TWO;
 int VAL_HERO;

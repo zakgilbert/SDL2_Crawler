@@ -18,6 +18,8 @@ static int get_mouse_angle(Hero* this)
                           mid(this->col_rect->y, this->col_rect->h)))
         / 22.5f));
 }
+static Sprite* current_sprite(Hero* this) { return this->sprites[this->cur_sprite]; }
+static int compare_with_current(Hero* this, int key) { return (current_sprite(this) == this->sprites[this->cur_sprite]); }
 /**
  * Private
  * Return the proper sprite state for hero type

@@ -31,4 +31,5 @@ void set_fullscreen(SDL_Window* window);
 
 int mid(int cord, int len);
 
+void prln();
 #endif  //GRAPHICS_H

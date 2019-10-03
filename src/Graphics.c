@@ -110,3 +110,7 @@ void set_fullscreen(SDL_Window* window)
         SDL_SetWindowFullscreen(window, 0);
     }
 }
+void prln()
+{
+    printf("\n");
+}
