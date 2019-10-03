@@ -99,6 +99,6 @@ void DEFINE_GLOBALS()
     IN_ACTION       = 0;
     COLLIDING       = 0;
     COLLISION_INDEX = -1;
-    OPEN_FOR_ATK    = 0;
+    OPEN_FOR_HIT    = 0;
     HIT_ANGLE       = -1;
 }

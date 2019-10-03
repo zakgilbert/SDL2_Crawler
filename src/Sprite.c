@@ -53,9 +53,9 @@ static int _logic_attack_enemy(void* obj)
     Sprite* this = (Sprite*)obj;
     if (FRAMES_RENDERED % 3 == 0) {
         if (this->col_index == 6) {
-            OPEN_FOR_ATK = 1;
+            OPEN_FOR_HIT = 1;
         } else {
-            OPEN_FOR_ATK = 0;
+            OPEN_FOR_HIT = 0;
         }
 
         this->row_index++;

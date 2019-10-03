@@ -104,7 +104,7 @@ static char* _logic(void* obj)
         current          = this->sprites[this->cur_sprite];
         ref              = ((*current->x_origin) + X) - (current->rect.w / 4);
         this->angle      = (int)(get_degree_angle(get_radian_angle(HERO_WIDTH, HERO_HEIGHT, current->rect.x + (current->rect.w / 2), current->rect.y + (current->rect.h / 2))) / 45.0f);
-        if (OPEN_FOR_ATK)
+        if (OPEN_FOR_HIT)
             HIT_ANGLE = this->angle;
         current->row_index = (this->angle * current->rows) + current->col_index;
         current->rect.x    = ref;

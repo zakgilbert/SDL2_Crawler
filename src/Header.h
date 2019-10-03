@@ -36,8 +36,8 @@ extern int COLLIDING;       /* Is the hero colliding */
 extern int COLLISION_INDEX; /* Index of collided object */
 extern int HERO_WIDTH;      /* Index of collided object */
 extern int HERO_HEIGHT;     /* Index of collided object */
-extern int OPEN_FOR_ATK;    /* Index of collided object */
-extern int HIT_ANGLE;       /* Index of collided object */
+extern int OPEN_FOR_HIT;    /* If an enemy has an opportunity to strike Hero */
+extern int HIT_ANGLE;       /* Angle between enemy and hero or -1 if OPEN_FOR_HIT is false */
 
 int FPS;
 int FULLSCREEN_ON;
@@ -60,7 +60,7 @@ int COLLIDING;
 int COLLISION_INDEX;
 int HERO_WIDTH;
 int HERO_HEIGHT;
-int OPEN_FOR_ATK;
+int OPEN_FOR_HIT;
 int HIT_ANGLE;
 
 /**

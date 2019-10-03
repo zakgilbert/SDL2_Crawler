@@ -42,9 +42,9 @@ static char* _render(void* obj, SDL_Renderer* renderer)
 static char* _logic(void* obj)
 {
     Direction* this = (Direction*)obj;
-    if (COLLIDING && OPEN_FOR_ATK && HIT_ANGLE != -1) {
+    if (COLLIDING && OPEN_FOR_HIT && HIT_ANGLE != -1) {
         (*this->hit_functions[HIT_ANGLE])(20, 20);
-        OPEN_FOR_ATK = 0;
+        OPEN_FOR_HIT = 0;
         HIT_ANGLE    = -1;
     }
     if (!IN_ACTION && (KEY == W || KEY == S)) {
