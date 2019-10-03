@@ -27,22 +27,29 @@ static int check_hero_state(Hero* this)
     if (IN_ACTION) {
         return this->cur_sprite;
     }
+    if (KEY == R && !IN_ACTION) {
+        this->ready = !this->ready;
+    }
     if (KEY == W) {
         MOUSE_ANGLE = get_mouse_angle(this);
+        if (this->ready)
+            return WALK_RDY_H;
         return WALK_H;
     } else if (KEY == A) {
-        this->in_action = 1;
-        MOUSE_ANGLE     = get_mouse_angle(this);
+        IN_ACTION   = 1;
+        MOUSE_ANGLE = get_mouse_angle(this);
         return ATTACK_ONE_H;
     } else if (KEY == D) {
-        this->in_action = 1;
-        MOUSE_ANGLE     = get_mouse_angle(this);
+        IN_ACTION   = 1;
+        MOUSE_ANGLE = get_mouse_angle(this);
         return ATTACK_TWO_H;
     } else if (KEY == S) {
         MOUSE_ANGLE = get_mouse_angle(this);
         return RUN_H;
     } else if (KEY == NON) {
         MOUSE_ANGLE = get_mouse_angle(this);
+        if (this->ready)
+            return STAND_RDY_H;
         return STAND_H;
     }
     MOUSE_ANGLE = get_mouse_angle(this);
@@ -132,6 +139,7 @@ Hero* CREATE_HERO(char* key, int num_sprite)
     this->key       = key;
     this->moving    = 0;
     this->in_action = 0;
+    this->ready     = 0;
 
     this->sprites = malloc(sizeof(Sprite*) * this->num_sprite);
     set_array_null(this->sprites, this->num_sprite);

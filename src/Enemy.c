@@ -11,42 +11,45 @@
 
 static void move_enemy(Sprite* sprite, Enemy* this)
 {
-    int speed         = 1;
-    int direction     = this->angle;
-    sprite->row_index = (this->angle * sprite->rows) + sprite->col_index;
-    switch (direction) {
-    case 0:
-    case 8:
-        (*sprite->y_origin) += speed;
-        break;
-    case 1:
-        (*sprite->x_origin) -= speed;
-        (*sprite->y_origin) += speed;
-        break;
-    case 2:
-        (*sprite->x_origin) -= speed;
-        break;
-    case 3:
-        (*sprite->x_origin) -= speed;
-        (*sprite->y_origin) -= speed;
-        break;
-    case 4:
-        (*sprite->y_origin) -= speed;
-        break;
-    case 5:
-        (*sprite->x_origin) += speed;
-        (*sprite->y_origin) -= speed;
-        break;
-    case 6:
-        (*sprite->x_origin) += speed;
-        break;
-    case 7:
-        (*sprite->x_origin) += speed;
-        (*sprite->y_origin) += speed;
-        break;
+    int speed     = 1;
+    int direction = this->angle;
+    if (this->cur_sprite == ATTACK) {
 
-    default:
-        break;
+        sprite->row_index = (this->angle * sprite->rows) + sprite->col_index;
+        switch (direction) {
+        case 0:
+        case 8:
+            (*sprite->y_origin) += speed;
+            break;
+        case 1:
+            (*sprite->x_origin) -= speed;
+            (*sprite->y_origin) += speed;
+            break;
+        case 2:
+            (*sprite->x_origin) -= speed;
+            break;
+        case 3:
+            (*sprite->x_origin) -= speed;
+            (*sprite->y_origin) -= speed;
+            break;
+        case 4:
+            (*sprite->y_origin) -= speed;
+            break;
+        case 5:
+            (*sprite->x_origin) += speed;
+            (*sprite->y_origin) -= speed;
+            break;
+        case 6:
+            (*sprite->x_origin) += speed;
+            break;
+        case 7:
+            (*sprite->x_origin) += speed;
+            (*sprite->y_origin) += speed;
+            break;
+
+        default:
+            break;
+        }
     }
 }
 static void set_array_null(Sprite** sprites, int num)
@@ -92,7 +95,7 @@ static char* _logic(void* obj)
     int ref = 0;
 
     if (!COLLIDING && !this->in_action) {
-        this->cur_sprite = WALK;
+        this->cur_sprite = STAND;
         current          = this->sprites[this->cur_sprite];
         this->angle      = (int)(get_degree_angle(get_radian_angle(HERO_WIDTH, HERO_HEIGHT, current->rect.x + (current->rect.w / 2), current->rect.y + (current->rect.h / 2))) / 45.0f);
         move_enemy(current, this);

@@ -36,6 +36,9 @@ int input_handler(void* data)
             case SDL_SCANCODE_L:
                 KEY = L;
                 continue;
+            case SDL_SCANCODE_R:
+                KEY = R;
+                continue;
             default:
                 break;
             }
@@ -67,6 +70,9 @@ int input_handler(void* data)
             case SDL_SCANCODE_F:
                 FULLSCREEN_ON = !(FULLSCREEN_ON);
                 KEY           = NON;
+                continue;
+            case SDL_SCANCODE_R:
+                KEY = NON;
                 continue;
             default:
                 break;

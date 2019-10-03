@@ -20,6 +20,7 @@ typedef struct _Hero {
     int moving;
     int *x, *y;
     int in_action;
+    int ready;
 
     char* key;
 } Hero;

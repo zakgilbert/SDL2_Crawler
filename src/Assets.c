@@ -92,8 +92,8 @@ Table_Container add_assets(Logic_Table* t_l, Render_Table* t_r, SDL_Renderer* re
     Sprite* hero_run       = CREATE_SPRITE(renderer, ASSET_STRINGS[HERO_RUN_PATH], 8, 16, hero_x, hero_y, 94, 103, MOVEMENT, HERO);
     Sprite* hero_attack_1  = CREATE_SPRITE(renderer, ASSET_STRINGS[HERO_ATTACK_1_PATH], 15, 16, hero_x, hero_y, 180, 135, ACTION, HERO);
     Sprite* hero_attack_2  = CREATE_SPRITE(renderer, ASSET_STRINGS[HERO_ATTACK_2_PATH], 12, 16, hero_x, hero_y, 171, 123, ACTION, HERO);
-    Sprite* hero_rdy_stand = CREATE_SPRITE(renderer, ASSET_STRINGS[HERO_READY_STAND_PATH], 8, 16, hero_x, hero_y, 640, 1712, MOVEMENT, HERO);
-    Sprite* hero_rdy_walk  = CREATE_SPRITE(renderer, ASSET_STRINGS[HERO_READY_WALK_PATH], 8, 16, hero_x, hero_y, 992, 1616, MOVEMENT, HERO);
+    Sprite* hero_rdy_stand = CREATE_SPRITE(renderer, ASSET_STRINGS[HERO_READY_STAND_PATH], 8, 16, hero_x, hero_y, 80, 107, MOVEMENT, HERO);
+    Sprite* hero_rdy_walk  = CREATE_SPRITE(renderer, ASSET_STRINGS[HERO_READY_WALK_PATH], 10, 16, hero_x, hero_y, 99, 101, MOVEMENT, HERO);
 
     hero->add_sprite(hero, hero_stand, STAND_H);
     hero->add_sprite(hero, hero_walk, WALK_H);

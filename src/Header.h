@@ -69,15 +69,16 @@ int HIT_ANGLE;
  *  - if(KEY_VALUE[S])
  */
 enum KEYS {
-    S = SDL_SCANCODE_S,
-    W = SDL_SCANCODE_W,
-    A = SDL_SCANCODE_A,
-    D = SDL_SCANCODE_D,
-    J = SDL_SCANCODE_J,
-    L = SDL_SCANCODE_L,
-    O = SDL_SCANCODE_O,
-    F = SDL_SCANCODE_F,
-    NON
+    S   = SDL_SCANCODE_S,
+    W   = SDL_SCANCODE_W,
+    A   = SDL_SCANCODE_A,
+    D   = SDL_SCANCODE_D,
+    J   = SDL_SCANCODE_J,
+    L   = SDL_SCANCODE_L,
+    O   = SDL_SCANCODE_O,
+    F   = SDL_SCANCODE_F,
+    R   = SDL_SCANCODE_R,
+    NON = 0
 } KEY;
 
 enum SPRITE_STATE_TYPES {
