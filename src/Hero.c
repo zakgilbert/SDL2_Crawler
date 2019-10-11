@@ -119,7 +119,7 @@ static void _add_sprite(Hero* this, Sprite* sprite, int key)
         this->col_rect   = &this->sprites[key]->rect;
     }
 }
-Hero* CREATE_HERO(char* key, int num_sprite)
+Hero* CREATE_HERO(char* key, int num_sprite, int test)
 {
     Hero* this = malloc(sizeof(*this));
 
@@ -137,6 +137,7 @@ Hero* CREATE_HERO(char* key, int num_sprite)
     this->moving    = 0;
     this->in_action = 0;
     this->ready     = 0;
+    this->test = test;
 
     this->sprites = malloc(sizeof(Sprite*) * this->num_sprite);
     set_array_null(this->sprites, this->num_sprite);

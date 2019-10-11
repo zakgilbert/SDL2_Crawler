@@ -26,6 +26,7 @@ static char* ASSET_STRINGS[] = {
     "graphics/pally_attack_2.png",
     "graphics/pally_1_ready.png",
     "graphics/pally_1_ready_walk.png",
+    "graphics/pally_1_hit.png",
     "graphics/snow_stand.png",
     "graphics/snow_walk.png",
     "graphics/dungeon_floor.png",
@@ -70,7 +71,7 @@ int* get_dark_forest_states()
     return states;
 }
 
-Table_Container add_assets(Logic_Table* t_l, Render_Table* t_r, SDL_Renderer* renderer)
+Table_Container add_assets(Logic_Table* t_l, Render_Table* t_r, SDL_Renderer* renderer, int test)
 {
     Table_Container container;
 
@@ -85,7 +86,7 @@ Table_Container add_assets(Logic_Table* t_l, Render_Table* t_r, SDL_Renderer* re
 
     Terrain* terrain      = CREATE_TERRAIN(ASSET_STRINGS[TERRAIN_PATH], STATE_STRINGS[TERRAIN_KEY], renderer, 0, 0, WINDOW_WIDTH * 2, WINDOW_WIDTH * 4, 160, 80, 4, 5);
     Direction* directions = CREATE_DIRECTION(ASSET_STRINGS[MAP_DIRECTIONS_PATH]);
-    Hero* hero            = CREATE_HERO(STATE_STRINGS[HERO_K], 7);
+    Hero* hero            = CREATE_HERO(STATE_STRINGS[HERO_K], 8, test);
 
     Sprite* hero_stand     = CREATE_SPRITE(renderer, ASSET_STRINGS[HERO_STAND_PATH], 16, 16, hero_x, hero_y, 62, 80, MOVEMENT, HERO);
     Sprite* hero_walk      = CREATE_SPRITE(renderer, ASSET_STRINGS[HERO_WALK_PATH], 10, 16, hero_x, hero_y, 104, 81, MOVEMENT, HERO);
@@ -94,6 +95,7 @@ Table_Container add_assets(Logic_Table* t_l, Render_Table* t_r, SDL_Renderer* re
     Sprite* hero_attack_2  = CREATE_SPRITE(renderer, ASSET_STRINGS[HERO_ATTACK_2_PATH], 12, 16, hero_x, hero_y, 171, 123, ACTION, HERO);
     Sprite* hero_rdy_stand = CREATE_SPRITE(renderer, ASSET_STRINGS[HERO_READY_STAND_PATH], 8, 16, hero_x, hero_y, 80, 107, MOVEMENT, HERO);
     Sprite* hero_rdy_walk  = CREATE_SPRITE(renderer, ASSET_STRINGS[HERO_READY_WALK_PATH], 10, 16, hero_x, hero_y, 99, 101, MOVEMENT, HERO);
+    Sprite* hero_hit       = CREATE_SPRITE(renderer, ASSET_STRINGS[HERO_TAKES_DAMAGE], 5, 16, hero_x, hero_y, 90, 100, ACTION, HERO);
 
     hero->add_sprite(hero, hero_stand, STAND_H);
     hero->add_sprite(hero, hero_walk, WALK_H);
@@ -102,6 +104,7 @@ Table_Container add_assets(Logic_Table* t_l, Render_Table* t_r, SDL_Renderer* re
     hero->add_sprite(hero, hero_attack_2, ATTACK_TWO_H);
     hero->add_sprite(hero, hero_rdy_stand, STAND_RDY_H);
     hero->add_sprite(hero, hero_rdy_walk, WALK_RDY_H);
+    hero->add_sprite(hero, hero_hit, DAMAGE_H);
 
     Sprite* enemy_stand = CREATE_SPRITE(renderer, ASSET_STRINGS[ENEMY_STAND_PATH], 8, 8, snow_x, snow_y, 104, 109, MOVEMENT, ENEMY);
     Sprite* enemy_walk  = CREATE_SPRITE(renderer, ASSET_STRINGS[ENEMY_WALK_PATH], 12, 8, snow_x, snow_y, 106, 120, MOVEMENT, ENEMY);

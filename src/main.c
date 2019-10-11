@@ -1,6 +1,9 @@
 
-#include <SDL2/SDL.h>     /* SDL2 Library */
-#include <time.h>         /* Random Number Functions */
+#include <SDL2/SDL.h> /* SDL2 Library */
+#include <time.h>     /* Random Number Functions */
+#include <sys/socket.h>
+#include <arpa/inet.h>
+#include <unistd.h>
 #include "Assets.h"       /* Add game assests to hastables */
 #include "Atlas.h"        /* Font Atlas */
 #include "Delta.h"        /* Timing */
@@ -9,12 +12,17 @@
 #include "Input.h"        /* Player Input */
 #include "Logic_Table.h"  /* Hashtable of Logic_Nodes */
 #include "Render_Table.h" /* Hashtable of Render_Nodes */
+#include "Logic_Node.h"
+#include "Render_Node.h"
 #include "Mouse.h"        /* ^..^ */
+#include "Crawl_Server.h" /* Hummingbirds */
+#include "Hero.h"
 
 void DEFINE_GLOBALS();
 int main(int argc, char** argv)
 {
-    char** state;               /* Game states */
+    char** state; /* Game states */
+    int sock;
     SDL_Window* window;         /* The game window */
     SDL_Renderer* renderer;     /* The game renderer */
                                 /* Atlas* letters;Font Atlas */
@@ -23,6 +31,7 @@ int main(int argc, char** argv)
     Logic_Table* logic_table;   /* Hashtable of logic functions */
     Table_Container container;  /* Container of hashtables */
     SDL_Thread* input_thread;   /* Thread that runs function input handler */
+    Crawl_Server* mmo;
 
     SDL_init();
     srand(time(0));
@@ -30,7 +39,7 @@ int main(int argc, char** argv)
     DEFINE_GLOBALS();
     set_up_timer();
 
-    window   = make_window("SDL2 Crawler");
+    window   = make_window(argv[1]);
     renderer = make_renderer(&window);
 
     set_render_options(renderer);
@@ -43,7 +52,9 @@ int main(int argc, char** argv)
     render_table = CREATE_RENDER_TABLE(TABLE_SIZE);
     logic_table  = CREATE_LOGIC_TABLE(TABLE_SIZE);
     input_thread = SDL_CreateThread(input_handler, "input_handler", NULL);
-    container    = add_assets(logic_table, render_table, renderer);
+    container    = add_assets(logic_table, render_table, renderer, mmo->type);
+    mmo          = CREATE_CRAWL_SERVER(host_type(argc, argv));
+
     render_table = container.t_r;
     logic_table  = container.t_l;
 
@@ -56,8 +67,11 @@ int main(int argc, char** argv)
 
     state = create_state(get_dark_forest_states(), NUM_STATES, state);
 
+    sock = mmo->connect(get_port(argc, argv));
+
     while (!EXIT()) {
         start_timer();
+        mmo->packet(mmo, ((Hero*)((logic_table->search(logic_table, "hero"))->obj)), sock);
 
         mouse->get_state(mouse);
 

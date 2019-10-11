@@ -21,9 +21,10 @@ typedef struct _Hero {
     int *x, *y;
     int in_action;
     int ready;
+     int test;
 
     char* key;
 } Hero;
-Hero* CREATE_HERO(char* key, int num_sprite);
+Hero* CREATE_HERO(char* key, int num_sprite, int test);
 
 #endif /* HERO_H */
