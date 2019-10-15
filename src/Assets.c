@@ -71,7 +71,7 @@ int* get_dark_forest_states()
     return states;
 }
 
-Table_Container add_assets(Logic_Table* t_l, Render_Table* t_r, SDL_Renderer* renderer, int test)
+Table_Container add_assets(Logic_Table* t_l, Render_Table* t_r, SDL_Renderer* renderer)
 {
     Table_Container container;
 
@@ -86,7 +86,7 @@ Table_Container add_assets(Logic_Table* t_l, Render_Table* t_r, SDL_Renderer* re
 
     Terrain* terrain      = CREATE_TERRAIN(ASSET_STRINGS[TERRAIN_PATH], STATE_STRINGS[TERRAIN_KEY], renderer, 0, 0, WINDOW_WIDTH * 2, WINDOW_WIDTH * 4, 160, 80, 4, 5);
     Direction* directions = CREATE_DIRECTION(ASSET_STRINGS[MAP_DIRECTIONS_PATH]);
-    Hero* hero            = CREATE_HERO(STATE_STRINGS[HERO_K], 8, test);
+    Hero* hero            = CREATE_HERO(STATE_STRINGS[HERO_K], 8);
 
     Sprite* hero_stand     = CREATE_SPRITE(renderer, ASSET_STRINGS[HERO_STAND_PATH], 16, 16, hero_x, hero_y, 62, 80, MOVEMENT, HERO);
     Sprite* hero_walk      = CREATE_SPRITE(renderer, ASSET_STRINGS[HERO_WALK_PATH], 10, 16, hero_x, hero_y, 104, 81, MOVEMENT, HERO);
