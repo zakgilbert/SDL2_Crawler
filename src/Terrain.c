@@ -83,7 +83,7 @@ static void create_map(Terrain* this, Rend* renderer)
             k_col = 0;
             k_row++;
             if (stag) {
-                this->rect.x = 0 - (this->tile_w / 2);
+                this->rect.x = -(this->tile_w / 2);
             } else {
                 this->rect.x = 0;
             }
