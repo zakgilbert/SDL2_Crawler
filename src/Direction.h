@@ -1,14 +1,17 @@
 #ifndef DIRECTION_H
 #define DIRECTION_H
 
+/**
+ * Encapsule the functions necessary for controling how the screen moves
+ */
 typedef struct _Direction {
-    void (*destroy)(struct _Direction* this);
-    char* (*render)(void* obj, SDL_Renderer* renderer);
-    char* (*logic)(void* obj);
+    void (*destroy)(struct _Direction* this);           /* Deallocate strucrt memory */
+    char* (*render)(void* obj, SDL_Renderer* renderer); /* Render struct graphics(empty function) */
+    char* (*logic)(void* obj);                          /* Perform directional logic */
 
-    void (*hit_functions[8])(int x, int y);
-    void (*move_functions[17])(int x, int y);
-    char* key;
+    void (*hit_functions[8])(int x, int y);   /* Array of directional functions */
+    void (*move_functions[17])(int x, int y); /* Array of directional functions */
+    char* key;                                /* Object Key for logic and render Q's */
 } Direction;
 Direction* CREATE_DIRECTION(char* key);
 
