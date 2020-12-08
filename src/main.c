@@ -14,13 +14,13 @@
 #include "Render_Table.h" /* Hashtable of Render_Nodes */
 #include "Logic_Node.h"
 #include "Render_Node.h"
-#include "Mouse.h"        /* ^..^ */
+#include "Mouse.h" /* ^..^ */
 #include "Hero.h"
 
 void DEFINE_GLOBALS();
 int main(int argc, char** argv)
 {
-    char** state; /* Game states */
+    char** state;               /* Game states */
     SDL_Window* window;         /* The game window */
     SDL_Renderer* renderer;     /* The game renderer */
                                 /* Atlas* letters;Font Atlas */

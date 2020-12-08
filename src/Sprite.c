@@ -99,7 +99,7 @@ static int _logic_attack_hero(void* obj)
     Sprite* this = (Sprite*)obj;
 
     if (FRAMES_RENDERED % 3 == 0) {
-        if(HIT_ANGLE != 103)
+        //if(HIT_ANGLE != 103)
         this->row_index++;
         this->col_index++;
 
