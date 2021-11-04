@@ -13,7 +13,7 @@
 #define PRIME_2 151              /* Prime numbers for seeding has tables */
 #define TABLE_SIZE 500           /* Generic size for hash tables */
 #define PI 3.14159               /* Ratio of a circle's circumference to its diameter */
-#define NUM_STATES 5             /* Number of states in state q */
+#define NUM_STATES 3             /* Number of states in state q */
 #define true 1                   /* true */
 #define false 0                  /* false */
 
@@ -104,17 +104,12 @@ enum ASSET_PATH_ENUM {
     HERO_READY_STAND_PATH,
     HERO_READY_WALK_PATH,
     HERO_TAKES_DAMAGE,
-    ENEMY_STAND_PATH,
-    ENEMY_WALK_PATH,
-    TERRAIN_PATH,
-    ENEMY_ATK_1_PATH
+    TERRAIN_PATH
 };
 enum ASSET_KEYS_ENUM {
-    COLLISION_KEY,
     MAP_DIRECTIONS_KEY,
     TERRAIN_KEY,
-    HERO_K,
-    YETI_KEY
+    HERO_K
 };
 
 enum HERO_STATES {

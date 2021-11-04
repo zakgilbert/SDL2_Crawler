@@ -8,14 +8,9 @@
 #include "Render_Table.h"
 #include "Sprite.h"
 #include "Direction.h"
-#include "Enemy.h"
 #include "Hero.h"
-#include "Collision.h"
 #include "Rect_Node.h"
 #include "Terrain.h" /* Hold tile textures for map graphics */
-
-#define ASSETS_NUM 2
-#define DARK_FOREST_STATES 3
 
 static char* ASSET_STRINGS[] = {
     "map_directions",
@@ -27,17 +22,12 @@ static char* ASSET_STRINGS[] = {
     "graphics/pally_1_ready.png",
     "graphics/pally_1_ready_walk.png",
     "graphics/pally_1_hit.png",
-    "graphics/snow_stand.png",
-    "graphics/snow_walk.png",
-    "graphics/dungeon_floor.png",
-    "graphics/snow_atk_1.png"
+    "graphics/dungeon_floor.png"
 };
 static char* STATE_STRINGS[] = {
-    "col",
     "map_directions",
     "terrain",
-    "hero",
-    "yeti"
+    "hero"
 };
 
 char** create_state(int* states, int num, char** state)
@@ -58,11 +48,9 @@ int* get_dark_forest_states()
     int size             = NUM_STATES;
     int* states          = malloc(sizeof(int) * size);
     int temp[NUM_STATES] = {
-        COLLISION_KEY,
         MAP_DIRECTIONS_KEY,
         TERRAIN_KEY,
-        HERO_K,
-        YETI_KEY
+        HERO_K
     };
     for (int i = 0; i < size; i++) {
         states[i] = temp[i];
@@ -106,28 +94,17 @@ Table_Container add_assets(Logic_Table* t_l, Render_Table* t_r, SDL_Renderer* re
     hero->add_sprite(hero, hero_rdy_walk, WALK_RDY_H);
     hero->add_sprite(hero, hero_hit, DAMAGE_H);
 
-    Sprite* enemy_stand = CREATE_SPRITE(renderer, ASSET_STRINGS[ENEMY_STAND_PATH], 8, 8, snow_x, snow_y, 104, 109, MOVEMENT, ENEMY);
-    Sprite* enemy_walk  = CREATE_SPRITE(renderer, ASSET_STRINGS[ENEMY_WALK_PATH], 12, 8, snow_x, snow_y, 106, 120, MOVEMENT, ENEMY);
-    Sprite* enemy_atk_1 = CREATE_SPRITE(renderer, ASSET_STRINGS[ENEMY_ATK_1_PATH], 12, 8, snow_x, snow_y, 217, 120, ACTION, ENEMY);
-
-    Enemy* yeti = CREATE_ENEMY("yeti", 3, snow_x, snow_y);
-    yeti->add_sprite(yeti, enemy_stand, STAND);
-    yeti->add_sprite(yeti, enemy_walk, WALK);
-    yeti->add_sprite(yeti, enemy_atk_1, ATTACK);
-
-    Collision* collision = CREATE_COLLISION(STATE_STRINGS[COLLISION_KEY], &hero->col_rect);
-    collision->add(collision, CREATE_RECT_NODE(&yeti->col_rect));
 
     t_l->insert(t_l, CREATE_LOGIC_NODE(ASSET_STRINGS[MAP_DIRECTIONS_PATH], directions, directions->logic, NULL));
     t_l->insert(t_l, CREATE_LOGIC_NODE(hero->key, hero, hero->logic, hero->deallocate));
-    t_l->insert(t_l, CREATE_LOGIC_NODE(yeti->key, yeti, yeti->logic, NULL));
-    t_l->insert(t_l, CREATE_LOGIC_NODE(collision->key, collision, collision->logic, NULL));
+//    t_l->insert(t_l, CREATE_LOGIC_NODE(yeti->key, yeti, yeti->logic, NULL));
+ //   t_l->insert(t_l, CREATE_LOGIC_NODE(collision->key, collision, collision->logic, NULL));
     t_l->insert(t_l, CREATE_LOGIC_NODE(terrain->key, terrain, terrain->logic, NULL));
 
     t_r->insert(t_r, CREATE_RENDER_NODE(ASSET_STRINGS[MAP_DIRECTIONS_PATH], directions, directions->render));
     t_r->insert(t_r, CREATE_RENDER_NODE(hero->key, hero, hero->render));
-    t_r->insert(t_r, CREATE_RENDER_NODE(yeti->key, yeti, yeti->render));
-    t_r->insert(t_r, CREATE_RENDER_NODE(collision->key, collision, collision->render));
+  //  t_r->insert(t_r, CREATE_RENDER_NODE(yeti->key, yeti, yeti->render));
+   // t_r->insert(t_r, CREATE_RENDER_NODE(collision->key, collision, collision->render));
     t_r->insert(t_r, CREATE_RENDER_NODE(terrain->key, terrain, terrain->render));
 
     container.t_l = t_l;
