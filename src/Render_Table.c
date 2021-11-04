@@ -3,10 +3,6 @@
 #include "Render_Node.h"
 #include "Render_Table.h"
 
-/**
- * static Wrapper function for void (*_Render_Node::print)(struct _Render_Node *this, int i)
- * Prints all fields of node along with its address in memory and the index of which it has been stored in the hashtable
- */
 static void print_node(Render_Node* node, int i)
 {
     node->print(node, i);
@@ -19,9 +15,6 @@ static int check_size(int size, int count)
     return 0;
 }
 
-/**
- * Creates hash code from a char *, prime number, and the size of the hash table.
- */
 static int hash(char* str, int prime, int size)
 {
     long hash = 0;
@@ -34,9 +27,6 @@ static int hash(char* str, int prime, int size)
     return (int)hash;
 }
 
-/**
- * Creates hash code by passing two different prime numbers into <int hash(char * , int, int)
- */
 static int hash_code(char* str, const int num, const int attempt)
 {
     int hash_a = hash(str, PRIME_1, num);
@@ -44,9 +34,6 @@ static int hash_code(char* str, const int num, const int attempt)
     return (hash_a + (attempt * (hash_b + 1))) % num;
 }
 
-/**
- * Deallocates all memory that of which was allocated at the hashtables creation.
- */
 static void _destroy(Render_Table* this)
 {
     Render_Node* temp  = NULL;
@@ -68,9 +55,6 @@ static void _destroy(Render_Table* this)
     }
 }
 
-/**
- * Performs a hash search for the given key
- */
 static Render_Node* _search(Render_Table* this, char* key)
 {
     int index         = hash_code(key, this->size, 0);
@@ -85,9 +69,6 @@ static Render_Node* _search(Render_Table* this, char* key)
     return NULL;
 }
 
-/**
- * Prints Render_Tabletable
- */
 static void _print_table(Render_Table* this)
 {
     printf("\n      Printing Table\n\n");
@@ -99,9 +80,6 @@ static void _print_table(Render_Table* this)
     }
 }
 
-/**
- * Doubles the size of the hashtable
- */
 static void _grow(Render_Table* this)
 {
     Render_Node** temp;
@@ -127,9 +105,6 @@ static void _grow(Render_Table* this)
     free(temp);
 }
 
-/**
- * Inserts a new node into hashtable.
- */
 static void _insert(Render_Table* this, Render_Node* item)
 {
     int index             = hash_code(item->key, this->size, 0);
@@ -153,9 +128,6 @@ static void _insert(Render_Table* this, Render_Node* item)
     this->count++;
 }
 
-/**
- * Deletes node of key
- */
 static void _delete(Render_Table* this, char* key)
 {
     Render_Node* item  = this->search(this, key);

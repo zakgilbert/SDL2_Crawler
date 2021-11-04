@@ -138,9 +138,7 @@ static int _logic_movement_hero(void* obj)
     return 0;
 }
 
-Sprite* CREATE_SPRITE(SDL_Renderer* renderer, char* path,
-    int rows, int cols, int* x, int* y, int w, int h,
-    int state, int type)
+Sprite* CREATE_SPRITE(SDL_Renderer* renderer, char* path, int rows, int cols, int* x, int* y, int w, int h, int state, int type)
 {
     Sprite* this = malloc(sizeof(*this));
     this->state  = state;

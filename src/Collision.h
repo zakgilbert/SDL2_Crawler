@@ -2,8 +2,8 @@
 #define COLLISION_H
 typedef struct _Rect_Node Rect_Node;
 typedef struct _Collision {
-    void (*destroy)(struct _Collision* this);                    /* Free Allocated Memory */
-    void (*print)(struct _Collision* this, const char* message); /* Print address of Collision type with message */
+    void (*destroy)(struct _Collision* this);
+    void (*print)(struct _Collision* this, const char* message);
     void (*add)(struct _Collision* this, Rect_Node* node);
     char* (*render)(void* obj, SDL_Renderer* renderer);
     char* (*logic)(void* obj);

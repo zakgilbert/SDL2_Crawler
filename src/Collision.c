@@ -45,10 +45,6 @@ char* _logic(void* obj)
     } else {
         COLLIDING = 0;
     }
-    /**
-    printf("hero x: %d, y: %d\n", this->ref->x, this->ref->y);
-    printf("enemy x: %d, y: %d\n", this->head->rect->x, this->head->rect->y);
-*/
     return this->key;
 }
 
