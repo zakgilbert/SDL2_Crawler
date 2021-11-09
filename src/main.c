@@ -4,14 +4,14 @@
 #include <sys/socket.h>
 #include <arpa/inet.h>
 #include <unistd.h>
-#include "Assets.h"       /* Add game assests to hastables */
-#include "Atlas.h"        /* Font Atlas */
-#include "Delta.h"        /* Timing */
-#include "Graphics.h"     /* SDL2 graphics functions */
-#include "Header.h"       /* Globals */
-#include "Input.h"        /* Player Input */
-#include "Logic_Table.h"  /* Hashtable of Logic_Nodes */
-#include "Render_Table.h" /* Hashtable of Render_Nodes */
+#include "Assets.h"       
+#include "Atlas.h"        
+#include "Delta.h"        
+#include "Graphics.h"     
+#include "Header.h"       
+#include "Input.h"        
+#include "Logic_Table.h"  
+#include "Render_Table.h" 
 #include "Logic_Node.h"
 #include "Render_Node.h"
 #include "Mouse.h" /* ^..^ */
@@ -20,15 +20,15 @@
 void DEFINE_GLOBALS();
 int main(int argc, char** argv)
 {
-    char** state;               /* Game states */
-    SDL_Window* window;         /* The game window */
-    SDL_Renderer* renderer;     /* The game renderer */
-                                /* Atlas* letters;Font Atlas */
-    Mouse* mouse;               /* Mouse Object */
-    Render_Table* render_table; /* Hashtable of render functions */
-    Logic_Table* logic_table;   /* Hashtable of logic functions */
-    Table_Container container;  /* Container of hashtables */
-    SDL_Thread* input_thread;   /* Thread that runs function input handler */
+    char** state;               
+    SDL_Window* window;         
+    SDL_Renderer* renderer;     
+                                
+    Mouse* mouse;               
+    Render_Table* render_table; 
+    Logic_Table* logic_table;   
+    Table_Container container;  
+    SDL_Thread* input_thread;   
 
     SDL_init();
     srand(time(0));
